@@ -1,6 +1,6 @@
 <div class="max-w-6xl mx-auto">
     <div class="flex place-content-between m-2 p-2">
-    <input wire:model="search" type="search" placeholder="Search posts by title...">
+    <input wire:model="search" type="search" placeholder="Buscar documento de identidad">
         <x-jet-button wire:click="showUserModal">Registrar</x-jet-button>
         
     </div>
@@ -66,7 +66,7 @@
             <x-slot name="content">
             <div class="space-y-8 divide-y divide-gray-200 mt-10">
   <form enctype="multipart/form-data">
-    <div class="flex place-content-around m-2">
+    <div class="sm:flex place-content-around m-2">
     <div>
     <div class="sm:col-span-6">
       <label for="type" class="block text-sm font-medium text-gray-700"> Tipo de documento </label>
