@@ -1,5 +1,5 @@
 <div class="max-w-6xl mx-auto">
-    <div class="flex justify-end m-2 p-2">
+    <div class="flex place-content-between m-2 p-2">
     <input wire:model="search" type="search" placeholder="Search posts by title...">
         <x-jet-button wire:click="showUserModal">Registrar</x-jet-button>
         
@@ -40,7 +40,7 @@
             <td class="px-6 py-4 whitespace-nowrap">{{ $user->question }}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ $user->answer }}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ $user->status }}</td>
-            <td class="px-6 py-4 text-right text-sm">
+            <td class="px-6 py-4 text-right text-sm flex gap-2">
               <x-jet-button wire:click="showEditUserModal({{ $user-> id }})">Editar</x-jet-button>
               <x-jet-button wire:click="delete({{ $user-> id }})">X</x-jet-button>
             </td>
@@ -66,6 +66,8 @@
             <x-slot name="content">
             <div class="space-y-8 divide-y divide-gray-200 mt-10">
   <form enctype="multipart/form-data">
+    <div class="flex place-content-around m-2">
+    <div>
     <div class="sm:col-span-6">
       <label for="type" class="block text-sm font-medium text-gray-700"> Tipo de documento </label>
       <div class="mt-1">
@@ -115,6 +117,10 @@
       </div>
       @error('email') <span class="error text-red-500">{{ $message }}</span> @enderror
     </div>
+    </div>
+    <div>
+    
+    
     <div class="sm:col-span-6">
       <label for="password" class="block text-sm font-medium text-gray-700"> Contraseña </label>
       <div class="mt-1">
@@ -151,6 +157,8 @@
           <option value="0">Inactivo</option>
         </select>
       </div>
+    </div>
+    </div>
   </form>
 </div>
 
