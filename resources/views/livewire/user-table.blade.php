@@ -13,17 +13,17 @@
       <table class="w-full divide-y divide-gray-200">
         <thead class="bg-gray-50 dark:bg-gray-600 dark:text-gray-200">
           <tr>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Id</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Tipo de documento</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Numero de documento</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Nombre</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Cargo</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Correo</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Telefono</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Pregunta clave</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Respuesta</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Estado</th>
-            <th scope="col" class="relative px-6 py-3">Edit</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline" wire:click="sortBy('id')">Id</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline" wire:click="sortBy('type')">Tipo de documento</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline" wire:click="sortBy('cc')">Numero de documento</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline" wire:click="sortBy('name')">Nombre</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline" wire:click="sortBy('job')">Cargo</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline" wire:click="sortBy('email')">Correo</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline" wire:click="sortBy('phone')">Telefono</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800">Pregunta clave</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800">Respuesta</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline" wire:click="sortBy('status')">Estado</th>
+            <th scope="col" class="relative px-6 py-3 bg-zinc-800">Edit</th>
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">

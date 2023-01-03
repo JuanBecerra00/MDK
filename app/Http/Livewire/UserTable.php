@@ -30,12 +30,24 @@ class UserTable extends Component
     public $user;
 
     public $search;
+    public $sortField = 'id';
+    public $sortDirection = 'asc';
  
     protected $queryString = ['search'];
     public function showUserModal()
     {
         $this->reset();
         $this->showingUserModal = true;
+    }
+
+    public function sortBy($field)
+    {
+        if ($this->sortField == $field){
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+        $this->sortField = $field;
     }
 
 
@@ -161,7 +173,7 @@ class UserTable extends Component
     }
     public function render()
     {
-        $users = User::where('cc', 'like', '%'.$this->search.'%')->orderBy('id')->paginate(10);
+        $users = User::where('cc', 'like', '%'.$this->search.'%')->orderBy($this->sortField, $this->sortDirection)->paginate(10);
         return view('livewire.user-table', ['users' => $users]);
     }
 }
