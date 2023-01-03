@@ -30,16 +30,31 @@ class UserTable extends Component
     public $isFieldsMode = false;
     public $user;
 
-    public $search;
     public $sortField = 'id';
     public $sortDirection = 'asc';
     public $paginate = '5';
- 
+    public $fieldId = true;
+    public $fieldType = true;
+    public $fieldCc = true;
+    public $fieldName = true;
+    public $fieldJob = true;
+    public $fieldEmail = true;
+    public $fieldPhone = true;
+    public $fieldQuestion = false;
+    public $fieldAnswer = false;
+    public $fieldStatus = true;
+    
+    public $search;
     protected $queryString = ['search'];
     public function showUserModal()
     {
         $this->reset();
         $this->showingUserModal = true;
+    }
+
+    public function hideModal()
+    {
+        $this->showingUserModal = false;
     }
 
     public function sortBy($field)
@@ -55,6 +70,15 @@ class UserTable extends Component
     public function changePaginate($number)
     {
         $this->paginate = $number;
+    }
+
+    public function changeField($field)
+    {
+        if ($this->$field == true){
+            $this->$field = false;
+        } else {
+            $this->$field = true;
+        }
     }
 
 
