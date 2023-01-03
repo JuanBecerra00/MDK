@@ -27,6 +27,7 @@ class UserTable extends Component
     public $status;
     public $regstatus="";
     public $isEditMode = false;
+    public $isFieldsMode = false;
     public $user;
 
     public $search;
@@ -125,6 +126,12 @@ class UserTable extends Component
         $this->question = $this->user->question;
         $this->answer = $this->user->answer;
         $this->isEditMode = true;
+        $this->showingUserModal = true;
+    }
+
+    public function showFieldsModal()
+    {
+        $this->isFieldsMode = true;
         $this->showingUserModal = true;
     }
     public function updateUser(){

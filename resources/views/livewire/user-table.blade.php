@@ -17,6 +17,7 @@
                       <option value="10">10</option>
                       <option value="15">15</option>
                     </select>
+                    <button wire:click="showFieldsModal" class="rounded max-sm:w-full w-20 h-10 bg-white flex gap-2 items-center justify-center">fields<img src="/assets/textures/icons/chevron-down-outline.svg" alt="" class="w-5"></button>
                   </div>
 
                   <x-jet-button wire:click="showUserModal" class="bg-red-800 hover:bg-red-900 active:bg-red-700 max-sm:mt-5">Registrar</x-jet-button>
@@ -102,6 +103,18 @@
         @endif
         <x-slot name="content">
           <div class="space-y-8 divide-y divide-gray-200 mt-10">
+            @if($isFieldsMode)
+            <div class="grid grid-cols-2 place-content-center">
+              <p class="">Id</p>
+              <input type="checkbox" class="">
+              <p class="">Type</p>
+              <input type="checkbox" class="">
+              <p class="">CC</p>
+              <input type="checkbox" class="">
+              <p class="">Name</p>
+              <input type="checkbox" class="">
+            </div>
+            @else
             <form enctype="multipart/form-data">
               <div class="sm:flex place-content-around m-2">
                 <div>
@@ -209,6 +222,7 @@
                   </div>
                 </div>
             </form>
+            @endif
           </div>
 
         </x-slot>
