@@ -32,6 +32,7 @@ class UserTable extends Component
     public $search;
     public $sortField = 'id';
     public $sortDirection = 'asc';
+    public $paginate = '5';
  
     protected $queryString = ['search'];
     public function showUserModal()
@@ -48,6 +49,11 @@ class UserTable extends Component
             $this->sortDirection = 'asc';
         }
         $this->sortField = $field;
+    }
+
+    public function changePaginate($number)
+    {
+        $this->paginate = $number;
     }
 
 
@@ -173,7 +179,7 @@ class UserTable extends Component
     }
     public function render()
     {
-        $users = User::where('cc', 'like', '%'.$this->search.'%')->orderBy($this->sortField, $this->sortDirection)->paginate(10);
+        $users = User::where('cc', 'like', '%'.$this->search.'%')->orderBy($this->sortField, $this->sortDirection)->paginate($this->paginate);
         return view('livewire.user-table', ['users' => $users]);
     }
 }
