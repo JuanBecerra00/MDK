@@ -42,7 +42,7 @@ class UserTable extends Component
     public $fieldPhone = true;
     public $fieldQuestion = false;
     public $fieldAnswer = false;
-    public $fieldStatus = true;
+    public $fieldStatus = false;
     public $filter = 2;
     
     public $search;
