@@ -1,8 +1,8 @@
 <div class="flex justify-center mt-20">
     <div class="max-w-[85vw]">
-      
+
       <div class=" sm:flex">
-        
+
         <div class="m-2 p-2">
           <div
             class="w-full bg-zinc-800 sm:flex items-center place-content-between p-5 sm:rounded-tl-lg sm:rounded-tr-lg">
@@ -22,11 +22,14 @@
                 <option value="15">15</option>
               </select>
               <button wire:click="showFieldsModal"
-                class="rounded max-sm:w-full h-10 bg-red-800 hover:bg-red-900 active:bg-red-700 text-white flex gap-2 items-center justify-center px-3 max-sm:mt-5">Campos<img
-                  src="/assets/textures/icons/chevron-down-outline.svg" alt="" class="w-5"
-                  style="filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(66deg) brightness(106%) contrast(101%);"></button>
+                class="rounded max-sm:w-full h-10 bg-red-800 hover:bg-red-900 active:bg-red-700 text-white flex gap-2 items-center justify-center px-3 max-sm:mt-5">Campos<svg
+                  class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd" />
+                </svg></button>
             </div>
-            @if(Auth::user()->job=='A')
+            @if(Auth::user()->job!='M')
             <x-jet-button wire:click="showUserModal"
               class="bg-red-800 hover:bg-red-900 active:bg-red-700 max-sm:mt-5 max-sm:w-full flex justify-center imtems-center ml-5">Registrar</x-jet-button>
             @endif
@@ -34,8 +37,7 @@
           <div class="-my-2 overflow-x-auto">
             <div class="py-2 align-middle inline-block min-w-full
           ">
-              <div
-                class="shadow overflow-hidden border-b border-gray-200 sm:rounded-bl-lg sm:rounded-br-lg">
+              <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-bl-lg sm:rounded-br-lg">
 
                 <table class="w-full divide-y divide-gray-200 ">
                   <thead class="bg-gray-50 dark:bg-gray-600 dark:text-gray-200">
@@ -44,56 +46,168 @@
                       @if($fieldId)
                       <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
-                        wire:click="sortBy('id')">Id</th>
+                        wire:click="sortBy('id')">
+                        <div class="flex">Id<svg class="h-4 w-4 @if($sortField!='id')
+                        opacity-0
+                        @endif
+                        @if($sortDirection=='desc')
+                        rotate-180
+                        @endif
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                              clip-rule="evenodd" />
+                          </svg></div>
+                      </th>
                       @endif
                       @if($fieldType)
                       <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
-                        wire:click="sortBy('type')">Tipo de documento</th>
+                        wire:click="sortBy('type')"><div class="flex">Tipo de documento<svg class="h-4 w-4 @if($sortField!='type')
+                        opacity-0
+                        @endif
+                        @if($sortDirection=='desc')
+                        rotate-180
+                        @endif
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                              clip-rule="evenodd" />
+                          </svg></div></th>
                       @endif
                       @if($fieldCc)
                       <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
-                        wire:click="sortBy('cc')">Numero de documento</th>
+                        wire:click="sortBy('cc')"><div class="flex">Numero de documento<svg class="h-4 w-4 @if($sortField!='cc')
+                        opacity-0
+                        @endif
+                        @if($sortDirection=='desc')
+                        rotate-180
+                        @endif
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                              clip-rule="evenodd" />
+                          </svg></div></th>
                       @endif
                       @if($fieldName)
                       <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
-                        wire:click="sortBy('name')">Nombre</th>
+                        wire:click="sortBy('name')"><div class="flex">Nombre<svg class="h-4 w-4 @if($sortField!='name')
+                        opacity-0
+                        @endif
+                        @if($sortDirection=='desc')
+                        rotate-180
+                        @endif
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                              clip-rule="evenodd" />
+                          </svg></div></th>
                       @endif
                       @if($fieldJob)
                       <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
-                        wire:click="sortBy('job')">Cargo</th>
+                        wire:click="sortBy('job')"><div class="flex">Cargo<svg class="h-4 w-4 @if($sortField!='job')
+                        opacity-0
+                        @endif
+                        @if($sortDirection=='desc')
+                        rotate-180
+                        @endif
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                              clip-rule="evenodd" />
+                          </svg></div></th>
                       @endif
                       @if($fieldEmail)
                       <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
-                        wire:click="sortBy('email')">Correo</th>
+                        wire:click="sortBy('email')"><div class="flex">Correo<svg class="h-4 w-4 @if($sortField!='email')
+                        opacity-0
+                        @endif
+                        @if($sortDirection=='desc')
+                        rotate-180
+                        @endif
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                              clip-rule="evenodd" />
+                          </svg></div></th>
                       @endif
                       @if($fieldPhone)
                       <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
-                        wire:click="sortBy('phone')">Telefono</th>
+                        wire:click="sortBy('phone')"><div class="flex">Telefono<svg class="h-4 w-4 @if($sortField!='phone')
+                        opacity-0
+                        @endif
+                        @if($sortDirection=='desc')
+                        rotate-180
+                        @endif
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                              clip-rule="evenodd" />
+                          </svg></div></th>
                       @endif
                       @if($fieldQuestion)
                       <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800">
-                        Pregunta clave</th>
+                        <div class="flex">Pregunta clave<svg class="h-4 w-4 @if($sortField!='question')
+                        opacity-0
+                        @endif
+                        @if($sortDirection=='desc')
+                        rotate-180
+                        @endif
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                              clip-rule="evenodd" />
+                          </svg></div></th>
                       @endif
                       @if($fieldAnswer)
                       <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800">
-                        Respuesta</th>
+                        <div class="flex">Respuesta<svg class="h-4 w-4 @if($sortField!='answer')
+                        opacity-0
+                        @endif
+                        @if($sortDirection=='desc')
+                        rotate-180
+                        @endif
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                              clip-rule="evenodd" />
+                          </svg></div></th>
                       @endif
                       @if($fieldStatus)
                       <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
-                        wire:click="sortBy('status')">Estado</th>
+                        wire:click="sortBy('status')"><div class="flex">Estado<svg class="h-4 w-4 @if($sortField!='status')
+                        opacity-0
+                        @endif
+                        @if($sortDirection=='desc')
+                        rotate-180
+                        @endif
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                              clip-rule="evenodd" />
+                          </svg></div></th>
                       @endif
                       @if(Auth::user()->job=='A')
                       <th scope="col" class="relative px-6 py-3 bg-zinc-800">Edit</th>
-            @endif
+                      @endif
                     </tr>
                   </thead>
                   <tbody class="bg-white divide-y divide-gray-200">
@@ -152,7 +266,7 @@
                         <x-jet-button wire:click="delete({{ $user-> id }})"
                           class="bg-red-800 hover:bg-red-900 active:bg-red-700">X</x-jet-button>
                       </td>
-            @endif
+                      @endif
                     </tr>
                     @endif
                     @endforeach
@@ -318,7 +432,16 @@
 
             </x-slot>
             <x-slot name="footer">
-              <div class="flex gap-5">
+              <div class="w-full flex gap-5 place-content-between">
+                @if($isEditMode)
+                <x-jet-button wire:click="modalEditFormReset"
+                  class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
+                @elseif($isFieldsMode)
+                @else
+                <x-jet-button wire:click="modalRegFormReset"
+                  class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
+                @endif
+                <div>
                 @if($isEditMode)
                 <x-jet-button wire:click="updateUser"
                   class="bg-red-800 hover:bg-red-900 active:bg-red-700">Actualizar</x-jet-button>
@@ -327,8 +450,9 @@
                 <x-jet-button wire:click="saveUser"
                   class="bg-red-800 hover:bg-red-900 active:bg-red-700">Guardar</x-jet-button>
                 @endif
-                <x-jet-button wire:click="hideModal"
+                <x-jet-button wire:click="hideModal" type="button"
                   class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Cerrar</x-jet-button>
+                </div>
               </div>
             </x-slot>
           </x-jet-dialog-modal>

@@ -49,8 +49,50 @@ class UserTable extends Component
     protected $queryString = ['search'];
     public function showUserModal()
     {
-        $this->reset();
+        $this->type = '';
+        $this->cc = '';
+        $this->name = '';
+        $this->job = '';
+        $this->email = '';
+        $this->phone = '';
+        $this->question = '';
+        $this->answer = '';
+        $this->password = '';
+        $this->cpassword = '';
+        $this->status = '';
+        $this->isEditMode = false;
+        $this->isFieldsMode = false;
         $this->showingUserModal = true;
+    }
+
+    public function modalRegFormReset()
+    {
+        $this->type = '';
+        $this->cc = '';
+        $this->name = '';
+        $this->job = '';
+        $this->email = '';
+        $this->phone = '';
+        $this->question = '';
+        $this->answer = '';
+        $this->password = '';
+        $this->cpassword = '';
+        $this->status = '';
+    }
+
+    public function modalEditFormReset()
+    {
+        $this->type = $this->user->type;
+        $this->cc = $this->user->cc;
+        $this->name = $this->user->name;
+        $this->job = $this->user->job;
+        $this->email = $this->user->email;
+        $this->phone = $this->user->phone;
+        $this->question = $this->user->question;
+        $this->answer = $this->user->answer;
+        $this->status = $this->user->status;
+        $this->password = '';
+        $this->cpassword = '';
     }
 
     public function hideModal()
@@ -122,7 +164,7 @@ class UserTable extends Component
         if($this->type==""){
             $this->type="cc";
         };
-        $user->type = $regtype;
+        $user->type = $this->type;
         $user->cc = $this->cc;
         $user->name = $this->name;
         $regjob=$this->job;
@@ -141,11 +183,11 @@ class UserTable extends Component
         };
         $user->status = $this->status;
         $user->save();
-        $this->reset();
     }
 
     public function showEditUserModal($id)
     {
+        $this->isFieldsMode = false;
         $this->user = User::findOrfail($id);
         $this->type = $this->user->type;
         $this->cc = $this->user->cc;
@@ -155,12 +197,16 @@ class UserTable extends Component
         $this->phone = $this->user->phone;
         $this->question = $this->user->question;
         $this->answer = $this->user->answer;
+        $this->status = $this->user->status;
+        $this->password = '';
+        $this->cpassword = '';
         $this->isEditMode = true;
         $this->showingUserModal = true;
     }
 
     public function showFieldsModal()
     {
+        $this->isEditMode = false;
         $this->isFieldsMode = true;
         $this->showingUserModal = true;
     }
@@ -198,7 +244,7 @@ class UserTable extends Component
             'status' => $this->status
         ]);
         
-        $this->reset();
+        $this->showingUserModal=false;
     }
     public function delete($id): array
     {
