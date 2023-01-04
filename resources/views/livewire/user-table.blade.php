@@ -6,11 +6,16 @@
     </div>
     <div class="m-2 p-2">
       <div class="w-full sm:h-20 bg-zinc-800 sm:flex items-center place-content-between p-5 sm:rounded-tl-lg sm:rounded-tr-lg">
-
                   <div class="sm:flex gap-5 items-center">
                     <p class="text-white">Buscar documento</p>
                     <input wire:model="search" type="search" placeholder="Ej: 1058351478"
                       class="rounded max-sm:w-full">
+                    <p class="text-white">Filtrar</p>
+                    <select wire:change="filter($event.target.value)" class="rounded max-sm:w-full">
+                      <option value="2">Todos</option>
+                      <option value="0">Activos</option>
+                      <option value="1">Inactivos</option>
+                    </select>
                     <p class="text-white">Elementos por pagina</p>
                     <select wire:change="changePaginate($event.target.value)" class="rounded max-sm:w-full">
                       <option value="5">5</option>
@@ -88,6 +93,7 @@
                 <tr></tr>
                 @foreach($users as $user)
                 <tr>
+                  @if($this->filter!=$user->status)
                   @if($fieldId)
                   <td class="px-6 py-4 whitespace-nowrap">{{ $user->id }}</td>
                   @endif
@@ -123,6 +129,7 @@
                     <x-jet-button wire:click="delete({{ $user-> id }})" class="bg-red-800 hover:bg-red-900 active:bg-red-700">X</x-jet-button>
                   </td>
                 </tr>
+                  @endif
                 @endforeach
                 <!-- More items... -->
               </tbody>

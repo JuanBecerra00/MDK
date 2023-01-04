@@ -43,6 +43,7 @@ class UserTable extends Component
     public $fieldQuestion = false;
     public $fieldAnswer = false;
     public $fieldStatus = true;
+    public $filter = 2;
     
     public $search;
     protected $queryString = ['search'];
@@ -70,6 +71,11 @@ class UserTable extends Component
     public function changePaginate($number)
     {
         $this->paginate = $number;
+    }
+
+    public function filter($value)
+    {
+        $this->filter = $value;
     }
 
     public function changeField($field)
