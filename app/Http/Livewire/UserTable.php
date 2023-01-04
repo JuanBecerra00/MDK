@@ -95,6 +95,20 @@ class UserTable extends Component
         $this->cpassword = '';
     }
 
+    public function modalFieldsReset()
+    {
+    $this->fieldId = true;
+    $this->fieldType = true;
+    $this->fieldCc = true;
+    $this->fieldName = true;
+    $this->fieldJob = true;
+    $this->fieldEmail = true;
+    $this->fieldPhone = true;
+    $this->fieldQuestion = false;
+    $this->fieldAnswer = false;
+    $this->fieldStatus = false;
+    }
+
     public function hideModal()
     {
         $this->showingUserModal = false;

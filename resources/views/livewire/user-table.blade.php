@@ -437,6 +437,8 @@
                 <x-jet-button wire:click="modalEditFormReset"
                   class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
                 @elseif($isFieldsMode)
+                <x-jet-button wire:click="modalFieldsReset"
+                  class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
                 @else
                 <x-jet-button wire:click="modalRegFormReset"
                   class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
