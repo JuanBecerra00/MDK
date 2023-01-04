@@ -1,5 +1,5 @@
 <div class="flex justify-center mt-20">
-    <div class="max-w-[78vw]">
+    <div class="max-w-[85vw]">
       
       <div class=" sm:flex">
         
@@ -34,7 +34,7 @@
             <div class="py-2 align-middle inline-block min-w-full
           ">
               <div
-                class="shadow overflow-hidden border-b border-gray-200 sm:rounded-bl-lg sm:rounded-br-lg overflow-x-scroll">
+                class="shadow overflow-hidden border-b border-gray-200 sm:rounded-bl-lg sm:rounded-br-lg">
 
                 <table class="w-full divide-y divide-gray-200 ">
                   <thead class="bg-gray-50 dark:bg-gray-600 dark:text-gray-200">
