@@ -26,9 +26,10 @@
                   src="/assets/textures/icons/chevron-down-outline.svg" alt="" class="w-5"
                   style="filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(66deg) brightness(106%) contrast(101%);"></button>
             </div>
-
+            @if(Auth::user()->job=='A')
             <x-jet-button wire:click="showUserModal"
               class="bg-red-800 hover:bg-red-900 active:bg-red-700 max-sm:mt-5 max-sm:w-full flex justify-center imtems-center ml-5">Registrar</x-jet-button>
+            @endif
           </div>
           <div class="-my-2 overflow-x-auto">
             <div class="py-2 align-middle inline-block min-w-full
@@ -90,7 +91,9 @@
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
                         wire:click="sortBy('status')">Estado</th>
                       @endif
+                      @if(Auth::user()->job=='A')
                       <th scope="col" class="relative px-6 py-3 bg-zinc-800">Edit</th>
+            @endif
                     </tr>
                   </thead>
                   <tbody class="bg-white divide-y divide-gray-200">
@@ -142,12 +145,14 @@
                         @endif
                       </td>
                       @endif
+                      @if(Auth::user()->job=='A')
                       <td class="px-6 py-4 text-right text-sm flex gap-2">
                         <x-jet-button wire:click="showEditUserModal({{ $user-> id }})"
                           class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Editar</x-jet-button>
                         <x-jet-button wire:click="delete({{ $user-> id }})"
                           class="bg-red-800 hover:bg-red-900 active:bg-red-700">X</x-jet-button>
                       </td>
+            @endif
                     </tr>
                     @endif
                     @endforeach
