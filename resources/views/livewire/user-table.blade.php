@@ -458,9 +458,8 @@
                           <input type="password" id="cpassword" wire:model.lazy="cpassword" name="cpassword"
                             class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
                         </div>
+                        @error('cpassword') <span class="error text-red-500">{{ $message }}</span> @enderror
                       </div>
-                      {{ $this->user->cc }}
-                      @error('cpassword') <span class="error text-red-500">{{ $message }}</span> @enderror
                     </div>
                 </form>
               @endif

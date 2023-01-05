@@ -248,9 +248,9 @@ class UserTable extends Component
             $this->validatePhone = '';
         }
         
-        if($this->password!=''){
+        if($this->password!='' or $this->cpassword!=''){
             $this->validatePassword = 'required';
-            $this->validateCpassword = 'required';
+            $this->validateCpassword = 'required|same:password';
         }else{
             $this->validatePassword = '';
             $this->validateCpassword = '';
