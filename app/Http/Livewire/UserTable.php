@@ -43,6 +43,11 @@ class UserTable extends Component
     public $fieldQuestion = false;
     public $fieldAnswer = false;
     public $fieldStatus = false;
+    public $validateCc;
+    public $validateEmail;
+    public $validatePhone;
+    public $validatePassword;
+    public $validateCpassword;
     public $filter = 2;
     
     public $search;
@@ -163,16 +168,17 @@ class UserTable extends Component
     ];
     public function saveUser()
     {
-        $this->validate([
-            'cc' => 'required|unique:users,cc',
-            'name' => 'required',
-            'phone' => 'required|unique:users,phone',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required',
-            'cpassword' => 'required|same:password',
-            'question' => 'required',
-            'answer' => 'required',
-        ]);
+        
+            $this->validate([
+                'cc' => 'required|unique:users,cc',
+                'name' => 'required',
+                'phone' => 'required|unique:users,phone',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required',
+                'cpassword' => 'required|same:password',
+                'question' => 'required',
+                'answer' => 'required',
+            ]);
         $user = new User();
         $regtype=$this->type;
         if($this->type==""){
@@ -197,6 +203,7 @@ class UserTable extends Component
         };
         $user->status = $this->status;
         $user->save();
+        $this->showingUserModal = false;
     }
 
     public function showEditUserModal($id)
@@ -225,17 +232,40 @@ class UserTable extends Component
         $this->showingUserModal = true;
     }
     public function updateUser(){
+        if($this->cc!=$this->user->cc){
+            $this->validateCc = 'required|unique:users,cc';
+        }else{
+            $this->validateCc = '';
+        }
+        if($this->email!=$this->user->email){
+            $this->validateEmail = 'required|unique:users,email';
+        }else{
+            $this->validateEmail = '';
+        }
+        if($this->phone!=$this->user->phone){
+            $this->validatePhone = 'required|unique:users,phone';
+        }else{
+            $this->validatePhone = '';
+        }
+        
+        if($this->password!=''){
+            $this->validatePassword = 'required';
+            $this->validateCpassword = 'required';
+        }else{
+            $this->validatePassword = '';
+            $this->validateCpassword = '';
+        }
+        
         $this->validate([
-            'cc' => 'required',
+            'cc' => $this->validateCc,
             'name' => 'required',
-            'phone' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
-            'cpassword' => 'required|same:password',
+            'email' => $this->validateEmail,
+            'phone' => $this->validatePhone,
+            'password' => $this->validatePassword,
+            'cpassword' => $this->validateCpassword,
             'question' => 'required',
             'answer' => 'required',
         ]);
-        
         if($this->type==""){
             $this->type="cc";
         };
@@ -245,6 +275,7 @@ class UserTable extends Component
         if($this->status==""){
             $this->status="1";
         };
+        if($this->password==''){
         $this->user->update([
             'type' => $this->type,
             'cc' => $this->cc,
@@ -252,11 +283,24 @@ class UserTable extends Component
             'job' => $this->job,
             'email' => $this->email,
             'phone' => $this->phone,
-            'password' => Hash::make($this->password),
             'question' => $this->question,
             'answer' => $this->answer,
             'status' => $this->status
         ]);
+        }else{
+            $this->user->update([
+                'type' => $this->type,
+                'cc' => $this->cc,
+                'name' => $this->name,
+                'job' => $this->job,
+                'email' => $this->email,
+                'phone' => $this->phone,
+                'password' => Hash::make($this->password),
+                'question' => $this->question,
+                'answer' => $this->answer,
+                'status' => $this->status
+            ]);
+        }
         
         $this->showingUserModal=false;
     }

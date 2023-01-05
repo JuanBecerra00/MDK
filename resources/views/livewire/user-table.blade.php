@@ -53,8 +53,7 @@
                         @if($sortDirection=='desc')
                         rotate-180
                         @endif
-                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                            fill="currentColor">
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"
                               d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                               clip-rule="evenodd" />
@@ -64,98 +63,104 @@
                       @if($fieldType)
                       <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
-                        wire:click="sortBy('type')"><div class="flex">Tipo de documento<svg class="h-4 w-4 @if($sortField!='type')
+                        wire:click="sortBy('type')">
+                        <div class="flex">Tipo de documento<svg class="h-4 w-4 @if($sortField!='type')
                         opacity-0
                         @endif
                         @if($sortDirection=='desc')
                         rotate-180
                         @endif
-                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                            fill="currentColor">
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"
                               d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                               clip-rule="evenodd" />
-                          </svg></div></th>
+                          </svg></div>
+                      </th>
                       @endif
                       @if($fieldCc)
                       <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
-                        wire:click="sortBy('cc')"><div class="flex">Numero de documento<svg class="h-4 w-4 @if($sortField!='cc')
+                        wire:click="sortBy('cc')">
+                        <div class="flex">Numero de documento<svg class="h-4 w-4 @if($sortField!='cc')
                         opacity-0
                         @endif
                         @if($sortDirection=='desc')
                         rotate-180
                         @endif
-                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                            fill="currentColor">
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"
                               d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                               clip-rule="evenodd" />
-                          </svg></div></th>
+                          </svg></div>
+                      </th>
                       @endif
                       @if($fieldName)
                       <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
-                        wire:click="sortBy('name')"><div class="flex">Nombre<svg class="h-4 w-4 @if($sortField!='name')
+                        wire:click="sortBy('name')">
+                        <div class="flex">Nombre<svg class="h-4 w-4 @if($sortField!='name')
                         opacity-0
                         @endif
                         @if($sortDirection=='desc')
                         rotate-180
                         @endif
-                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                            fill="currentColor">
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"
                               d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                               clip-rule="evenodd" />
-                          </svg></div></th>
+                          </svg></div>
+                      </th>
                       @endif
                       @if($fieldJob)
                       <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
-                        wire:click="sortBy('job')"><div class="flex">Cargo<svg class="h-4 w-4 @if($sortField!='job')
+                        wire:click="sortBy('job')">
+                        <div class="flex">Cargo<svg class="h-4 w-4 @if($sortField!='job')
                         opacity-0
                         @endif
                         @if($sortDirection=='desc')
                         rotate-180
                         @endif
-                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                            fill="currentColor">
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"
                               d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                               clip-rule="evenodd" />
-                          </svg></div></th>
+                          </svg></div>
+                      </th>
                       @endif
                       @if($fieldEmail)
                       <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
-                        wire:click="sortBy('email')"><div class="flex">Correo<svg class="h-4 w-4 @if($sortField!='email')
+                        wire:click="sortBy('email')">
+                        <div class="flex">Correo<svg class="h-4 w-4 @if($sortField!='email')
                         opacity-0
                         @endif
                         @if($sortDirection=='desc')
                         rotate-180
                         @endif
-                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                            fill="currentColor">
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"
                               d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                               clip-rule="evenodd" />
-                          </svg></div></th>
+                          </svg></div>
+                      </th>
                       @endif
                       @if($fieldPhone)
                       <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
-                        wire:click="sortBy('phone')"><div class="flex">Telefono<svg class="h-4 w-4 @if($sortField!='phone')
+                        wire:click="sortBy('phone')">
+                        <div class="flex">Telefono<svg class="h-4 w-4 @if($sortField!='phone')
                         opacity-0
                         @endif
                         @if($sortDirection=='desc')
                         rotate-180
                         @endif
-                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                            fill="currentColor">
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"
                               d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                               clip-rule="evenodd" />
-                          </svg></div></th>
+                          </svg></div>
+                      </th>
                       @endif
                       @if($fieldQuestion)
                       <th scope="col"
@@ -166,12 +171,12 @@
                         @if($sortDirection=='desc')
                         rotate-180
                         @endif
-                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                            fill="currentColor">
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"
                               d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                               clip-rule="evenodd" />
-                          </svg></div></th>
+                          </svg></div>
+                      </th>
                       @endif
                       @if($fieldAnswer)
                       <th scope="col"
@@ -182,28 +187,29 @@
                         @if($sortDirection=='desc')
                         rotate-180
                         @endif
-                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                            fill="currentColor">
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"
                               d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                               clip-rule="evenodd" />
-                          </svg></div></th>
+                          </svg></div>
+                      </th>
                       @endif
                       @if($fieldStatus)
                       <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
-                        wire:click="sortBy('status')"><div class="flex">Estado<svg class="h-4 w-4 @if($sortField!='status')
+                        wire:click="sortBy('status')">
+                        <div class="flex">Estado<svg class="h-4 w-4 @if($sortField!='status')
                         opacity-0
                         @endif
                         @if($sortDirection=='desc')
                         rotate-180
                         @endif
-                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                            fill="currentColor">
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"
                               d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                               clip-rule="evenodd" />
-                          </svg></div></th>
+                          </svg></div>
+                      </th>
                       @endif
                       @if(Auth::user()->job=='A')
                       <th scope="col" class="relative px-6 py-3 bg-zinc-800">Edit</th>
@@ -320,68 +326,124 @@
                     wire:change="changeField('fieldStatus')">
                 </div>
                 @else
-                <form enctype="multipart/form-data">
-                  <div class="sm:flex place-content-around m-2">
-                    <div>
-                      <div class="sm:col-span-6">
-                        <label for="type" class="block text-sm font-medium text-gray-700"> Tipo de documento </label>
-                        <div class="mt-1">
-                          <select id="type" wire:model.lazy="type" name="type" placeholder="cc"
-                            class="block w-full bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5">
-                            <option value="CC">Cedula</option>
-                            <option value="TI">Tarjeta de identidad</option>
-                            <option value="CE">Cedula de extranjeria</option>
-                            <option value="P">Pasaporte</option>
-                          </select>
+                <div class="flex flex-col">
+                  <form enctype="multipart/form-data">
+                    <p>Información</p>
+                    <div class="sm:flex place-content-around m-2">
+                      <div>
+                        <div class="sm:col-span-6">
+                          <label for="type" class="block text-sm font-medium text-gray-700"> Tipo de documento </label>
+                          <div class="mt-1">
+                            <select id="type" wire:model.lazy="type" name="type" placeholder="cc"
+                              class="block w-full bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5">
+                              <option value="CC">Cedula</option>
+                              <option value="TI">Tarjeta de identidad</option>
+                              <option value="CE">Cedula de extranjeria</option>
+                              <option value="P">Pasaporte</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="sm:col-span-6">
+                          <label for="cc" class="block text-sm font-medium text-gray-700"> Numero de documento </label>
+                          <div class="mt-1">
+                            <input type="text" id="cc" wire:model.lazy="cc" name="cc"
+                              class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
+                          </div>
+                          @error('cc') <span class="error text-red-500">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="sm:col-span-6">
+                          <label for="name" class="block text-sm font-medium text-gray-700"> Nombre </label>
+                          <div class="mt-1">
+                            <input type="text" id="name" wire:model.lazy="name" name="name"
+                              class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
+                          </div>
+                          @error('name') <span class="error text-red-500">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="sm:col-span-6">
+                          <label for="job" class="block text-sm font-medium text-gray-700"> Cargo </label>
+                          <div class="mt-1">
+                            <select id="job" wire:model.lazy="job" name="job"
+                              class="block w-full bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5">
+                              <option value="T">Trabajador</option>
+                              <option value="A">Administrador</option>
+                              <option value="M">Mecanico</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="sm:col-span-6">
+                          <label for="phone" class="block text-sm font-medium text-gray-700"> Telefono </label>
+                          <div class="mt-1">
+                            <input type="text" id="phone" wire:model.lazy="phone" name="phone"
+                              class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
+                          </div>
+                          @error('phone') <span class="error text-red-500">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="sm:col-span-6">
+                          <label for="email" class="block text-sm font-medium text-gray-700"> Correo </label>
+                          <div class="mt-1">
+                            <input type="text" id="email" wire:model.lazy="email" name="email"
+                              class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
+                          </div>
+                          @error('email') <span class="error text-red-500">{{ $message }}</span> @enderror
                         </div>
                       </div>
-                      <div class="sm:col-span-6">
-                        <label for="cc" class="block text-sm font-medium text-gray-700"> Numero de documento </label>
-                        <div class="mt-1">
-                          <input type="text" id="cc" wire:model.lazy="cc" name="cc"
-                            class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
-                        </div>
-                        @error('cc') <span class="error text-red-500">{{ $message }}</span> @enderror
-                      </div>
-                      <div class="sm:col-span-6">
-                        <label for="name" class="block text-sm font-medium text-gray-700"> Nombre </label>
-                        <div class="mt-1">
-                          <input type="text" id="name" wire:model.lazy="name" name="name"
-                            class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
-                        </div>
-                        @error('name') <span class="error text-red-500">{{ $message }}</span> @enderror
-                      </div>
-                      <div class="sm:col-span-6">
-                        <label for="job" class="block text-sm font-medium text-gray-700"> Cargo </label>
-                        <div class="mt-1">
-                          <select id="job" wire:model.lazy="job" name="job"
-                            class="block w-full bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5">
-                            <option value="T">Trabajador</option>
-                            <option value="A">Administrador</option>
-                            <option value="M">Mecanico</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="sm:col-span-6">
-                        <label for="phone" class="block text-sm font-medium text-gray-700"> Telefono </label>
-                        <div class="mt-1">
-                          <input type="text" id="phone" wire:model.lazy="phone" name="phone"
-                            class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
-                        </div>
-                        @error('phone') <span class="error text-red-500">{{ $message }}</span> @enderror
-                      </div>
-                      <div class="sm:col-span-6">
-                        <label for="email" class="block text-sm font-medium text-gray-700"> Correo </label>
-                        <div class="mt-1">
-                          <input type="text" id="email" wire:model.lazy="email" name="email"
-                            class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
-                        </div>
-                        @error('email') <span class="error text-red-500">{{ $message }}</span> @enderror
-                      </div>
-                    </div>
-                    <div>
+                      <div>
 
 
+
+                        <div class="sm:col-span-6">
+                          <label for="question" class="block text-sm font-medium text-gray-700"> Pregunta clave </label>
+                          <div class="mt-1">
+                            <input type="text" id="question" wire:model.lazy="question" name="question"
+                              class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
+                          </div>
+                          @error('question') <span class="error text-red-500">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="sm:col-span-6">
+                          <label for="answer" class="block text-sm font-medium text-gray-700"> Respuesta </label>
+                          <div class="mt-1">
+                            <input type="text" id="answer" wire:model.lazy="answer" name="answer"
+                              class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
+                          </div>
+                          @error('answer') <span class="error text-red-500">{{ $message }}</span> @enderror
+                        </div>
+                        @if($isEditMode==false)
+                        <div class="sm:col-span-6">
+                        <label for="password" class="block text-sm font-medium text-gray-700"> Contraseña </label>
+                        <div class="mt-1">
+                          <input type="password" id="password" wire:model.lazy="password" name="password"
+                            class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
+                        </div>
+                        @error('password') <span class="error text-red-500">{{ $message }}</span> @enderror
+                      </div>
+                      <div class="sm:col-span-6">
+                        <label for="cpassword" class="block text-sm font-medium text-gray-700"> Confirmar Contraseña</label>
+                        <div class="mt-1">
+                          <input type="password" id="cpassword" wire:model.lazy="cpassword" name="cpassword"
+                            class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
+                        </div>
+                      </div>
+                      @error('cpassword') <span class="error text-red-500">{{ $message }}</span> @enderror
+                      @endif
+                        <div class="sm:col-span-6">
+                          <label for="status" class="block text-sm font-medium text-gray-700"> Estado </label>
+                          <div class="mt-1">
+                            <select id="status" wire:model.lazy="status" name="status"
+                              class="block w-full bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5">
+                              <option value="1">Activo</option>
+                              <option value="0">Inactivo</option>
+                            </select>
+                          </div>
+                        </div>
+                        
+                      </div>
+                  </form>
+
+                </div>
+                @if($isEditMode)
+                <form>
+                  <p>Seguridad</p>
+                    <div class="sm:flex place-content-around m-2">
                       <div class="sm:col-span-6">
                         <label for="password" class="block text-sm font-medium text-gray-700"> Contraseña </label>
                         <div class="mt-1">
@@ -391,75 +453,51 @@
                         @error('password') <span class="error text-red-500">{{ $message }}</span> @enderror
                       </div>
                       <div class="sm:col-span-6">
-                        <label for="cpassword" class="block text-sm font-medium text-gray-700"> Confirmar Contraseña
-                        </label>
+                        <label for="cpassword" class="block text-sm font-medium text-gray-700"> Confirmar Contraseña</label>
                         <div class="mt-1">
                           <input type="password" id="cpassword" wire:model.lazy="cpassword" name="cpassword"
                             class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
                         </div>
-                        @error('cpassword') <span class="error text-red-500">{{ $message }}</span> @enderror
                       </div>
-                      <div class="sm:col-span-6">
-                        <label for="question" class="block text-sm font-medium text-gray-700"> Pregunta clave </label>
-                        <div class="mt-1">
-                          <input type="text" id="question" wire:model.lazy="question" name="question"
-                            class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
-                        </div>
-                        @error('question') <span class="error text-red-500">{{ $message }}</span> @enderror
-                      </div>
-                      <div class="sm:col-span-6">
-                        <label for="answer" class="block text-sm font-medium text-gray-700"> Respuesta </label>
-                        <div class="mt-1">
-                          <input type="text" id="answer" wire:model.lazy="answer" name="answer"
-                            class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
-                        </div>
-                        @error('answer') <span class="error text-red-500">{{ $message }}</span> @enderror
-                      </div>
-                      <div class="sm:col-span-6">
-                        <label for="status" class="block text-sm font-medium text-gray-700"> Estado </label>
-                        <div class="mt-1">
-                          <select id="status" wire:model.lazy="status" name="status"
-                            class="block w-full bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5">
-                            <option value="1">Activo</option>
-                            <option value="0">Inactivo</option>
-                          </select>
-                        </div>
-                      </div>
+                      {{ $this->user->cc }}
+                      @error('cpassword') <span class="error text-red-500">{{ $message }}</span> @enderror
                     </div>
                 </form>
-                @endif
+              @endif
               </div>
-
-            </x-slot>
-            <x-slot name="footer">
-              <div class="w-full flex gap-5 place-content-between">
-                @if($isEditMode)
-                <x-jet-button wire:click="modalEditFormReset"
-                  class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
-                @elseif($isFieldsMode)
-                <x-jet-button wire:click="modalFieldsReset"
-                  class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
-                @else
-                <x-jet-button wire:click="modalRegFormReset"
-                  class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
-                @endif
-                <div>
-                @if($isEditMode)
-                <x-jet-button wire:click="updateUser"
-                  class="bg-red-800 hover:bg-red-900 active:bg-red-700">Actualizar</x-jet-button>
-                @elseif($isFieldsMode)
-                @else
-                <x-jet-button wire:click="saveUser"
-                  class="bg-red-800 hover:bg-red-900 active:bg-red-700">Guardar</x-jet-button>
-                @endif
-                <x-jet-button wire:click="hideModal" type="button"
-                  class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Cerrar</x-jet-button>
-                </div>
-              </div>
-            </x-slot>
-          </x-jet-dialog-modal>
-
+              @endif
         </div>
+
+        </x-slot>
+        <x-slot name="footer">
+          <div class="w-full flex gap-5 place-content-between">
+            @if($isEditMode)
+            <x-jet-button wire:click="modalEditFormReset"
+              class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
+            @elseif($isFieldsMode)
+            <x-jet-button wire:click="modalFieldsReset"
+              class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
+            @else
+            <x-jet-button wire:click="modalRegFormReset"
+              class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
+            @endif
+            <div>
+              @if($isEditMode)
+              <x-jet-button wire:click="updateUser"
+                class="bg-red-800 hover:bg-red-900 active:bg-red-700">Actualizar</x-jet-button>
+              @elseif($isFieldsMode)
+              @else
+              <x-jet-button wire:click="saveUser"
+                class="bg-red-800 hover:bg-red-900 active:bg-red-700">Guardar</x-jet-button>
+              @endif
+              <x-jet-button wire:click="hideModal" type="button"
+                class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Cerrar</x-jet-button>
+            </div>
+          </div>
+        </x-slot>
+        </x-jet-dialog-modal>
+
       </div>
     </div>
+  </div>
   </div>
