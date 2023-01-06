@@ -288,8 +288,10 @@
                       <td class="px-6 py-4 text-right text-sm flex gap-2">
                         <x-jet-button wire:click="showEditUserModal({{ $user-> id }})"
                           class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Editar</x-jet-button>
+                        @if($user->id!=1)
                         <x-jet-button wire:click="delete({{ $user-> id }})"
                           class="bg-red-800 hover:bg-red-900 active:bg-red-700">
+                        @endif
                         @if($user->status==0)
                         Activar
                         @else
@@ -460,7 +462,8 @@
                       </div>
                       @error('cpassword') <span class="error text-red-500">{{ $message }}</span> @enderror
                       @endif
-                        <div class="sm:col-span-6">
+                      @if($idUser!=1)
+                      <div class="sm:col-span-6">
                           <label for="status" class="block text-sm font-medium text-gray-700"> Estado </label>
                           <div class="mt-1">
                             <select id="status" wire:model.lazy="status" name="status"
@@ -470,6 +473,7 @@
                             </select>
                           </div>
                         </div>
+                      @endif
                         
                       </div>
                   </form>

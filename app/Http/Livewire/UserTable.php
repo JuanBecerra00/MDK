@@ -12,6 +12,7 @@ class UserTable extends Component
     use WithPagination;
     public $showingUserModal = false;
 
+    public $idUser;
     public $type;
     public $regtype="";
     public $cc;
@@ -50,7 +51,7 @@ class UserTable extends Component
     public $validatePassword;
     public $validateCpassword;
     public $isCheckedAll = '';
-    public $filter = 0;
+    public $filter = 1;
     public $fontSize = 16;
     
     public $search;
@@ -213,6 +214,7 @@ class UserTable extends Component
     public function showEditUserModal($id)
     {
         $this->user = User::findOrfail($id);
+        $this->idUser = $this->user->id;
         $this->type = $this->user->type;
         $this->cc = $this->user->cc;
         $this->name = $this->user->name;
