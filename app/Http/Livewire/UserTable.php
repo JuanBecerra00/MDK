@@ -50,6 +50,7 @@ class UserTable extends Component
     public $validateCpassword;
     public $isCheckedAll = '';
     public $filter = 2;
+    public $fontSize = 16;
     
     public $search;
     protected $queryString = ['search'];
@@ -327,6 +328,16 @@ class UserTable extends Component
         }else{
             $this->isCheckedAll = "";
         }
+    }
+
+    public function fontSizeBigger()
+    {
+        $this->fontSize+=1;
+    }
+
+    public function fontSizeSmaller()
+    {
+        $this->fontSize-=1;
     }
     public function render()
     {

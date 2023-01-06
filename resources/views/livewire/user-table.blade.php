@@ -1,11 +1,12 @@
-<div class="flex justify-center mt-20">
+<div class="flex justify-center mt-20" style="font-size:{{ $this->fontSize }}px">
     <div class="max-w-[85vw]">
+  <h1 style="font-size: 30px;">Usuarios</h1>
 
       <div class=" sm:flex">
 
         <div class="m-2 p-2">
           <div
-            class="w-full bg-zinc-800 sm:flex items-center place-content-between p-5 sm:rounded-tl-lg sm:rounded-tr-lg">
+            class="w-full bg-zinc-800 sm:flex items-center place-content-between p-5 sm:rounded-tl-lg sm:rounded-tr-lg relative">
             <div class="sm:flex gap-5 items-center">
               <p class="text-white">Buscar documento</p>
               <input wire:model="search" type="search" placeholder="Ej: 1058351478" class="rounded max-sm:w-full">
@@ -33,6 +34,11 @@
             <x-jet-button wire:click="showUserModal"
               class="bg-red-800 hover:bg-red-900 active:bg-red-700 max-sm:mt-5 max-sm:w-full flex justify-center imtems-center sm:ml-5">Registrar</x-jet-button>
             @endif
+            <div class="bg-zinc-800 absolute -right-20 top-0 rounded-xl p-2 flex flex-col gap-2 justify-center items-center text-white invisible opacity-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon w-6" viewBox="0 0 512 512"><title>Text</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M32 415.5l120-320 120 320M230 303.5H74M326 239.5c12.19-28.69 41-48 74-48h0c46 0 80 32 80 80v144"/><path d="M320 358.5c0 36 26.86 58 60 58 54 0 100-27 100-106v-15c-20 0-58 1-92 5-32.77 3.86-68 19-68 58z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>
+            <button class="w-10 h-10 bg-red-700 rounded text-white text-3xl" wire:click="fontSizeBigger()">+</button>
+            <button class="w-10 h-10 bg-red-700 rounded text-white text-3xl" wire:click="fontSizeSmaller()">-</button>
+            </div>
           </div>
           <div class="-my-2 overflow-x-auto">
             <div class="py-2 align-middle inline-block min-w-full
@@ -226,6 +232,8 @@
                     <tr>
                       <td class="px-6 py-4 whitespace-nowrap">
                         <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" {{ $this->isCheckedAll }} id="checkbox{{$user->id}}">
+                        
+{{ $this->fontSize }}
                       </td>
                       @if($this->filter!=$user->status)
                       @if($fieldId)
