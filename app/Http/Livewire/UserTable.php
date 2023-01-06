@@ -48,6 +48,7 @@ class UserTable extends Component
     public $validatePhone;
     public $validatePassword;
     public $validateCpassword;
+    public $isCheckedAll = '';
     public $filter = 2;
     
     public $search;
@@ -317,6 +318,15 @@ class UserTable extends Component
 
         $user->save()
         ];
+    }
+
+    public function selectAll()
+    {
+        if($this->isCheckedAll==''){
+            $this->isCheckedAll = "checked";
+        }else{
+            $this->isCheckedAll = "";
+        }
     }
     public function render()
     {

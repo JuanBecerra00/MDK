@@ -43,6 +43,11 @@
                   <thead class="bg-gray-50 dark:bg-gray-600 dark:text-gray-200">
 
                     <tr>
+                      <th class ="bg-zinc-800">
+                        <div>
+                          <input type="checkbox" wire:change="selectAll()" class="checked:bg-red-800 focus:ring-red-800 text-red-800">
+                        </div>
+                      </th>
                       @if($fieldId)
                       <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
@@ -217,9 +222,11 @@
                     </tr>
                   </thead>
                   <tbody class="bg-white divide-y divide-gray-200">
-                    <tr></tr>
                     @foreach($users as $user)
                     <tr>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" {{ $this->isCheckedAll }} id="checkbox{{$user->id}}">
+                      </td>
                       @if($this->filter!=$user->status)
                       @if($fieldId)
                       <td class="px-6 py-4 whitespace-nowrap">{{ $user->id }}</td>
