@@ -307,29 +307,29 @@
                 @if($isFieldsMode)
                 <div class="grid grid-cols-2 place-content-center">
                   <p class="">Id</p>
-                  <input type="checkbox" class="" @if($fieldId) checked @endif wire:change="changeField('fieldId')">
+                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($fieldId) checked @endif wire:change="changeField('fieldId')">
                   <p class="">Tipo de documento</p>
-                  <input type="checkbox" class="" @if($fieldType) checked @endif wire:change="changeField('fieldType')">
+                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($fieldType) checked @endif wire:change="changeField('fieldType')">
                   <p class="">Numero de documento</p>
-                  <input type="checkbox" class="" @if($fieldCc) checked @endif wire:change="changeField('fieldCc')">
+                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($fieldCc) checked @endif wire:change="changeField('fieldCc')">
                   <p class="">Nombre</p>
-                  <input type="checkbox" class="" @if($fieldName) checked @endif wire:change="changeField('fieldName')">
+                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($fieldName) checked @endif wire:change="changeField('fieldName')">
                   <p class="">Cargo</p>
-                  <input type="checkbox" class="" @if($fieldJob) checked @endif wire:change="changeField('fieldJob')">
+                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($fieldJob) checked @endif wire:change="changeField('fieldJob')">
                   <p class="">Email</p>
-                  <input type="checkbox" class="" @if($fieldEmail) checked @endif
+                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($fieldEmail) checked @endif
                     wire:change="changeField('fieldEmail')">
                   <p class="">Telefono</p>
-                  <input type="checkbox" class="" @if($fieldPhone) checked @endif
+                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($fieldPhone) checked @endif
                     wire:change="changeField('fieldPhone')">
                   <p class="">Pregunta clave</p>
-                  <input type="checkbox" class="" @if($fieldQuestion) checked @endif
+                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($fieldQuestion) checked @endif
                     wire:change="changeField('fieldQuestion')">
                   <p class="">Respuesta</p>
-                  <input type="checkbox" class="" @if($fieldAnswer) checked @endif
+                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($fieldAnswer) checked @endif
                     wire:change="changeField('fieldAnswer')">
                   <p class="">Estado</p>
-                  <input type="checkbox" class="" @if($fieldStatus) checked @endif
+                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($fieldStatus) checked @endif
                     wire:change="changeField('fieldStatus')">
                 </div>
                 @else
