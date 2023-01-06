@@ -91,7 +91,7 @@
                         <x-slot name="trigger">
                         <span class="inline-flex rounded-md">
                                     <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-800 hover:bg-red-700 focus:bg-red-900 focus:outline-none transition shadow-[0px_8px_10px_0px_rgba(0,0,0,0.3)]">
-                                        Campos
+                                        Columnas
 
                                         <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -426,8 +426,6 @@
           <x-jet-dialog-modal wire:model="showingUserModal">
             @if($isEditMode)
             <x-slot name="title">Editar usuario</x-slot>
-            @elseif($isFieldsMode)
-            <x-slot name="title">Editar Campos</x-slot>
             @elseif($isHowToSearchMode)
             <x-slot name="title">¿Como funciona la busqueda?</x-slot>
             @else
@@ -435,35 +433,7 @@
             @endif
             <x-slot name="content">
               <div class="space-y-8 divide-y divide-gray-200 mt-10">
-                @if($isFieldsMode)
-                <div class="grid grid-cols-2 place-content-center">
-                  <p class="">Id</p>
-                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($fieldId) checked @endif wire:change="changeField('fieldId')">
-                  <p class="">Tipo de documento</p>
-                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($fieldType) checked @endif wire:change="changeField('fieldType')">
-                  <p class="">Numero de documento</p>
-                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($fieldCc) checked @endif wire:change="changeField('fieldCc')">
-                  <p class="">Nombre</p>
-                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($fieldName) checked @endif wire:change="changeField('fieldName')">
-                  <p class="">Cargo</p>
-                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($fieldJob) checked @endif wire:change="changeField('fieldJob')">
-                  <p class="">Email</p>
-                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($fieldEmail) checked @endif
-                    wire:change="changeField('fieldEmail')">
-                  <p class="">Telefono</p>
-                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($fieldPhone) checked @endif
-                    wire:change="changeField('fieldPhone')">
-                  <p class="">Pregunta clave</p>
-                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($fieldQuestion) checked @endif
-                    wire:change="changeField('fieldQuestion')">
-                  <p class="">Respuesta</p>
-                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($fieldAnswer) checked @endif
-                    wire:change="changeField('fieldAnswer')">
-                  <p class="">Estado</p>
-                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($fieldStatus) checked @endif
-                    wire:change="changeField('fieldStatus')">
-                </div>
-                @elseif($isHowToSearchMode)
+                @if($isHowToSearchMode)
                 Puedes buscar:<br>
                 documento de identidad<br>
                 nombre, <br>
@@ -622,9 +592,6 @@
             @if($isEditMode)
             <x-jet-button wire:click="modalEditFormReset"
               class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
-            @elseif($isFieldsMode)
-            <x-jet-button wire:click="modalFieldsReset"
-              class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
             @elseif($isHowToSearchMode)
             <x-jet-button
               class="invisible">Reset</x-jet-button>
@@ -636,7 +603,6 @@
               @if($isEditMode)
               <x-jet-button wire:click="updateUser"
                 class="bg-red-800 hover:bg-red-900 active:bg-red-700">Actualizar</x-jet-button>
-              @elseif($isFieldsMode)
               @elseif($isHowToSearchMode)
             @else
               <x-jet-button wire:click="saveUser"

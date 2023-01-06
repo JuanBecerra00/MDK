@@ -28,7 +28,6 @@ class UserTable extends Component
     public $status;
     public $regstatus="";
     public $isEditMode = false;
-    public $isFieldsMode = false;
     public $isHowToSearchMode = false;
     public $user;
 
@@ -70,7 +69,6 @@ class UserTable extends Component
         $this->cpassword = '';
         $this->status = '';
         $this->isEditMode = false;
-        $this->isFieldsMode = false;
         $this->isHowToSearchMode = false;
         $this->showingUserModal = true;
     }
@@ -103,20 +101,6 @@ class UserTable extends Component
         $this->status = $this->user->status;
         $this->password = '';
         $this->cpassword = '';
-    }
-
-    public function modalFieldsReset()
-    {
-    $this->fieldId = true;
-    $this->fieldType = true;
-    $this->fieldCc = true;
-    $this->fieldName = true;
-    $this->fieldJob = true;
-    $this->fieldEmail = true;
-    $this->fieldPhone = true;
-    $this->fieldQuestion = false;
-    $this->fieldAnswer = false;
-    $this->fieldStatus = false;
     }
 
     public function hideModal()
@@ -228,15 +212,6 @@ class UserTable extends Component
         $this->cpassword = '';
         $this->isHowToSearchMode = false;
         $this->isEditMode = true;
-        $this->isFieldsMode = false;
-        $this->showingUserModal = true;
-    }
-
-    public function showFieldsModal()
-    {
-        $this->isHowToSearchMode = false;
-        $this->isEditMode = false;
-        $this->isFieldsMode = true;
         $this->showingUserModal = true;
     }
 
@@ -244,7 +219,6 @@ class UserTable extends Component
     {
     $this->isHowToSearchMode = true;
     $this->isEditMode = false;
-    $this->isFieldsMode = false;
     $this->showingUserModal = true;
     }
     public function updateUser(){
