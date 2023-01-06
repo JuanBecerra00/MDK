@@ -16,26 +16,136 @@
               </button>
               </p>
               <input wire:model="search" type="search" placeholder="documento, nombre, correo, telefono, pregunta, respuesta, id" class="rounded max-sm:w-full">
-              <p class="text-white">Estado</p>
-              <select wire:change="filter($event.target.value)" class="rounded max-sm:w-full">
-                <option value="">Todos</option>
-                <option value="1" selected>Activos</option>
-                <option value="0">Inactivos</option>
-              </select>
-              <p class="text-white">Elementos por pagina</p>
-              <select wire:change="changePaginate($event.target.value)" class="rounded max-sm:w-full">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="0">Todo</option>
-              </select>
-              <button wire:click="showFieldsModal"
-                class="rounded max-sm:w-full h-10 bg-red-800 hover:bg-red-900 active:bg-red-700 text-white flex gap-2 items-center justify-center px-3 max-sm:mt-5">Campos<svg
-                  class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clip-rule="evenodd" />
-                </svg></button>
+              <x-jet-dropdown align="left" width="48">
+                        <x-slot name="trigger">
+                        <span class="inline-flex rounded-md">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-800 hover:bg-red-700 focus:bg-red-900 focus:outline-none transition shadow-[0px_8px_10px_0px_rgba(0,0,0,0.3)]">
+                                        Filtrar: 
+                                        @if($filter==1)
+                                        Activos
+                                        @elseif($filter==0)
+                                        Inactivos
+                                        @else
+                                        Todos
+                                        @endif
+
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <!-- Account Management -->
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Estado') }}
+                            </div>
+                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="filter('')">
+                              Todos
+                            </button>
+                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="filter(1)">
+                              Activos
+                            </button>
+                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="filter(0)">
+                              Inactivos
+                            </button>
+                        </x-slot>
+                    </x-jet-dropdown>
+
+                    <x-jet-dropdown align="left" width="48">
+                        <x-slot name="trigger">
+                        <span class="inline-flex rounded-md">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-800 hover:bg-red-700 focus:bg-red-900 focus:outline-none transition shadow-[0px_8px_10px_0px_rgba(0,0,0,0.3)]">
+                                        Elementos: {{ $paginate }}
+
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <!-- Account Management -->
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Elementos por página') }}
+                            </div>
+                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changePaginate(5)">
+                              5
+                            </button>
+                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changePaginate(10)">
+                              10
+                            </button>
+                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changePaginate(15)">
+                              15
+                            </button>
+                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changePaginate('')">
+                              Todos
+                            </button>
+                        </x-slot>
+                    </x-jet-dropdown>
+
+
+                    <x-jet-dropdown align="left" closeClick="open" width="48">
+                        <x-slot name="trigger">
+                        <span class="inline-flex rounded-md">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-800 hover:bg-red-700 focus:bg-red-900 focus:outline-none transition shadow-[0px_8px_10px_0px_rgba(0,0,0,0.3)]">
+                                        Campos
+
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <!-- Account Management -->
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                Columnas
+                            </div>
+                            <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldId')">
+                            <p class="">Id</p>
+                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldId) checked @endif>
+                            </button>
+                            <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldType')">
+                  <p class="">Tipo de documento</p>
+                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldType) checked @endif>
+                            </button>
+                            <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldCc')">
+                            <p class="">Numero de documento</p>
+                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldCc) checked @endif>
+                            </button>
+                            <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldName')">
+                            <p class="">Nombre</p>
+                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldName) checked @endif>
+                            </button>
+                            <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldJob')">
+                            <p class="">Cargo</p>
+                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldJob) checked @endif>
+                            </button>
+                            <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldEmail')">
+                            <p class="">Email</p>
+                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldEmail) checked @endif>
+                            </button>
+                            <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldPhone')">
+                            <p class="">Telefono</p>
+                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldPhone) checked @endif>
+                            </button>
+                            <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldQuestion')">
+                            <p class="">Pregunta clave</p>
+                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldQuestion) checked @endif>
+                            </button>
+                            <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldAnswer')">
+                            <p class="">Respuesta</p>
+                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldAnswer) checked @endif>
+                            </button>
+                            <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldStatus')">
+                            <p class="">Estado</p>
+                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldStatus) checked @endif>
+                        </x-slot>
+                    </x-jet-dropdown>
             </div>
             @if(Auth::user()->job!='M')
             <x-jet-button wire:click="showUserModal"
