@@ -284,7 +284,13 @@
                         <x-jet-button wire:click="showEditUserModal({{ $user-> id }})"
                           class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Editar</x-jet-button>
                         <x-jet-button wire:click="delete({{ $user-> id }})"
-                          class="bg-red-800 hover:bg-red-900 active:bg-red-700">X</x-jet-button>
+                          class="bg-red-800 hover:bg-red-900 active:bg-red-700">
+                        @if($user->status==0)
+                        Activar
+                        @else
+                        Desactivar
+                        @endif
+                        </x-jet-button>
                       </td>
                       @endif
                     </tr>
