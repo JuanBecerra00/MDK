@@ -44,7 +44,7 @@
 
           <div
             class="w-full bg-zinc-800 sm:flex items-center place-content-between p-5 sm:rounded-tl-lg sm:rounded-tr-lg relative">
-            <div class="sm:flex gap-5 items-center">
+            <div class="flex max-sm:flex-col gap-5 items-center">
               <p class="text-white flex items-center">
                 Buscar
               
@@ -53,6 +53,7 @@
               </button>
               </p>
               <input wire:model="search" type="search" placeholder="documento, nombre, correo, telefono, pregunta, respuesta, id" class="rounded max-sm:w-full">
+              <div class="flex gap-5 max-sm:flex-col items-center justify-center">
               <x-jet-dropdown align="left" width="48">
                         <x-slot name="trigger">
                         <span class="inline-flex rounded-md">
@@ -183,6 +184,7 @@
                   <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldStatus) checked @endif>
                         </x-slot>
                     </x-jet-dropdown>
+              </div>
             </div>
             @if(Auth::user()->job!='M')
             <x-jet-button wire:click="showUserModal"
