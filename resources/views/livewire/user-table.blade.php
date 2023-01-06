@@ -3,9 +3,10 @@
   <h1 style="font-size: 30px;">Usuarios</h1>
 
       <div class=" sm:flex">
-      @foreach($selecteds as $s)
-{{$s}}
-@endforeach
+        
+      <?php
+        var_dump($selecteds)
+        ?>
       <div class="absolute right-0 rounded-xl flex flex-col justify-center items-center text-white">
         
             <x-jet-dropdown align="right" width="48" class="" closeClick="open">

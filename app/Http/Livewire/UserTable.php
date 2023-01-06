@@ -85,7 +85,7 @@ class UserTable extends Component
         }
         if($this->isCheckedAll==0){
             foreach($users as $user){
-                if(!in_array($user->id, $this->selecteds)){
+                if(in_array($user->id, $this->selecteds)){
                     $this->selecteds = \array_diff($this->selecteds, [$user->id]);
                 }
         }
