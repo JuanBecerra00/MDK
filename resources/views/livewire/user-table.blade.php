@@ -360,7 +360,7 @@
                       <td class="px-6 py-4 whitespace-nowrap">{{ $user->cc }}</td>
                       @endif
                       @if($fieldName)
-                      <td class="px-6 py-4 whitespace-nowrap">{{ $user->name }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[15rem] overflow-x-auto">{{ $user->name }}</div></td>
                       @endif
                       @if($fieldJob)
                       <td class="px-6 py-4 whitespace-nowrap">
@@ -374,7 +374,7 @@
                       </td>
                       @endif
                       @if($fieldEmail)
-                      <td class="px-6 py-4 whitespace-nowrap">{{ $user->email }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[15rem] overflow-x-auto">{{ $user->email }}</div></td>
                       @endif
                       @if($fieldPhone)
                       <td class="px-6 py-4 whitespace-nowrap">{{ $user->phone }}</td>

@@ -36,7 +36,7 @@ class UserTable extends Component
     public $sortDirection = 'asc';
     public $paginate = '5';
     public $fieldId = true;
-    public $fieldType = true;
+    public $fieldType = false;
     public $fieldCc = true;
     public $fieldName = true;
     public $fieldJob = true;
