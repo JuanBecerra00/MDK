@@ -395,7 +395,7 @@
                       </td>
                       @endif
                       @if(Auth::user()->job=='A')
-                      <td class="px-6 py-4 text-right text-sm flex gap-2">
+                      <td class="px-6 py-4 text-right text-sm flex justify-center gap-2">
                         <x-jet-button wire:click="showEditUserModal({{ $user-> id }})"
                           class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Editar</x-jet-button>
                         @if($user->id!=1)
