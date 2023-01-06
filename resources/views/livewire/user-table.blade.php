@@ -21,6 +21,7 @@
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
+                <option value="0">Todo</option>
               </select>
               <button wire:click="showFieldsModal"
                 class="rounded max-sm:w-full h-10 bg-red-800 hover:bg-red-900 active:bg-red-700 text-white flex gap-2 items-center justify-center px-3 max-sm:mt-5">Campos<svg
