@@ -1,10 +1,47 @@
 <div class="flex justify-center mt-20" style="font-size:{{ $this->fontSize }}px">
-    <div class="max-w-[85vw]">
+    <div class="max-w-[85vw] overflow-auto">
   <h1 style="font-size: 30px;">Usuarios</h1>
 
       <div class=" sm:flex">
+      <div class="absolute right-0 rounded-xl flex flex-col justify-center items-center text-white">
+            <x-jet-dropdown align="right" width="48" class="" closeClick="open">
+                        <x-slot name="trigger">
+                        <span class="inline-flex rounded-md">
+                                    <button type="button" class="inline-flex items-center p-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-800 hover:bg-red-700 focus:bg-red-900 focus:outline-none transition shadow-[0px_8px_10px_0px_rgba(0,0,0,0.3)] w-10 h-10 text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Accessibility</title><path fill="currentColor" stroke="currentColor" d="M256 112a56 56 0 1156-56 56.06 56.06 0 01-56 56z"/><path fill="currentColor" stroke="currentColor" d="M432 112.8l-.45.12-.42.13c-1 .28-2 .58-3 .89-18.61 5.46-108.93 30.92-172.56 30.92-59.13 0-141.28-22-167.56-29.47a73.79 73.79 0 00-8-2.58c-19-5-32 14.3-32 31.94 0 17.47 15.7 25.79 31.55 31.76v.28l95.22 29.74c9.73 3.73 12.33 7.54 13.6 10.84 4.13 10.59.83 31.56-.34 38.88l-5.8 45-32.19 176.19q-.15.72-.27 1.47l-.23 1.27c-2.32 16.15 9.54 31.82 32 31.82 19.6 0 28.25-13.53 32-31.94s28-157.57 42-157.57 42.84 157.57 42.84 157.57c3.75 18.41 12.4 31.94 32 31.94 22.52 0 34.38-15.74 32-31.94a57.17 57.17 0 00-.76-4.06L329 301.27l-5.79-45c-4.19-26.21-.82-34.87.32-36.9a1.09 1.09 0 00.08-.15c1.08-2 6-6.48 17.48-10.79l89.28-31.21a16.9 16.9 0 001.62-.52c16-6 32-14.3 32-31.93S451 107.81 432 112.8z"/></svg>
+                                    </button>
+                                </span>
+                        </x-slot>
 
-        <div class="m-2 p-2">
+                        <x-slot name="content">
+                            <!-- Account Management -->
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Tamaño de fuente') }}
+                            </div>
+                            <div class="flex">
+                            <button class="w-full text-center block px-2 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="fontSizeSmaller()">
+                              -
+                            </button>
+                            <div class="flex justify-center items-center px-5">
+                            {{ $fontSize }}
+                          </div>
+                            <button class="w-full text-center block px-2 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="fontSizeBigger()">
+                              +
+                            </button>
+                            </div>
+                            
+                        </x-slot>
+                    </x-jet-dropdown>
+            </div>
+
+        <div class="m-2 p-2 relative">
+
+        
+
+
+        
+
+
           <div
             class="w-full bg-zinc-800 sm:flex items-center place-content-between p-5 sm:rounded-tl-lg sm:rounded-tr-lg relative">
             <div class="sm:flex gap-5 items-center">
@@ -151,11 +188,7 @@
             <x-jet-button wire:click="showUserModal"
               class="bg-red-800 hover:bg-red-900 active:bg-red-700 max-sm:mt-5 max-sm:w-full flex justify-center imtems-center sm:ml-5">Registrar</x-jet-button>
             @endif
-            <div class="bg-zinc-800 absolute -right-20 top-0 rounded-xl p-2 flex flex-col gap-2 justify-center items-center text-white invisible opacity-0">
-            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon w-6" viewBox="0 0 512 512"><title>Text</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M32 415.5l120-320 120 320M230 303.5H74M326 239.5c12.19-28.69 41-48 74-48h0c46 0 80 32 80 80v144"/><path d="M320 358.5c0 36 26.86 58 60 58 54 0 100-27 100-106v-15c-20 0-58 1-92 5-32.77 3.86-68 19-68 58z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>
-            <button class="w-10 h-10 bg-red-700 rounded text-white text-3xl" wire:click="fontSizeBigger()">+</button>
-            <button class="w-10 h-10 bg-red-700 rounded text-white text-3xl" wire:click="fontSizeSmaller()">-</button>
-            </div>
+            
           </div>
           <div class="-my-2 overflow-x-auto">
             <div class="py-2 align-middle inline-block min-w-full
