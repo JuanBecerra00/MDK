@@ -351,13 +351,13 @@
                         <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" {{ $this->isCheckedAll }} id="checkbox{{$user->id}}">
                       </td>
                       @if($fieldId)
-                      <td class="px-6 py-4 whitespace-nowrap">{{ $user->id }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[15rem] overflow-x-auto">{{ $user->id }}</div></td>
                       @endif
                       @if($fieldType)
                       <td class="px-6 py-4 whitespace-nowrap">{{ $user->type }}</td>
                       @endif
                       @if($fieldCc)
-                      <td class="px-6 py-4 whitespace-nowrap">{{ $user->cc }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[15rem] overflow-x-auto">{{ $user->cc }}</div></td>
                       @endif
                       @if($fieldName)
                       <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[15rem] overflow-x-auto">{{ $user->name }}</div></td>
@@ -377,13 +377,13 @@
                       <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[15rem] overflow-x-auto">{{ $user->email }}</div></td>
                       @endif
                       @if($fieldPhone)
-                      <td class="px-6 py-4 whitespace-nowrap">{{ $user->phone }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[15rem] overflow-x-auto">{{ $user->phone }}</div></td>
                       @endif
                       @if($fieldQuestion)
-                      <td class="px-6 py-4 whitespace-nowrap">{{ $user->question }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[15rem] overflow-x-auto">{{ $user->question }}</div></td>
                       @endif
                       @if($fieldAnswer)
-                      <td class="px-6 py-4 whitespace-nowrap">{{ $user->answer }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[15rem] overflow-x-auto">{{ $user->answer }}</div></td>
                       @endif
                       @if($fieldStatus)
                       <td class="px-6 py-4 whitespace-nowrap">
