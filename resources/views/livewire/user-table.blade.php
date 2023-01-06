@@ -230,10 +230,10 @@
                   <tbody class="bg-white divide-y divide-gray-200">
                     @foreach($users as $user)
                     <tr>
+                      @if($this->filter!=$user->status)
                       <td class="px-6 py-4 whitespace-nowrap">
                         <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" {{ $this->isCheckedAll }} id="checkbox{{$user->id}}">
                       </td>
-                      @if($this->filter!=$user->status)
                       @if($fieldId)
                       <td class="px-6 py-4 whitespace-nowrap">{{ $user->id }}</td>
                       @endif
