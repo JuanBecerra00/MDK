@@ -3,7 +3,11 @@
   <h1 style="font-size: 30px;">Usuarios</h1>
 
       <div class=" sm:flex">
+      @foreach($selecteds as $s)
+{{$s}}
+@endforeach
       <div class="absolute right-0 rounded-xl flex flex-col justify-center items-center text-white">
+        
             <x-jet-dropdown align="right" width="48" class="" closeClick="open">
                         <x-slot name="trigger">
                         <span class="inline-flex rounded-md">
@@ -383,7 +387,11 @@
                     @foreach($users as $user)
                     <tr>
                       <td class="px-6 py-4 whitespace-nowrap">
-                        <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" {{ $this->isCheckedAll }} id="checkbox{{$user->id}}">
+                        <input type="checkbox" wire:change="addToSelecteds({{ $user->id }})" class="checked:bg-red-800 focus:ring-red-800 text-red-800" 
+                        @if(in_array($user->id, $selecteds))
+                        checked
+                        @endif
+                        {{ $this->isCheckedAll }} id="checkbox{{$user->id}}">
                       </td>
                       @if($fieldId)
                       <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[15rem] overflow-x-auto">{{ $user->id }}</div></td>

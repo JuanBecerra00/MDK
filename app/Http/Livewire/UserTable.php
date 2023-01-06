@@ -52,9 +52,21 @@ class UserTable extends Component
     public $isCheckedAll = '';
     public $filter = 1;
     public $fontSize = 16;
+    public $selecteds = [];
+    
+    public $test = 'test';
     
     public $search;
     protected $queryString = ['search'];
+    public function addToSelecteds($rowId)
+    {
+        if(in_array($rowId, $this->selecteds)){
+            $this->selecteds = \array_diff($this->selecteds, [$rowId]);
+        }else{
+            array_push($this->selecteds, $rowId);
+        }
+    }
+
     public function showUserModal()
     {
         $this->type = '';
@@ -297,6 +309,21 @@ class UserTable extends Component
         $this->showingUserModal=false;
     }
     public function delete($id): array
+    {
+        $user = User::find($id);
+        if ($user->status == "0"){
+            $user->status = "1";
+        }elseif ($user->status == "1"){
+            $user->status = "0";
+        }
+        return [
+
+
+        $user->save()
+        ];
+    }
+
+    public function deleteSelected($id): array
     {
         $user = User::find($id);
         if ($user->status == "0"){
