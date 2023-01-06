@@ -28,6 +28,7 @@ class UserTable extends Component
     public $regstatus="";
     public $isEditMode = false;
     public $isFieldsMode = false;
+    public $isHowToSearchMode = false;
     public $user;
 
     public $sortField = 'id';
@@ -42,7 +43,7 @@ class UserTable extends Component
     public $fieldPhone = true;
     public $fieldQuestion = false;
     public $fieldAnswer = false;
-    public $fieldStatus = false;
+    public $fieldStatus = true;
     public $validateCc;
     public $validateEmail;
     public $validatePhone;
@@ -69,6 +70,7 @@ class UserTable extends Component
         $this->status = '';
         $this->isEditMode = false;
         $this->isFieldsMode = false;
+        $this->isHowToSearchMode = false;
         $this->showingUserModal = true;
     }
 
@@ -210,7 +212,6 @@ class UserTable extends Component
 
     public function showEditUserModal($id)
     {
-        $this->isFieldsMode = false;
         $this->user = User::findOrfail($id);
         $this->type = $this->user->type;
         $this->cc = $this->user->cc;
@@ -223,15 +224,26 @@ class UserTable extends Component
         $this->status = $this->user->status;
         $this->password = '';
         $this->cpassword = '';
+        $this->isHowToSearchMode = false;
         $this->isEditMode = true;
+        $this->isFieldsMode = false;
         $this->showingUserModal = true;
     }
 
     public function showFieldsModal()
     {
+        $this->isHowToSearchMode = false;
         $this->isEditMode = false;
         $this->isFieldsMode = true;
         $this->showingUserModal = true;
+    }
+
+    public function showHowToSearchModal()
+    {
+    $this->isHowToSearchMode = true;
+    $this->isEditMode = false;
+    $this->isFieldsMode = false;
+    $this->showingUserModal = true;
     }
     public function updateUser(){
         if($this->cc!=$this->user->cc){
@@ -341,7 +353,7 @@ class UserTable extends Component
     }
     public function render()
     {
-        $users = User::where('cc', 'like', '%'.$this->search.'%')->orderBy($this->sortField, $this->sortDirection)->paginate($this->paginate);
+        $users = User::where('cc', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')->orwhere('name', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')->orwhere('email', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')->orwhere('phone', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')->orwhere('question', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')->orwhere('answer', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')->orwhere('id', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')->orderBy($this->sortField, $this->sortDirection)->paginate($this->paginate);
         return view('livewire.user-table', ['users' => $users]);
     }
 }

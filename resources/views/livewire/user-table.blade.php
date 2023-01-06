@@ -8,13 +8,19 @@
           <div
             class="w-full bg-zinc-800 sm:flex items-center place-content-between p-5 sm:rounded-tl-lg sm:rounded-tr-lg relative">
             <div class="sm:flex gap-5 items-center">
-              <p class="text-white">Buscar documento</p>
-              <input wire:model="search" type="search" placeholder="Ej: 1058351478" class="rounded max-sm:w-full">
-              <p class="text-white">Filtrar</p>
+              <p class="text-white flex items-center">
+                Buscar
+              
+                <button class="w-5 h-5" wire:click="showHowToSearchModal()">
+              <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>¿Como funciona la busqueda?</title><path d="M256 80a176 176 0 10176 176A176 176 0 00256 80z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path d="M200 202.29s.84-17.5 19.57-32.57C230.68 160.77 244 158.18 256 158c10.93-.14 20.69 1.67 26.53 4.45 10 4.76 29.47 16.38 29.47 41.09 0 26-17 37.81-36.37 50.8S251 281.43 251 296" fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="28"/><circle fill="currentColor" stroke="currentColor" cx="250" cy="348" r="20"/></svg>
+              </button>
+              </p>
+              <input wire:model="search" type="search" placeholder="documento, nombre, correo, telefono, pregunta, respuesta, id" class="rounded max-sm:w-full">
+              <p class="text-white">Estado</p>
               <select wire:change="filter($event.target.value)" class="rounded max-sm:w-full">
-                <option value="2">Todos</option>
-                <option value="0" selected>Activos</option>
-                <option value="1">Inactivos</option>
+                <option value="">Todos</option>
+                <option value="1" selected>Activos</option>
+                <option value="0">Inactivos</option>
               </select>
               <p class="text-white">Elementos por pagina</p>
               <select wire:change="changePaginate($event.target.value)" class="rounded max-sm:w-full">
@@ -231,7 +237,6 @@
                   <tbody class="bg-white divide-y divide-gray-200">
                     @foreach($users as $user)
                     <tr>
-                      @if($this->filter!=$user->status)
                       <td class="px-6 py-4 whitespace-nowrap">
                         <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" {{ $this->isCheckedAll }} id="checkbox{{$user->id}}">
                       </td>
@@ -294,7 +299,6 @@
                       </td>
                       @endif
                     </tr>
-                    @endif
                     @endforeach
                     <!-- More items... -->
                   </tbody>
@@ -312,6 +316,8 @@
             <x-slot name="title">Editar usuario</x-slot>
             @elseif($isFieldsMode)
             <x-slot name="title">Editar Campos</x-slot>
+            @elseif($isHowToSearchMode)
+            <x-slot name="title">¿Como funciona la busqueda?</x-slot>
             @else
             <x-slot name="title">Registrar usuario</x-slot>
             @endif
@@ -345,6 +351,15 @@
                   <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($fieldStatus) checked @endif
                     wire:change="changeField('fieldStatus')">
                 </div>
+                @elseif($isHowToSearchMode)
+                Puedes buscar:<br>
+                documento de identidad<br>
+                nombre, <br>
+                telefono, <br>
+                correo, <br>
+                pregunta clave,<br>
+                 o respuesta.<br>
+                Tn en cuenta que filtro de estado estas utilizando.
                 @else
                 <div class="flex flex-col">
                   <form enctype="multipart/form-data">
@@ -496,6 +511,9 @@
             @elseif($isFieldsMode)
             <x-jet-button wire:click="modalFieldsReset"
               class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
+            @elseif($isHowToSearchMode)
+            <x-jet-button
+              class="invisible">Reset</x-jet-button>
             @else
             <x-jet-button wire:click="modalRegFormReset"
               class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
@@ -505,7 +523,8 @@
               <x-jet-button wire:click="updateUser"
                 class="bg-red-800 hover:bg-red-900 active:bg-red-700">Actualizar</x-jet-button>
               @elseif($isFieldsMode)
-              @else
+              @elseif($isHowToSearchMode)
+            @else
               <x-jet-button wire:click="saveUser"
                 class="bg-red-800 hover:bg-red-900 active:bg-red-700">Guardar</x-jet-button>
               @endif
