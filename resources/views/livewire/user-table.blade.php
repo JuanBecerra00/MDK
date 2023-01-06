@@ -207,7 +207,7 @@
                     <tr>
                       <th class ="bg-zinc-800">
                         <div>
-                          <input type="checkbox" wire:change="selectAll()" class="checked:bg-red-800 focus:ring-red-800 text-red-800">
+                          <input type="checkbox" value="4" wire:change="selectAll($event.target.value)" class="checked:bg-red-800 focus:ring-red-800 text-red-800">
                         </div>
                       </th>
                       @if($fieldId)
@@ -390,8 +390,7 @@
                         <input type="checkbox" wire:change="addToSelecteds({{ $user->id }})" class="checked:bg-red-800 focus:ring-red-800 text-red-800" 
                         @if(in_array($user->id, $selecteds))
                         checked
-                        @endif
-                        {{ $this->isCheckedAll }} id="checkbox{{$user->id}}">
+                        @endif">
                       </td>
                       @if($fieldId)
                       <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[15rem] overflow-x-auto">{{ $user->id }}</div></td>

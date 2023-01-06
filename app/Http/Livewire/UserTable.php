@@ -12,6 +12,7 @@ class UserTable extends Component
     use WithPagination;
     public $showingUserModal = false;
 
+    public $usersRendered;
     public $idUser;
     public $type;
     public $regtype="";
@@ -49,7 +50,7 @@ class UserTable extends Component
     public $validatePhone;
     public $validatePassword;
     public $validateCpassword;
-    public $isCheckedAll = '';
+    public $isCheckedAll = '0';
     public $filter = 1;
     public $fontSize = 16;
     public $selecteds = [];
@@ -64,6 +65,34 @@ class UserTable extends Component
             $this->selecteds = \array_diff($this->selecteds, [$rowId]);
         }else{
             array_push($this->selecteds, $rowId);
+        }
+    }
+
+    public function selectAll($value)
+    {
+        $users = User::where('cc', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+        ->orwhere('name', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+        ->orwhere('email', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+        ->orwhere('phone', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+        ->orwhere('question', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+        ->orwhere('answer', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+        ->orwhere('id', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+        ->orderBy($this->sortField, $this->sortDirection)->paginate('');
+        if($this->isCheckedAll=='0'){
+            $this->isCheckedAll = "1";
+        }else{
+            $this->isCheckedAll = "0";
+        }
+        if($this->isCheckedAll==0){
+            foreach($users as $user){
+                if(!in_array($user->id, $this->selecteds)){
+                    $this->selecteds = \array_diff($this->selecteds, [$user->id]);
+                }
+        }
+        }else{
+            foreach($users as $user){
+                    array_push($this->selecteds, $user->id);
+        }
         }
     }
 
@@ -338,15 +367,6 @@ class UserTable extends Component
         ];
     }
 
-    public function selectAll()
-    {
-        if($this->isCheckedAll==''){
-            $this->isCheckedAll = "checked";
-        }else{
-            $this->isCheckedAll = "";
-        }
-    }
-
     public function fontSizeBigger()
     {
         $this->fontSize+=1;
@@ -358,7 +378,14 @@ class UserTable extends Component
     }
     public function render()
     {
-        $users = User::where('cc', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')->orwhere('name', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')->orwhere('email', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')->orwhere('phone', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')->orwhere('question', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')->orwhere('answer', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')->orwhere('id', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')->orderBy($this->sortField, $this->sortDirection)->paginate($this->paginate);
+        $users = User::where('cc', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+        ->orwhere('name', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+        ->orwhere('email', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+        ->orwhere('phone', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+        ->orwhere('question', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+        ->orwhere('answer', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+        ->orwhere('id', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+        ->orderBy($this->sortField, $this->sortDirection)->paginate($this->paginate);
         return view('livewire.user-table', ['users' => $users]);
     }
 }
