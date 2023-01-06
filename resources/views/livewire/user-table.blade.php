@@ -13,7 +13,7 @@
               <p class="text-white">Filtrar</p>
               <select wire:change="filter($event.target.value)" class="rounded max-sm:w-full">
                 <option value="2">Todos</option>
-                <option value="0">Activos</option>
+                <option value="0" selected>Activos</option>
                 <option value="1">Inactivos</option>
               </select>
               <p class="text-white">Elementos por pagina</p>

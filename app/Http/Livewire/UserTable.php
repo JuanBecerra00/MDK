@@ -49,7 +49,7 @@ class UserTable extends Component
     public $validatePassword;
     public $validateCpassword;
     public $isCheckedAll = '';
-    public $filter = 2;
+    public $filter = 0;
     public $fontSize = 16;
     
     public $search;
