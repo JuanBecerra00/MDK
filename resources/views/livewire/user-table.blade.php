@@ -31,7 +31,7 @@
             </div>
             @if(Auth::user()->job!='M')
             <x-jet-button wire:click="showUserModal"
-              class="bg-red-800 hover:bg-red-900 active:bg-red-700 max-sm:mt-5 max-sm:w-full flex justify-center imtems-center ml-5">Registrar</x-jet-button>
+              class="bg-red-800 hover:bg-red-900 active:bg-red-700 max-sm:mt-5 max-sm:w-full flex justify-center imtems-center sm:ml-5">Registrar</x-jet-button>
             @endif
           </div>
           <div class="-my-2 overflow-x-auto">
