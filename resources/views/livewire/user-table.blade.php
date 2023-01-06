@@ -232,8 +232,6 @@
                     <tr>
                       <td class="px-6 py-4 whitespace-nowrap">
                         <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800" {{ $this->isCheckedAll }} id="checkbox{{$user->id}}">
-                        
-{{ $this->fontSize }}
                       </td>
                       @if($this->filter!=$user->status)
                       @if($fieldId)
