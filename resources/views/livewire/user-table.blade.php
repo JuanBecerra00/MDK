@@ -63,7 +63,7 @@
                       </th>
                       @if($fieldId)
                       <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
                         wire:click="sortBy('id')">
                         <div class="flex">Id<svg class="h-4 w-4 @if($sortField!='id')
                         opacity-0
@@ -80,7 +80,7 @@
                       @endif
                       @if($fieldType)
                       <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
                         wire:click="sortBy('type')">
                         <div class="flex">Tipo de documento<svg class="h-4 w-4 @if($sortField!='type')
                         opacity-0
@@ -97,7 +97,7 @@
                       @endif
                       @if($fieldCc)
                       <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
                         wire:click="sortBy('cc')">
                         <div class="flex">Numero de documento<svg class="h-4 w-4 @if($sortField!='cc')
                         opacity-0
@@ -114,7 +114,7 @@
                       @endif
                       @if($fieldName)
                       <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
                         wire:click="sortBy('name')">
                         <div class="flex">Nombre<svg class="h-4 w-4 @if($sortField!='name')
                         opacity-0
@@ -131,7 +131,7 @@
                       @endif
                       @if($fieldJob)
                       <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
                         wire:click="sortBy('job')">
                         <div class="flex">Cargo<svg class="h-4 w-4 @if($sortField!='job')
                         opacity-0
@@ -148,7 +148,7 @@
                       @endif
                       @if($fieldEmail)
                       <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
                         wire:click="sortBy('email')">
                         <div class="flex">Correo<svg class="h-4 w-4 @if($sortField!='email')
                         opacity-0
@@ -165,7 +165,7 @@
                       @endif
                       @if($fieldPhone)
                       <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
                         wire:click="sortBy('phone')">
                         <div class="flex">Telefono<svg class="h-4 w-4 @if($sortField!='phone')
                         opacity-0
@@ -182,7 +182,7 @@
                       @endif
                       @if($fieldQuestion)
                       <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800">
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800">
                         <div class="flex">Pregunta clave<svg class="h-4 w-4 @if($sortField!='question')
                         opacity-0
                         @endif
@@ -198,7 +198,7 @@
                       @endif
                       @if($fieldAnswer)
                       <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800">
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800">
                         <div class="flex">Respuesta<svg class="h-4 w-4 @if($sortField!='answer')
                         opacity-0
                         @endif
@@ -214,7 +214,7 @@
                       @endif
                       @if($fieldStatus)
                       <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
                         wire:click="sortBy('status')">
                         <div class="flex">Estado<svg class="h-4 w-4 @if($sortField!='status')
                         opacity-0
@@ -230,7 +230,7 @@
                       </th>
                       @endif
                       @if(Auth::user()->job=='A')
-                      <th scope="col" class="relative px-6 py-3 bg-zinc-800">Edit</th>
+                      <th scope="col" class="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider bg-zinc-800">Editar</th>
                       @endif
                     </tr>
                   </thead>
