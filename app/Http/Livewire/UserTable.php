@@ -50,12 +50,12 @@ class UserTable extends Component
     public $validatePhone;
     public $validatePassword;
     public $validateCpassword;
-    public $isCheckedAll = '0';
+    public $isSelectedAll = 0;
     public $filter = 1;
     public $fontSize = 16;
-    public $selecteds = [];
+    public $selecteds = [1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,];
     
-    public $test = 'test';
+    public $test = 0;
     
     public $search;
     protected $queryString = ['search'];
@@ -77,21 +77,17 @@ class UserTable extends Component
         ->orwhere('question', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
         ->orwhere('answer', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
         ->orwhere('id', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
-        ->orderBy($this->sortField, $this->sortDirection)->paginate('');
-        if($this->isCheckedAll=='0'){
-            $this->isCheckedAll = "1";
-        }else{
-            $this->isCheckedAll = "0";
-        }
-        if($this->isCheckedAll==0){
+        ->orderBy($this->sortField, $this->sortDirection)->paginate($this->paginate);;
+        
+        if($this->isSelectedAll!=0){
             foreach($users as $user){
-                if(in_array($user->id, $this->selecteds)){
-                    $this->selecteds = \array_diff($this->selecteds, [$user->id]);
+                if(in_array($user->id, $this->selecteds)==false){
+                    array_push($this->selecteds, $user->id);
                 }
         }
         }else{
             foreach($users as $user){
-                    array_push($this->selecteds, $user->id);
+                $this->selecteds = \array_diff($this->selecteds, [$user->id]);
         }
         }
     }
@@ -378,6 +374,7 @@ class UserTable extends Component
     }
     public function render()
     {
+        $this->isSelectedAll=0;
         $users = User::where('cc', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
         ->orwhere('name', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
         ->orwhere('email', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
@@ -386,6 +383,13 @@ class UserTable extends Component
         ->orwhere('answer', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
         ->orwhere('id', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
         ->orderBy($this->sortField, $this->sortDirection)->paginate($this->paginate);
+        foreach($users as $user){
+            if(in_array($user->id, $this->selecteds)){
+            }else{
+                $this->isSelectedAll+=1;
+            }
+        }
         return view('livewire.user-table', ['users' => $users]);
+        
     }
 }

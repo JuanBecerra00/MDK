@@ -2,12 +2,10 @@
     <div class="max-w-[85vw] overflow-auto">
   <h1 style="font-size: 30px;">Usuarios</h1>
 
-      <div class=" sm:flex">
+      <div class="">
         
-      <?php
-        var_dump($selecteds)
-        ?>
       <div class="absolute right-0 rounded-xl flex flex-col justify-center items-center text-white">
+        
         
             <x-jet-dropdown align="right" width="48" class="" closeClick="open">
                         <x-slot name="trigger">
@@ -40,6 +38,19 @@
             </div>
 
         <div class="m-2 p-2 relative">
+        <div class="bg-zinc-800 p-5 rounded-t-md flex flex-wrap items-center gap-2 text-white max-h-20 overflow-y-auto">
+          @if($selecteds)
+          Seleccionados: 
+          @endif
+          <?php
+          ?>
+          @foreach($selecteds as $selected)
+        <button class="selected-container relative bg-red-800 hover:bg-red-900 active:bg-red-700 cursor-pointer w-8 h-8 flex justify-center items-center text-white rounded-md overflow-hidden" wire:click="addToSelecteds({{$selected}})">
+        X
+        <div class="selected-value opacity-100 w-full h-full absolute flex justify-center items-center rounded-md bg-red-800 duration-500">{{$selected}}</div>
+        </button>
+        @endforeach
+        </div>
 
         
 
@@ -48,7 +59,7 @@
 
 
           <div
-            class="w-full bg-zinc-800 sm:flex items-center place-content-between p-5 sm:rounded-tl-lg sm:rounded-tr-lg relative">
+            class="w-full bg-zinc-800 sm:flex items-center place-content-between p-5 relative">
             <div class="flex max-sm:flex-col gap-5 items-center">
               <p class="text-white flex items-center">
                 Buscar
@@ -208,7 +219,11 @@
                     <tr>
                       <th class ="bg-zinc-800">
                         <div>
-                          <input type="checkbox" value="4" wire:change="selectAll($event.target.value)" class="checked:bg-red-800 focus:ring-red-800 text-red-800">
+                          <input type="checkbox" value="4" wire:change="selectAll($event.target.value)" class="checked:bg-red-800 focus:ring-red-800 text-red-800"
+                          @if($this->isSelectedAll==0)
+                          checked
+                          @endif
+                          >
                         </div>
                       </th>
                       @if($fieldId)
