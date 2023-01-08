@@ -1,5 +1,6 @@
 <div class="flex justify-center mt-20" style="font-size:{{ $this->fontSize }}px">
     <div class="max-w-[85vw] overflow-auto">
+    
   <h1 style="font-size: 30px;">Usuarios</h1>
 
       <div class="">
@@ -37,29 +38,11 @@
                     </x-jet-dropdown>
             </div>
 
-        <div class="m-2 p-2 relative">
-        <div class="bg-zinc-800 p-5 rounded-t-md flex flex-wrap items-center gap-2 text-white max-h-20 overflow-y-auto">
-          @if($selecteds)
-          Seleccionados: 
-          @endif
-          <?php
-          ?>
-          @foreach($selecteds as $selected)
-        <button class="selected-container relative bg-red-800 hover:bg-red-900 active:bg-red-700 cursor-pointer w-8 h-8 flex justify-center items-center text-white rounded-md overflow-hidden" wire:click="addToSelecteds({{$selected}})">
-        X
-        <div class="selected-value opacity-100 w-full h-full absolute flex justify-center items-center rounded-md bg-red-800 duration-500">{{$selected}}</div>
-        </button>
-        @endforeach
-        </div>
-
+        <div class="m-2 p-2 relative ">
         
-
-
         
-
-
           <div
-            class="w-full bg-zinc-800 sm:flex items-center place-content-between p-5 relative">
+            class="w-full bg-zinc-800 sm:flex items-center place-content-between p-5 relative rounded-t-xl">
             <div class="flex max-sm:flex-col gap-5 items-center">
               <p class="text-white flex items-center">
                 Buscar
@@ -431,10 +414,10 @@
                   </thead>
                   <tbody class="bg-white divide-y divide-gray-200">
                     @foreach($users as $user)
-                    <tr class="hover:bg-zinc-300 cursor-pointer duration-200
+                    <tr class="
                     @if(in_array($user->id, $selecteds))
                         bg-red-200
-                        @endif" wire:click="addToSelecteds({{ $user->id }})">
+                        @endif">
                       <td class="px-6 py-4 whitespace-nowrap">
                         <input type="checkbox" wire:change="addToSelecteds({{ $user->id }})" class="checked:bg-red-800 focus:ring-red-800 text-red-800" 
                         @if(in_array($user->id, $selecteds))
@@ -711,4 +694,41 @@
       </div>
     </div>
   </div>
+        @if($selecteds)
+        <div class="fixed top-32 left-5">
+        <x-jet-dropdown align="left" closeClick="open" width="">
+                        <x-slot name="trigger">
+                        <span class="inline-flex rounded-md">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-800 hover:bg-red-700 focus:bg-red-900 focus:outline-none transition shadow-[0px_8px_10px_0px_rgba(0,0,0,0.3)]">
+                                        
+                            Seleccionados
+
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <!-- Account Management -->
+                            <div class="flex gap-5 items-center px-4 py-2 text-xs text-gray-400">
+                                Seleccionados
+                                <x-jet-button wire:click="deselectAll()"
+              class="bg-red-800 hover:bg-red-900 active:bg-red-700 max-sm:w-full flex justify-center imtems-center">Deseleccionar</x-jet-button>
+                            </div>
+                            <div class="flex flex-wrap gap-2 overflow-y-auto max-h-28 px-2 py-2">
+          @foreach($selecteds as $selected)
+            <button class="selected-container relative bg-red-800 hover:bg-red-900 active:bg-red-700 cursor-pointer w-8 h-8 flex justify-center items-center text-white rounded-md overflow-hidden" wire:click="addToSelecteds({{$selected}})">
+              X
+              <div class="selected-value opacity-100 w-full h-full absolute flex justify-center items-center rounded-md bg-red-800 duration-500">
+                {{$selected}}
+              </div>
+            </button>
+          @endforeach
+          </div>
+                        </x-slot>
+                    </x-jet-dropdown> 
+        </div>
+          @endif
   </div>

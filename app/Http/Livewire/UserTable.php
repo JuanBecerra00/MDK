@@ -95,6 +95,11 @@ class UserTable extends Component
         }
     }
 
+    public function deselectAll()
+    {
+        $this->selecteds = [];
+    }
+
     public function showUserModal()
     {
         $this->type = '';
