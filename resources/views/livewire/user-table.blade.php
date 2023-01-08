@@ -431,7 +431,10 @@
                   </thead>
                   <tbody class="bg-white divide-y divide-gray-200">
                     @foreach($users as $user)
-                    <tr>
+                    <tr class="hover:bg-zinc-300 cursor-pointer duration-200
+                    @if(in_array($user->id, $selecteds))
+                        bg-red-200
+                        @endif" wire:click="addToSelecteds({{ $user->id }})">
                       <td class="px-6 py-4 whitespace-nowrap">
                         <input type="checkbox" wire:change="addToSelecteds({{ $user->id }})" class="checked:bg-red-800 focus:ring-red-800 text-red-800" 
                         @if(in_array($user->id, $selecteds))
@@ -439,39 +442,40 @@
                         @endif">
                       </td>
                       @if($fieldId)
-                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[15rem] overflow-x-auto">{{ $user->id }}</div></td>
+                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $user->id }}</div></td>
                       @endif
                       @if($fieldType)
-                      <td class="px-6 py-4 whitespace-nowrap">{{ $user->type }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $user->type }}</div></td>
                       @endif
                       @if($fieldCc)
-                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[15rem] overflow-x-auto">{{ $user->cc }}</div></td>
+                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $user->cc }}</div></td>
                       @endif
                       @if($fieldName)
-                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[15rem] overflow-x-auto">{{ $user->name }}</div></td>
+                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $user->name }}</div></td>
                       @endif
                       @if($fieldJob)
-                      <td class="px-6 py-4 whitespace-nowrap">
-                        @if($user->job=='A')
+                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">
+                      @if($user->job=='A')
                         Administrador
                         @elseif($user->job=='T')
                         Trabajador
                         @elseif($user->job=='M')
                         Mecanico
                         @endif
+                      </div>
                       </td>
                       @endif
                       @if($fieldEmail)
-                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[15rem] overflow-x-auto">{{ $user->email }}</div></td>
+                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $user->email }}</div></td>
                       @endif
                       @if($fieldPhone)
-                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[15rem] overflow-x-auto">{{ $user->phone }}</div></td>
+                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $user->phone }}</div></td>
                       @endif
                       @if($fieldQuestion)
-                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[15rem] overflow-x-auto">{{ $user->question }}</div></td>
+                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $user->question }}</div></td>
                       @endif
                       @if($fieldAnswer)
-                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[15rem] overflow-x-auto">{{ $user->answer }}</div></td>
+                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $user->answer }}</div></td>
                       @endif
                       @if($fieldStatus)
                       <td class="px-6 py-4 whitespace-nowrap">
