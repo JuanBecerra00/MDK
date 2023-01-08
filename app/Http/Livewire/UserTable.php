@@ -2,10 +2,12 @@
 
 namespace App\Http\Livewire;
 
+use App\Exports\UsersExport;
 use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserTable extends Component
 {
@@ -371,6 +373,10 @@ class UserTable extends Component
     public function fontSizeSmaller()
     {
         $this->fontSize-=1;
+    }
+    public function export() 
+    {
+        return Excel::download(new UsersExport($this->selecteds), 'users.xlsx');
     }
     public function render()
     {

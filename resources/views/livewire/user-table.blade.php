@@ -200,6 +200,38 @@
                   <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldStatus) checked @endif>
                         </x-slot>
                     </x-jet-dropdown>
+                    <x-jet-dropdown align="left" width="48">
+                        <x-slot name="trigger">
+                        <span class="inline-flex rounded-md">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-800 hover:bg-red-700 focus:bg-red-900 focus:outline-none transition shadow-[0px_8px_10px_0px_rgba(0,0,0,0.3)]">
+                                        Exportar
+
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <!-- Account Management -->
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Elementos por página') }}
+                            </div>
+                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="export()">
+                              Excel
+                            </button>
+                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changePaginate(10)">
+                              10
+                            </button>
+                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changePaginate(15)">
+                              15
+                            </button>
+                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changePaginate('')">
+                              Todos
+                            </button>
+                        </x-slot>
+                    </x-jet-dropdown>
               </div>
             </div>
             @if(Auth::user()->job!='M')

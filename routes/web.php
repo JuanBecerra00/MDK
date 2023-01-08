@@ -28,4 +28,5 @@ Route::middleware([
     })->name('dashboard');
     
 Route::get('/Users', UserTable::class)->name('users.index');
+Route::get('users/export/', [UsersController::class, 'export']);
 });
