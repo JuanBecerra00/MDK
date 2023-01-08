@@ -56,6 +56,7 @@ class UserTable extends Component
     public $filter = 1;
     public $fontSize = 16;
     public $selecteds = [];
+    public $fieldsExport = [];
     
     public $test = 0;
     
@@ -376,7 +377,8 @@ class UserTable extends Component
     }
     public function export() 
     {
-        return Excel::download(new UsersExport($this->selecteds), 'users.xlsx');
+        
+        return Excel::download(new UsersExport($this->selecteds, $this->fieldId, $this->fieldType, $this->fieldCc, $this->fieldName, $this->fieldJob, $this->fieldEmail, $this->fieldPhone, $this->fieldQuestion, $this->fieldAnswer, $this->fieldStatus), 'users.xlsx');
     }
     public function render()
     {
