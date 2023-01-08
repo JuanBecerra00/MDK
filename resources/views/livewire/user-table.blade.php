@@ -218,8 +218,14 @@
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Formato') }}
                             </div>
-                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="export()">
+                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="exportExcel()">
                               Excel
+                            </button>
+                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="exportCsv()">
+                              CSV
+                            </button>
+                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="export()">
+                              Word
                             </button>
                             
                         </x-slot>

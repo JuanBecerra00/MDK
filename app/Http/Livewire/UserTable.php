@@ -375,10 +375,13 @@ class UserTable extends Component
     {
         $this->fontSize-=1;
     }
-    public function export() 
+    public function exportExcel() 
     {
-        
         return Excel::download(new UsersExport($this->selecteds, $this->fieldId, $this->fieldType, $this->fieldCc, $this->fieldName, $this->fieldJob, $this->fieldEmail, $this->fieldPhone, $this->fieldQuestion, $this->fieldAnswer, $this->fieldStatus), 'users.xlsx');
+    }
+    public function exportCsv() 
+    {
+        return Excel::download(new UsersExport($this->selecteds, $this->fieldId, $this->fieldType, $this->fieldCc, $this->fieldName, $this->fieldJob, $this->fieldEmail, $this->fieldPhone, $this->fieldQuestion, $this->fieldAnswer, $this->fieldStatus), 'users.csv');
     }
     public function render()
     {
