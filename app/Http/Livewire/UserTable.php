@@ -383,6 +383,10 @@ class UserTable extends Component
     {
         return Excel::download(new UsersExport($this->selecteds, $this->fieldId, $this->fieldType, $this->fieldCc, $this->fieldName, $this->fieldJob, $this->fieldEmail, $this->fieldPhone, $this->fieldQuestion, $this->fieldAnswer, $this->fieldStatus), 'users.csv');
     }
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
     public function render()
     {
         $this->isSelectedAll=0;

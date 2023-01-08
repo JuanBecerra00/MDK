@@ -508,7 +508,8 @@
                   </tbody>
                 </table>
                 <div class="m-2 p-2">
-                  {{ $users->links() }}</div>
+                  {{ $users->links() }}
+                </div>
               </div>
             </div>
           </div>
