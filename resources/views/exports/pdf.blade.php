@@ -1,28 +1,37 @@
 <?php
 $filters = explode(",", $selecteds);
 ?>
-<table style="width:100%;">
-  <thead style="height:152px;background:rgb(201, 201, 201);border-radius:10px;">
+<table style="width:100%;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+  <thead style="border-radius:10px;">
     <tr>
       <th style="width:152px;background:rgb(23, 23, 23);">
         <img src="assets/textures/logo.png" style="height:128px;"></img>
       </th>
-      <th style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-        Mega-Chevrolet
+      <th style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-size:30px;">
+        MEGA-CHEVROLET
       </th>
-      <th style="width:256px;">
-      asdasddsad<br>
-      asdasdad
+      <th>
+
       </th>
     </tr>
   </thead>
   <tbody>
     <td>
-      adfdf
+      Fecha:
+      <?php
+      echo date('d/m/y');
+      ?>
+    </td>
+    <td>
+      Hora:
+      <?php
+      echo date('h:i A');
+      ?>
     </td>
   </tbody>
 </table>
-<table class="w-full divide-y divide-gray-200 ">
+<p style="font-size:30px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Usuarios</p>
+<table class="w-full divide-y divide-gray-200 " style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
                   <thead class="" style="background:rgb(39, 39, 42);color:white;border-radius: 5px;padding-bottom:20px;">
 
                     <tr>
