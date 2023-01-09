@@ -30,3 +30,6 @@ Route::middleware([
 Route::get('/Users', UserTable::class)->name('users.index');
 Route::get('users/export/', [UsersController::class, 'export']);
 });
+ 
+
+Route::get('pdf', [UserTable::class, 'pdf'])->name('users.pdf');

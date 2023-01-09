@@ -207,9 +207,11 @@
                             <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="exportCsv()">
                               CSV
                             </button>
-                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="export()">
-                              Word
+                            <a href="{{ route('users.pdf') }}">
+                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition">
+                              PDF
                             </button>
+                            </a>
                             
                         </x-slot>
                     </x-jet-dropdown>

@@ -3,6 +3,8 @@
 namespace App\Http\Livewire;
 
 use App\Exports\UsersExport;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\App;
 use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -391,6 +393,13 @@ class UserTable extends Component
     public function updatingSearch()
     {
         $this->resetPage();
+    }
+
+    public function pdf()
+    {
+        $users = User::all();
+        $pdf = PDF::loadView('exports.pdf', compact('users'));
+        return $pdf->download('a.pdf');
     }
     public function render()
     {
