@@ -1,5 +1,9 @@
 <div class="flex justify-center mt-20" style="font-size:{{ $this->fontSize }}px">
-    <div class="max-w-[85vw] overflow-auto">
+  <div class="max-w-[85vw] overflow-auto">
+    <?php
+    echo $this->pdfSelecteds;
+    echo $this->pdfFields;
+    ?>
     
   <h1 style="font-size: 30px;">Usuarios</h1>
 
@@ -201,13 +205,14 @@
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Formato') }}
                             </div>
-                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="exportExcel()">
+                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="gopdf()">
                               Excel
                             </button>
                             <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="exportCsv()">
                               CSV
                             </button>
-                            <a href="{{ route('users.pdf') }}">
+                            <a href="/pdf/{{$this->pdfSelecteds}},{{$this->pdfFields}}
+                            ">
                             <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition">
                               PDF
                             </button>
@@ -734,3 +739,9 @@
         </div>
           @endif
   </div>
+  <script>
+    window.onload=function()
+{
+ PrintElem();
+}
+  </script>

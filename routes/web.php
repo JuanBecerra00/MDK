@@ -32,4 +32,4 @@ Route::get('users/export/', [UsersController::class, 'export']);
 });
  
 
-Route::get('pdf', [UserTable::class, 'pdf'])->name('users.pdf');
+Route::get('pdf/{id}', [UserTable::class, 'pdf'])->name('users.pdf');

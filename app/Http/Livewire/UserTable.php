@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Exports\UsersExport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\View;
 use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -58,9 +59,13 @@ class UserTable extends Component
     public $filter = 1;
     public $fontSize = 16;
     public $selecteds = [];
+    public $fields = ['fieldId', 'fieldCc', 'fieldName', 'fieldJob', 'fieldEmail', 'fieldPhone', 'fieldStatus'];
     public $fieldsExport = [];
     
     public $test = 0;
+    public $pdfSelecteds = 0;
+    public $pdfFields = 0;
+    public $pdfSelectedsArray = [];
     
     public $search;
     protected $queryString = ['search'];
@@ -181,6 +186,11 @@ class UserTable extends Component
             $this->$field = false;
         } else {
             $this->$field = true;
+        }
+        if(in_array($field, $this->fields)){
+            $this->fields = \array_diff($this->fields, [$field]);
+        }else{
+            array_push($this->fields, $field);
         }
     }
 
@@ -395,14 +405,25 @@ class UserTable extends Component
         $this->resetPage();
     }
 
-    public function pdf()
+    public function loadSelecteds($selecteds)
     {
+        return view("exports.pdf",['selecteds' => $selecteds]);
+        
+    }
+    public function pdf($selecteds)
+    {   
         $users = User::all();
-        $pdf = PDF::loadView('exports.pdf', compact('users'));
-        return $pdf->download('a.pdf');
+        $pdf = PDF::loadView('exports.pdf', compact('users'),['selecteds' => $selecteds]);
+        return $pdf->stream('a.pdf');
+        
+    }
+    public function gopdf()
+    {
     }
     public function render()
     {
+        $this->pdfFields = implode(',',$this->fields);
+        $this->pdfSelecteds = implode(',',$this->selecteds);
         $this->isSelectedAll=0;
         $users = User::where('cc', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
         ->orwhere('name', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
