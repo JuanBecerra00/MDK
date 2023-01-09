@@ -1,10 +1,27 @@
 <?php
 $filters = explode(",", $selecteds);
 ?>
-<div style="width:100%;height:152px;background:rgb(201, 201, 201);border-radius:10px;">
-<img src="https://dieselpunkcore.com/wp-content/uploads/2014/06/logo-placeholder.png" style="height:100%;"></img>
-<img src="https://dieselpunkcore.com/wp-content/uploads/2014/06/logo-placeholder.png" style="height:100%;"></img>
-</div>
+<table style="width:100%;">
+  <thead style="height:152px;background:rgb(201, 201, 201);border-radius:10px;">
+    <tr>
+      <th style="width:152px;background:rgb(23, 23, 23);">
+        <img src="assets/textures/logo.png" style="height:128px;"></img>
+      </th>
+      <th style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+        Mega-Chevrolet
+      </th>
+      <th style="width:256px;">
+      asdasddsad<br>
+      asdasdad
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <td>
+      adfdf
+    </td>
+  </tbody>
+</table>
 <table class="w-full divide-y divide-gray-200 ">
                   <thead class="" style="background:rgb(39, 39, 42);color:white;border-radius: 5px;padding-bottom:20px;">
 
