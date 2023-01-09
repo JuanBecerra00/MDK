@@ -1,9 +1,5 @@
 <div class="flex justify-center mt-20" style="font-size:{{ $this->fontSize }}px">
   <div class="max-w-[85vw] overflow-auto">
-    <?php
-    echo $this->pdfSelecteds;
-    echo $this->pdfFields;
-    ?>
     
   <h1 style="font-size: 30px;">Usuarios</h1>
 
@@ -187,6 +183,7 @@
                   <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldStatus) checked @endif>
                         </x-slot>
                     </x-jet-dropdown>
+                    @if($selecteds)
                     <x-jet-dropdown align="left" width="48">
                         <x-slot name="trigger">
                         <span class="inline-flex rounded-md">
@@ -199,20 +196,18 @@
                                     </button>
                                 </span>
                         </x-slot>
-
                         <x-slot name="content">
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Formato') }}
                             </div>
-                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="gopdf()">
+                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="exportExcel()">
                               Excel
                             </button>
                             <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="exportCsv()">
                               CSV
                             </button>
-                            <a href="/pdf/{{$this->pdfSelecteds}},{{$this->pdfFields}}
-                            ">
+                            <a href="/pdf/{{$this->encryption}}" target="blank">
                             <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition">
                               PDF
                             </button>
@@ -220,6 +215,7 @@
                             
                         </x-slot>
                     </x-jet-dropdown>
+                    @endif
               </div>
             </div>
             @if(Auth::user()->job!='M')
@@ -423,7 +419,7 @@
                     @foreach($users as $user)
                     <tr class="
                     @if(in_array($user->id, $selecteds))
-                        bg-red-200
+                        bg-zinc-300
                         @endif">
                       <td class="px-6 py-4 whitespace-nowrap">
                         <input type="checkbox" wire:change="addToSelecteds({{ $user->id }})" class="checked:bg-red-800 focus:ring-red-800 text-red-800" 

@@ -62,6 +62,8 @@ class UserTable extends Component
     public $fields = ['fieldId', 'fieldCc', 'fieldName', 'fieldJob', 'fieldEmail', 'fieldPhone', 'fieldStatus'];
     public $fieldsExport = [];
     
+    public $exportData;
+    public $encryption;
     public $test = 0;
     public $pdfSelecteds = 0;
     public $pdfFields = 0;
@@ -410,10 +412,10 @@ class UserTable extends Component
         return view("exports.pdf",['selecteds' => $selecteds]);
         
     }
-    public function pdf($selecteds)
+    public function pdf($exportData)
     {   
         $users = User::all();
-        $pdf = PDF::loadView('exports.pdf', compact('users'),['selecteds' => $selecteds]);
+        $pdf = PDF::loadView('exports.pdf', compact('users'),['exportData' => $exportData]);
         return $pdf->stream('a.pdf');
         
     }
@@ -424,7 +426,11 @@ class UserTable extends Component
     {
         $this->pdfFields = implode(',',$this->fields);
         $this->pdfSelecteds = implode(',',$this->selecteds);
+        $this->exportData=$this->pdfSelecteds.','.$this->pdfFields;
         $this->isSelectedAll=0;
+        $this->encryption = openssl_encrypt($this->exportData, "AES-128-CTR",
+        "34567890odxcvbnko8765", 0, '1234567891011121');
+        $this->encryption = str_replace('/', 'ñ', $this->encryption);
         $users = User::where('cc', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
         ->orwhere('name', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
         ->orwhere('email', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')

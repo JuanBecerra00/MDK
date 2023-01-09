@@ -1,5 +1,8 @@
 <?php
-$filters = explode(",", $selecteds);
+$exportData = str_replace('ñ', '/', $exportData);
+$decryption=openssl_decrypt ($exportData, "AES-128-CTR", 
+"34567890odxcvbnko8765", 0, '1234567891011121');
+$filters = explode(",", $decryption);
 ?>
 <table style="width:100%;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
   <thead style="border-radius:10px;">
@@ -45,13 +48,13 @@ $filters = explode(",", $selecteds);
                       @if(in_array('fieldType', $filters))
                       <th scope="col" style="padding:5px;width:100%;"
                         wire:click="sortBy('type')">
-                        <div class="flex">Tipo de documento</div>
+                        <div class="flex">Tipo</div>
                       </th>
                       @endif
                       @if(in_array('fieldCc', $filters))
                       <th scope="col" style="padding:5px;width:100%;"
                         wire:click="sortBy('cc')">
-                        <div class="flex">Numero de documento</div>
+                        <div class="flex">Documento</div>
                       </th>
                       @endif
                       @if(in_array('fieldName', $filters))
