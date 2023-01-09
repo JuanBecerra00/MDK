@@ -16,14 +16,15 @@ $filters = explode(",", $selecteds);
     </tr>
   </thead>
   <tbody>
-    <td>
-      Fecha:
+    <td style="">
+      
+    </td>
+    <td style="text-align: right; gap:50px;">
+    Fecha:
       <?php
       echo date('d/m/y');
       ?>
-    </td>
-    <td>
-      Hora:
+      <label style="">       </label>Hora:
       <?php
       echo date('h:i A');
       ?>
@@ -31,95 +32,85 @@ $filters = explode(",", $selecteds);
   </tbody>
 </table>
 <p style="font-size:30px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Usuarios</p>
-<table class="w-full divide-y divide-gray-200 " style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                  <thead class="" style="background:rgb(39, 39, 42);color:white;border-radius: 5px;padding-bottom:20px;">
+<table class="w-full divide-y divide-gray-200 " style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;background:rgb(39, 39, 42);padding:20px;">
+                  <thead class="" style="border-bottom: red solid;color:white;">
 
                     <tr>
                     @if(in_array('fieldId', $filters))
-                      <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                      <th scope="col" style="padding:5px;width:100%"
                         wire:click="sortBy('id')">
                         <div class="flex">Id</div>
                       </th>
                       @endif
                       @if(in_array('fieldType', $filters))
-                      <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                      <th scope="col" style="padding:5px;width:100%;"
                         wire:click="sortBy('type')">
                         <div class="flex">Tipo de documento</div>
                       </th>
                       @endif
                       @if(in_array('fieldCc', $filters))
-                      <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                      <th scope="col" style="padding:5px;width:100%;"
                         wire:click="sortBy('cc')">
                         <div class="flex">Numero de documento</div>
                       </th>
                       @endif
                       @if(in_array('fieldName', $filters))
-                      <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                      <th scope="col" style="padding:5px;width:100%;"
                         wire:click="sortBy('name')">
                         <div class="flex">Nombre</div>
                       </th>
                       @endif
                       @if(in_array('fieldJob', $filters))
-                      <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                      <th scope="col" style="padding:5px;width:100%;"
                         wire:click="sortBy('job')">
                         <div class="flex">Cargo</div>
                       </th>
                       @endif
                       @if(in_array('fieldEmail', $filters))
-                      <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                      <th scope="col" style="padding:5px;width:100%;"
                         wire:click="sortBy('email')">
                         <div class="flex">Correo</div>
                       </th>
                       @endif
                       @if(in_array('fieldPhone', $filters))
-                      <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                      <th scope="col" style="padding:5px;width:100%;"
                         wire:click="sortBy('phone')">
                         <div class="flex">Telefono</div>
                       </th>
                       @endif
                       @if(in_array('fieldQuestion', $filters))
-                      <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800">
+                      <th scope="col" style="padding:5px;width:100%;">
                         <div class="flex">Pregunta clave</div>
                       </th>
                       @endif
                       @if(in_array('fieldAnswer', $filters))
-                      <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800">
+                      <th scope="col" style="padding:5px;width:100%;">
                         <div class="flex">Respuesta</div>
                       </th>
                       @endif
                       @if(in_array('fieldStatus', $filters))
-                      <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                      <th scope="col" style="padding:5px;width:100%;"
                         wire:click="sortBy('status')">
                         <div class="flex">Estado</div>
                       </th>
                       @endif
                     </tr>
                   </thead>
-                  <tbody class="bg-white divide-y divide-gray-200">
+                  <tbody style="background:white;">
                     @foreach($users as $user)
                     @if(in_array($user->id, $filters))
                     <tr class="">
                     @if(in_array('fieldId', $filters))
-                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $user->id }}</div></td>
+                      <td style="padding:10px;border:0px;" class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $user->id }}</div></td>
                       @endif
                       @if(in_array('fieldType', $filters))
-                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $user->type }}</div></td>
+                      <td style="padding:10px;border:0px;" class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $user->type }}</div></td>
                       @endif
                       @if(in_array('fieldCc', $filters))
-                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $user->cc }}</div></td>
+                      <td style="padding:10px;border:0px;" class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $user->cc }}</div></td>
                       @endif
                       @if(in_array('fieldName', $filters))
-                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $user->name }}</div></td>
+                      <td style="padding:10px;border:0px;" class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $user->name }}</div></td>
                       @endif
                       @if(in_array('fieldJob', $filters))
                       <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">
