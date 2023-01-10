@@ -24,6 +24,9 @@
                     <x-jet-nav-link href="{{ route('providers.index') }}" :active="request()->routeIs('users.index')" class="text-white">
                         {{ __('Providers') }}
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('reports.index') }}" :active="request()->routeIs('users.index')" class="text-white">
+                        {{ __('Reports') }}
+                    </x-jet-nav-link>
                 </div>
             </div>
 
