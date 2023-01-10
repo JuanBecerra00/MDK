@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\UserTable;
 use App\Http\Livewire\ProductTable;
+use App\Http\Livewire\ProviderTable;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +31,7 @@ Route::middleware([
     
 Route::get('/Users', UserTable::class)->name('users.index');
 Route::get('/Products', ProductTable::class)->name('products.index');
+Route::get('/Providers', ProviderTable::class)->name('providers.index');
 Route::get('users/export/', [UsersController::class, 'export']);
 Route::get('pdf/{id}', [UserTable::class, 'pdf'])->name('users.pdf');
 });
