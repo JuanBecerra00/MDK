@@ -18,17 +18,20 @@
                     <x-jet-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')" class="text-white">
                         {{ __('Users') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('products.index') }}" :active="request()->routeIs('users.index')" class="text-white">
+                    <x-jet-nav-link href="{{ route('products.index') }}" :active="request()->routeIs('products.index')" class="text-white">
                         {{ __('Products') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('providers.index') }}" :active="request()->routeIs('users.index')" class="text-white">
+                    <x-jet-nav-link href="{{ route('providers.index') }}" :active="request()->routeIs('providers.index')" class="text-white">
                         {{ __('Providers') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('reports.index') }}" :active="request()->routeIs('users.index')" class="text-white">
+                    <x-jet-nav-link href="{{ route('reports.index') }}" :active="request()->routeIs('reports.index')" class="text-white">
                         {{ __('Reports') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('vehicles.index') }}" :active="request()->routeIs('users.index')" class="text-white">
+                    <x-jet-nav-link href="{{ route('vehicles.index') }}" :active="request()->routeIs('vehicles.index')" class="text-white">
                         {{ __('Vehicles') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('billing.index') }}" :active="request()->routeIs('billing.index')" class="text-white">
+                        {{ __('Billing') }}
                     </x-jet-nav-link>
                 </div>
             </div>
