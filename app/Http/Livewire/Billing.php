@@ -24,6 +24,8 @@ class Billing extends Component
     public $proceduresCounter = 0;
     public $procedureName;
     public $procedurePrice;
+    public $procedureIsEdit = 0;
+    public $procedureLastEdit;
 
 
     public function test($value)
@@ -66,24 +68,35 @@ class Billing extends Component
     }
     public function procedureSave()
     {
-        $this->procedures[$this->proceduresCounter][0]=$this->procedureName;
-        $this->procedures[$this->proceduresCounter][1]=$this->procedurePrice;
+        if($this->procedureName!='' && $this->procedurePrice!=''){
+            $this->procedures[$this->procedureIsEdit][0]=$this->procedureName;
+        $this->procedures[$this->procedureIsEdit][1]=$this->procedurePrice;
         $this->proceduresCounter++;
-        array_push($this->procedures, [$this->proceduresCounter, '']);
-    }
-    public function procedureDelete($id)
-    {
-        unset($this->procedures[$id]);
+        $this->procedureName = '';
+        $this->procedurePrice = '';
+        $this->procedureIsEdit++;
+        if($this->procedureLastEdit){
+            $this->procedureIsEdit = $this->procedureLastEdit;
+            $this->procedureLastEdit = '';
+        }else{
+            array_push($this->procedures, [$this->proceduresCounter, '']);
+        }
+        }
     }
     public function procedureEdit($id)
     {
-        unset($this->procedures[$this->proceduresCounter]);
+        $this->procedureLastEdit = $this->procedureIsEdit;
+        $this->procedureIsEdit = $id;
+        $this->procedureName = $this->procedures[$id][0];
+        $this->procedurePrice = $this->procedures[$id][1];
+    }
+    public function procedureDelete($id)
+    {
+        $this->procedures[$id][0]='';
+        $this->procedures[$id][1]='';
     }
     public function render()
     {
-        return view('livewire.billing', 
-        ['users' => User::where('id', 'like', '%'.$this->search.'%')->get(),],
-        ['vehicles' => Vehicle::where('id', 'like', '%'.$this->search.'%')->get(),]
-        );
+        return view('livewire.billing', ['users' => User::all()], ['vehicles' => Vehicle::all()]);
     }
 }

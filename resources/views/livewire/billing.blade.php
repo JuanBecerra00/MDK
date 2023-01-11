@@ -11,7 +11,7 @@
                 <p>Numero de documento</p>
                 <div>
                   <div class="flex gap-2 items-center">
-                    <input type="text" list="customers" value="{{$customer}}"
+                    <input type="text" list="customers" value="{{$customer}}" class="border-0 border-black border-b focus:ring-none"
                       wire:change="setCustomer($event.target.value)">
                     @if($customer)
                     <button button class="rounded w-6 h-6 text-zinc-500" wire:click="resetCustomer()">Borrar</button>
@@ -27,19 +27,19 @@
               <div class="flex gap-5 max-sm:flex-wrap">
                 <div class="flex flex-col gap-2">
                   <p>Nombre</p>
-                  <div class="border-0 border-b border-black w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
+                  <div class="bg-zinc-200 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
                     {{$customerName}}
                   </div>
                 </div>
                 <div class="flex flex-col gap-2">
                   <p>Email</p>
-                  <div class="border-0 border-b border-black w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
+                  <div class="bg-zinc-200 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
                     {{$customerEmail}}
                   </div>
                 </div>
                 <div class="flex flex-col gap-2">
                   <p>Telefono</p>
-                  <div class="border-0 border-b border-black w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
+                  <div class="bg-zinc-200 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
                     {{$customerPhone}}
                   </div>
                 </div>
@@ -76,18 +76,14 @@
           </div>
         </div>
       </section>
-      ///////////////
-      <section class="bg-red-500 w-full flex justify-center">
-        <div class="sm:w-[90%] bg-blue-500 pb-5">
-          <p class="text-xl">Trabajos realizados</p>
+      <section class="w-full flex justify-center">
+        <div class="sm:w-[90%] pb-5">
           <div class="bg-zinc-800 w-full p-5 rounded-t-xl flex justify-end">
-            <x-jet-button wire:click="addProcedure()"
-              class="bg-red-800 hover:bg-red-900 active:bg-red-700 max-sm:mt-5 max-sm:w-full flex justify-center imtems-center sm:ml-5">Registrar</x-jet-button>
           </div>
           <?php
           var_dump($this->procedures);
           ?>
-          {{$this->test}}
+          {{$this->procedureIsEdit}}
           <table class="w-full shadow-xl">
               <thead class="text-white">
                 <tr class="bg-zinc-800">
@@ -99,22 +95,41 @@
               <tbody>
                 @foreach($this->procedures as $key => $val)
                 <tr class="w-full">
-                  <th class="bg-white px-6 py-3">
-                    @if($val[0] && $val[1])
-                    {{$val[0]}}
-                    @else
+                  <th class="bg-white
+                  @if($this->procedureIsEdit==$key)
+                  px-6 py-3
+                  @elseif($val[0]!='' or  $val[1]!='')
+                  px-6 py-3
+                  @elseif($val[0]=='' or  $val[1]=='')
+                  h-0
+                  @endif">
+                    @if($this->procedureIsEdit==$key)
                     <input type="text" wire:model.lazy="procedureName">
+                    @elseif($val[0] && $val[1])
+                    {{$val[0]}}
                     @endif
                   </th>
-                  <th class="bg-white px-6 py-3">
-                  @if($val[0] && $val[1])
-                    {{$val[1]}}
-                    @else
+                  <th class="bg-white 
+                  @if($this->procedureIsEdit==$key)
+                  px-6 py-3
+                  @elseif($val[0]!='' or  $val[1]!='')
+                  px-6 py-3
+                  @elseif($val[0]=='' or  $val[1]=='')
+                  h-0
+                  @endif">
+                  @if($this->procedureIsEdit==$key)
                     <input type="number" wire:model.lazy="procedurePrice">
+                    @elseif($val[0] && $val[1])
+                    {{$val[1]}}
                     @endif
                   </th>
                   <th class="bg-slate-100">
-                  @if($val[0] && $val[1])
+                    @if($this->procedureIsEdit==$key)
+                    <x-jet-button wire:click="procedureSave()"
+                      class="bg-red-800 hover:bg-red-900 active:bg-red-700">
+                        Guardar
+                    </x-jet-button>
+                  @elseif($val[0] && $val[1])
                     <x-jet-button wire:click="procedureEdit({{ $key}})"
                       class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">
                         Editar
@@ -122,11 +137,6 @@
                     <x-jet-button wire:click="procedureDelete({{ $key}})"
                       class="bg-red-800 hover:bg-red-900 active:bg-red-700">
                         Quitar
-                    </x-jet-button>
-                    @else
-                    <x-jet-button wire:click="procedureSave()"
-                      class="bg-red-800 hover:bg-red-900 active:bg-red-700">
-                        Guardar
                     </x-jet-button>
                     @endif
                   </th>
