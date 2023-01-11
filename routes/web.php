@@ -31,7 +31,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    
+
 Route::get('/Users', UserTable::class)->name('users.index');
 Route::get('/Products', ProductTable::class)->name('products.index');
 Route::get('/Providers', ProviderTable::class)->name('providers.index');
@@ -40,6 +40,8 @@ Route::get('/Vehicles', VehicleTable::class)->name('vehicles.index');
 Route::get('/Billing', Billing::class)->name('billing.index');
 Route::get('users/export/', [UsersController::class, 'export']);
 Route::get('pdf/{id}', [UserTable::class, 'pdf'])->name('users.pdf');
+Route::get('products/export/', [ProductsController::class, 'export']);
+Route::get('pdf/{id}', [ProductTable::class, 'pdf'])->name('products.pdf');
 });
- 
+
 
