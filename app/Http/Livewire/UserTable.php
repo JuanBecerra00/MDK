@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Exports\UsersExport;
+use App\Exports\UsersExportPdf;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
@@ -396,11 +396,11 @@ class UserTable extends Component
     }
     public function exportExcel() 
     {
-        return Excel::download(new UsersExport($this->selecteds, $this->fieldId, $this->fieldType, $this->fieldCc, $this->fieldName, $this->fieldJob, $this->fieldEmail, $this->fieldPhone, $this->fieldQuestion, $this->fieldAnswer, $this->fieldStatus), 'users.xlsx');
+        return Excel::download(new usersExportPdf($this->selecteds, $this->fieldId, $this->fieldType, $this->fieldCc, $this->fieldName, $this->fieldJob, $this->fieldEmail, $this->fieldPhone, $this->fieldQuestion, $this->fieldAnswer, $this->fieldStatus), 'users.xlsx');
     }
     public function exportCsv() 
     {
-        return Excel::download(new UsersExport($this->selecteds, $this->fieldId, $this->fieldType, $this->fieldCc, $this->fieldName, $this->fieldJob, $this->fieldEmail, $this->fieldPhone, $this->fieldQuestion, $this->fieldAnswer, $this->fieldStatus), 'users.csv');
+        return Excel::download(new usersExportPdf($this->selecteds, $this->fieldId, $this->fieldType, $this->fieldCc, $this->fieldName, $this->fieldJob, $this->fieldEmail, $this->fieldPhone, $this->fieldQuestion, $this->fieldAnswer, $this->fieldStatus), 'users.csv');
     }
     public function updatingSearch()
     {

@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Ramsey\Uuid\Nonstandard\Fields;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class UsersExport implements FromQuery, WithHeadings
+class UsersExportPdf implements FromQuery, WithHeadings
 {
     /**
      * @return \Illuminate\Support\Collection
