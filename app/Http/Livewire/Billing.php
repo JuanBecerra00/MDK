@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use App\Models\Vehicle;
+use App\Models\Customer;
+use App\Models\Product;
 use Livewire\Component;
 
 class Billing extends Component
@@ -34,20 +36,29 @@ class Billing extends Component
     }
     public function setCustomer($id)
     {
-        $this->customerSearch = User::findOrfail($id);
-        $this->customerName = $this->customerSearch->name;
-        $this->customerEmail = $this->customerSearch->email;
-        $this->customerPhone = $this->customerSearch->phone;
-        $this->customer = $this->customerSearch->cc;
-        $this->search='';
+        $this->customerSearch = User::find($id);
+        if(User::find($id)){
+            $this->customerName = $this->customerSearch->name;
+            $this->customerEmail = $this->customerSearch->email;
+            $this->customerPhone = $this->customerSearch->phone;
+            $this->customer = $this->customerSearch->cc;
+        }else{
+            $this->customerName = 'No encontrado';
+            $this->customerEmail = 'No encontrado';
+            $this->customerPhone = 'No encontrado';
+        }
     }
     public function setVehicle($id)
     {
-        $this->vehicleSearch = Vehicle::findOrfail($id);
-        $this->vehiclePlate = $this->vehicleSearch->plate;
-        $this->vehicleModel = $this->vehicleSearch->model;
-        $this->vehicle = $this->vehicleSearch->plate;
-        $this->search='';
+        $this->vehicleSearch = Vehicle::find($id);
+        if(Vehicle::find($id)){
+            $this->vehiclePlate = $this->vehicleSearch->plate;
+            $this->vehicleModel = $this->vehicleSearch->model;
+            $this->vehicle = $this->vehicleSearch->plate;
+        }else{
+            $this->vehiclePlate = 'No encontrado';
+            $this->vehicleModel = 'No encontrado';
+        }
     }
     public function resetCustomer()
     {
@@ -97,6 +108,6 @@ class Billing extends Component
     }
     public function render()
     {
-        return view('livewire.billing', ['users' => User::all()], ['vehicles' => Vehicle::all()]);
+        return view('livewire.billing', ['users' => User::all()], ['vehicles' => Vehicle::all(), 'customers' => Customer::all(), 'products' => Product::all()]);
     }
 }
