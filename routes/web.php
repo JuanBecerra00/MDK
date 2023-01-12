@@ -5,6 +5,7 @@ use App\Http\Livewire\ProductTable;
 use App\Http\Livewire\ProviderTable;
 use App\Http\Livewire\ReportTable;
 use App\Http\Livewire\VehicleTable;
+use App\Http\Livewire\CustomerTable;
 use App\Http\Livewire\Billing;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +44,7 @@ Route::get('pdf/{id}', [UserTable::class, 'pdf'])->name('users.pdf');
 Route::get('/Products', ProductTable::class)->name('products.index');
 Route::get('products/export/', [ProductsController::class, 'export']);
 Route::get('productPdf/{id}', [ProductTable::class, 'pdf'])->name('products.pdf');
+Route::get('/customers', CustomerTable::class)->name('customers.index');
 });
  
 

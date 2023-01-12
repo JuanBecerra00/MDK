@@ -33,6 +33,9 @@
                     <x-jet-nav-link href="{{ route('billing.index') }}" :active="request()->routeIs('billing.index')" class="text-white">
                         {{ __('Billing') }}
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('customers.index') }}" :active="request()->routeIs('customer.index')" class="text-white">
+                        {{ __('Customer') }}
+                    </x-jet-nav-link>
                 </div>
             </div>
 
