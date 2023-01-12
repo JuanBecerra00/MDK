@@ -228,7 +228,9 @@
             <div class="py-2 align-middle inline-block min-w-full
           ">
               <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-bl-lg sm:rounded-br-lg">
-
+{{$this->pdfSelecteds}}<br>
+{{$this->pdfFields}}<br>
+{{$this->exportData}}
                 <table class="w-full divide-y divide-gray-200 ">
                   <thead class="bg-gray-50 dark:bg-gray-600 dark:text-gray-200">
 

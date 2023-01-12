@@ -40,6 +40,9 @@ Route::get('/Vehicles', VehicleTable::class)->name('vehicles.index');
 Route::get('/Billing', Billing::class)->name('billing.index');
 Route::get('users/export/', [UsersController::class, 'export']);
 Route::get('pdf/{id}', [UserTable::class, 'pdf'])->name('users.pdf');
+Route::get('/Products', ProductTable::class)->name('products.index');
+Route::get('products/export/', [ProductsController::class, 'export']);
+Route::get('productPdf/{id}', [ProductTable::class, 'pdf'])->name('products.pdf');
 });
  
 

@@ -4,6 +4,52 @@
       <section class="w-full flex justify-center">
         <div class="sm:w-[90%]">
           <p class="text-xl">Datos del cliente</p>
+          <div class="w-full sm:h-[15rem] shadow-xl rounded-xl p-5 bg-white flex flex-col gap-2">
+              <p class="text-xl">Cliente</p>
+              <div>
+                <p>Numero de documento</p>
+                <div>
+                  <div class="flex gap-2 items-center">
+                    <input type="text" list="customers" value="{{$customer}}" class="border-0 border-black border-b"
+                      wire:change="setCustomer($event.target.value)">
+                    @if($customer)
+                    <button button class="rounded w-6 h-6 text-zinc-500" wire:click="resetCustomer()">Borrar</button>
+                    @endif
+                  </div>
+                </div>
+                <datalist id="customers">
+                  @foreach($users as $user)
+                  <option value="{{$user->id}}  {{$user->cc}}">{{$user->name}}</option>
+                  @endforeach
+                </datalist>
+              </div>
+              <div class="flex gap-5 max-sm:flex-wrap">
+                <div class="flex flex-col gap-2">
+                  <p>Nombre</p>
+                  <div class="bg-zinc-200 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
+                    {{$customerName}}
+                  </div>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <p>Email</p>
+                  <div class="bg-zinc-200 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
+                    {{$customerEmail}}
+                  </div>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <p>Telefono</p>
+                  <div class="bg-zinc-200 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
+                    {{$customerPhone}}
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </section>
+      ///////////////
+      <section class="w-full flex justify-center">
+        <div class="sm:w-[90%]">
+          <p class="text-xl">Vehiculo</p>
           <div class="flex gap-5 flex-wrap lg:flex-nowrap">
             <div class="w-full sm:h-[15rem] shadow-xl rounded-xl p-5 bg-white flex flex-col gap-2">
               <p class="text-xl">Cliente</p>
@@ -11,7 +57,7 @@
                 <p>Numero de documento</p>
                 <div>
                   <div class="flex gap-2 items-center">
-                    <input type="text" list="customers" value="{{$customer}}" class="border-0 border-black border-b focus:ring-none"
+                    <input type="text" list="customers" value="{{$customer}}" class="border-0 border-black border-b"
                       wire:change="setCustomer($event.target.value)">
                     @if($customer)
                     <button button class="rounded w-6 h-6 text-zinc-500" wire:click="resetCustomer()">Borrar</button>
@@ -67,7 +113,7 @@
               <div class=" gap-5">
                 <div class="flex flex-col gap-2">
                   <p>Modelo</p>
-                  <div class="border-0 border-b border-black w-full overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
+                  <div class="bg-zinc-200 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
                     {{$this->vehicleModel}}
                   </div>
                 </div>
@@ -76,14 +122,11 @@
           </div>
         </div>
       </section>
+      ////////////////
       <section class="w-full flex justify-center">
         <div class="sm:w-[90%] pb-5">
           <div class="bg-zinc-800 w-full p-5 rounded-t-xl flex justify-end">
           </div>
-          <?php
-          var_dump($this->procedures);
-          ?>
-          {{$this->procedureIsEdit}}
           <table class="w-full shadow-xl">
               <thead class="text-white">
                 <tr class="bg-zinc-800">
