@@ -518,6 +518,7 @@
                         <x-slot name="title">Registrar producto</x-slot>
                     @endif
                     <x-slot name="content">
+                        {{$this->providers_id}}
                         <div class="space-y-8 divide-y divide-gray-200 mt-10">
                             @if($isHowToSearchMode)
                                 Puedes buscar:<br>
@@ -535,7 +536,7 @@
                                         <div class="sm:flex place-content-around m-2">
                                             <div>
                                                 <div class="sm:col-span-6">
-                                                    <label for="providers_id" class="block text-sm font-medium text-gray-700"> Id del proveedor </label>
+                                                    <label for="providers_id" class="block text-sm font-medium text-gray-700"> Id del proveedora </label>
                                                     <div class="mt-1">
                                                         <input type="number" id="providers_id" wire:model.lazy="providers_id" name="providers_id"
                                                                class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />

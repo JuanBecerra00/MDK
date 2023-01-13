@@ -254,26 +254,19 @@ class ProductTable extends Component
         $this->showingProductModal = true;
     }
     public function updateProduct(){
-        if($this->bills_id!=$this->product->bills_id){
-            $this->validateBills_id = 'required';
-        }else{
-            $this->validateBills_id = '';
-        }
-
-        $this->validate([
-            'bills_id' => $this->validateBills_id,
-            'providers_id' => $this->validateProviders_id,
-            'name' => 'required',
-            'ammount' => 'require',
-            'price' => 'require',
+        $this->product->update([
+            'providers_id' => $this->providers_id,
+            'bills_id' => $this->bills_id,
+            'type' => $this->type,
+            'name' => $this->name,
+            'ammount' => $this->ammount,
+            'price' => $this->price,
+            'date' => $this->date,
+            'status' => $this->status,
+            'updated_at' => $this->date,
         ]);
-        if($this->type==""){
-            $this->type="C";
-        };
 
-        if($this->status==""){
-            $this->status="1";
-        };
+        
 
         $this->showingProductModal=false;
     }
