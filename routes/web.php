@@ -44,7 +44,9 @@ Route::get('pdf/{id}', [UserTable::class, 'pdf'])->name('users.pdf');
 Route::get('/Products', ProductTable::class)->name('products.index');
 Route::get('products/export/', [ProductsController::class, 'export']);
 Route::get('productPdf/{id}', [ProductTable::class, 'pdf'])->name('products.pdf');
-Route::get('/customers', CustomerTable::class)->name('customers.index');
+Route::get('/Customers', CustomerTable::class)->name('customers.index');
+Route::get('customers/export/', [CustomersController::class, 'export']);
+Route::get('customerPdf/{id}', [CustomerTable::class, 'pdf'])->name('customers.pdf');
 });
  
 
