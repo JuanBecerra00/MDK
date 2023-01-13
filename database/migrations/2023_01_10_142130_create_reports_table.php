@@ -15,7 +15,14 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('vehiculo',7);
+            $table->string('motivo', 100);
+            $table->bigInteger('Kilometraje actual');
+            $table->string('Procedimientos', 1000);
+            $table->string('observaciones de cada procedimiento', 1500);
+            $table->multiLineString('insumos gastados');
+            $table->String('observaciones', 1500);
+            $table->foreign('vehiculo')->references('id')->on('vehicles')->onDelete('cascade');
         });
     }
 

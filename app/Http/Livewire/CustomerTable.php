@@ -117,6 +117,13 @@ class CustomerTable extends Component
         $this->email = '';
         $this->phone = '';
         $this->status = '';
+
+        
+        $this->selectedDepartment = '';
+        $this->selectedCity = '';
+        $this->department_id = '';
+        $this->city_id = '';
+
         $this->isEditMode = false;
         $this->isHowToSearchMode = false;
         $this->showingCustomerModal = true;
@@ -404,6 +411,7 @@ class CustomerTable extends Component
             "34567890odxcvbnko8765", 0, '1234567891011121');
         $this->encryption = str_replace('/', 'ñ', $this->encryption);
         $customers = Customer::where('cc', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+            ->orwhere('type', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
             ->orwhere('name', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
             ->orwhere('email', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
             ->orwhere('phone', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
