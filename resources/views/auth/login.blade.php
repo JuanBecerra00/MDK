@@ -35,7 +35,7 @@
         <form method="POST" action="{{ route('login') }}" class="flex flex-col space-around h-full justify-between">
             @csrf
 
-            <p class="text-2xl mb-6">Iniciar Sesión</p>
+            <p class="text-2xl mb-10">Iniciar Sesión</p>
             <div class="">
                 <div>
                     <x-jet-input id="email" class="block mt-1 w-full border-0 border-b border-black rounded-none
@@ -53,7 +53,7 @@
                 <div class="block mt-4">
                 <label for="remember_me" class="flex items-center">
                     <x-jet-checkbox id="remember_me" name="remember" />
-                    <span class="ml-2 text-sm">{{ __('Recordar') }}</span>
+                    <span class="ml-2">{{ __('Recordar') }}</span>
                 </label>
                 </div>
             </div>
