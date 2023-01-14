@@ -15,7 +15,14 @@ return new class extends Migration
     {
         Schema::create('providers', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('nit');
+            $table->string('name',45);
+            $table->bigInteger('phone');
+            $table->rememberToken();
             $table->timestamps();
+            $table->set('status', ['0', '1'])->default('1');
+            $table->unique(["id"], 'id_UNIQUE');
+
         });
     }
 
