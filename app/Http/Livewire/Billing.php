@@ -33,6 +33,10 @@ class Billing extends Component
     public $productsAmmount = [[0 => '', '']];
     public $productsSelected = [''];
     public $total = 0;
+    public $sortField = 'id';
+    public $sortDirection = 'desc';
+    public $paginate = 10;
+    public $filterType = 'I';
 
 
     public function test($value)
@@ -133,8 +137,18 @@ class Billing extends Component
         $this->productsAmmount[$a][1]=$value;
         $this->productsAmmount[$a][2]=$value*$price;
     }
+    public function changePaginate($number)
+    {
+        $this->paginate = $number;
+    }
+    public function filterType($value)
+    {
+        $this->filterType = $value;
+    }
     public function render()
     {
-        return view('livewire.billing', ['customers' => Customer::all()], ['vehicles' => Vehicle::all(), 'customers' => Customer::all(), 'products' => Product::paginate(10)]);
+        $products = Product::where('status', 'like', '%1%')->where('type', 'like', '%'.$this->filterType.'%')->where('name', 'like', '%'.$this->search.'%')
+            ->orderBy($this->sortField, $this->sortDirection)->paginate($this->paginate);
+        return view('livewire.billing', ['customers' => Customer::all()], ['vehicles' => Vehicle::all(), 'customers' => Customer::all(), 'products' => $products]);
     }
 }
