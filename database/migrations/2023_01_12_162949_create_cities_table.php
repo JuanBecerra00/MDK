@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('department_id');
             $table->timestamps();
+            $table->unique(["id"], 'id_UNIQUE');
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
         });
     }

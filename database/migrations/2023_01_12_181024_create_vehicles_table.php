@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->set('status', ['0', '1'])->default('1');
             $table->timestamps();
+            $table->unique(["id"], 'id_UNIQUE');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
         });
     }

@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Customer;
 use App\Models\Department;
 use App\Models\City;
+use App\Models\Product;
 use App\Models\User;
 use App\Models\Vehicle;
 use Illuminate\Database\Seeder;
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder
     {
         Customer::factory(10)->create();
         Vehicle::factory(10)->create();
+        Product::factory(100)->create();
 
         User::factory()->create([
             'type' => 'cc',

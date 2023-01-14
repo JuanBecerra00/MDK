@@ -233,28 +233,62 @@
           <div class="">
           <div class="bg-zinc-800 w-full p-5 rounded-t-xl flex justify-end">
           </div>
-          <table class="w-full shadow-xl">
+          <div class="bg">
+          <table class="w-full">
               <thead class="text-white">
                 <tr class="bg-zinc-800">
+                  <th class=""><div class="px-6 py-3 flex justify-center"></div></th>
                   <th class=""><div class="px-6 py-3 flex justify-center">Id</div></th>
                   <th class=""><div class="px-6 py-3">Nombre</div></th>
-                  <th class=""><div class="px-6 py-3">Cantidad</div></th>
                   <th class=""><div class="px-6 py-3">Valor Unitario</div></th>
+                  <th class=""><div class="px-6 py-3">Cantidad</div></th>
+                  <th class=""><div class="px-6 py-3">Subtotal</div></th>
                 </tr>
               </thead>
               <tbody>
                 @foreach($products as $product)
-                  @if($product->type=='C')
+                  @if($product->status==1)
                   <tr class="w-full">
-                <td class="px-6 py-4 flex justify-center whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $product->id }}</div></td>
-                <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $product->name }}</div></td>
-                <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $product->ammount }}</div></td>
-                <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $product->price }}</div></td>
+                    <td class="bg-white px-6 py-4 whitespace-nowrap"><input type="checkbox" wire:change="productAdd($event.target.value, {{$product->id}})"
+                    @if(array_search($product->id, $this->productsSelected))
+                    checked
+                    @endif
+                    ></td>
+                <td class="bg-white px-6 py-4 flex justify-center whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $product->id }}</div></td>
+                <td class="bg-white px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $product->name }}</div></td>
+                <td class="bg-white px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $product->price }}</div></td>
+                <td class="bg-white px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">
+                  @if(array_search($product->id, $this->productsSelected))
+                  <input type="number" max="{{$product->ammount}}" class="w-full" wire:change="productSave({{$product->id}}, {{$product->price}}, $event.target.value)">
+                  @endif
+                </div></td>
+                <td class="bg-white px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto"><p>
+                  <?php
+                $a=array_search($product->id, $this->productsSelected);
+                if($a){
+                  echo $this->productsAmmount[$a][2];
+                  $this->total+=$this->productsAmmount[$a][2];
+                }
+                  ?>
+                </p></div></td>
                 </tr>
                   @endif
                 @endforeach
               </tbody>
             </table>
+                <div class="m-2 p-2">
+                  {{ $products->links() }}
+                </div>
+            <div class="bg-zinc-800 w-full flex justify-end text-white rounded-b-2xl px-6 py-4">
+              Total:
+              {{$this->total}}
+            </div>
+          </div>
+            {{$this->test}}<br>
+            <?php
+            var_dump($this->productsAmmount);
+            var_dump($this->productsSelected);
+            ?>
           <div class="bg-white w-full p-5 rounded-b-xl flex justify-end shadow-xl">
           </div>
             

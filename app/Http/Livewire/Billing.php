@@ -6,9 +6,11 @@ use App\Models\Customer;
 use App\Models\Vehicle;
 use App\Models\Product;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Billing extends Component
 {
+    use WithPagination;
     public $search;
     public $customer;
     public $customerSelected;
@@ -28,6 +30,9 @@ class Billing extends Component
     public $procedurePrice;
     public $procedureIsEdit = 0;
     public $procedureLastEdit;
+    public $productsAmmount = [[0 => '', '']];
+    public $productsSelected = [''];
+    public $total = 0;
 
 
     public function test($value)
@@ -107,8 +112,29 @@ class Billing extends Component
         $this->procedures[$id][0]='';
         $this->procedures[$id][1]='';
     }
+    public function productAdd($value, $id)
+    {
+        if($value=='on'){
+            if(array_search($id, $this->productsSelected)){
+                $a=array_search($id, $this->productsSelected);
+                $this->test = $a;
+                unset($this->productsAmmount[$a]);
+                unset($this->productsSelected[$a]);
+            }else{
+                array_push($this->productsAmmount, [$id, 0, 0]);
+                array_push($this->productsSelected, $id);
+                $this->test = 'si';
+            }
+        }
+    }
+    public function productSave($id, $price, $value)
+    {
+        $a=array_search($id, $this->productsSelected);
+        $this->productsAmmount[$a][1]=$value;
+        $this->productsAmmount[$a][2]=$value*$price;
+    }
     public function render()
     {
-        return view('livewire.billing', ['customers' => Customer::all()], ['vehicles' => Vehicle::all(), 'customers' => Customer::all(), 'products' => Product::all()]);
+        return view('livewire.billing', ['customers' => Customer::all()], ['vehicles' => Vehicle::all(), 'customers' => Customer::all(), 'products' => Product::paginate(10)]);
     }
 }
