@@ -28,3 +28,39 @@
   ::-webkit-scrollbar-thumb:hover {
     background: rgb(127 29 29);
   }
+
+  @keyframes rotating {
+    50% {
+        transform: rotate(150deg);
+    }
+
+    75% {
+        transform: rotate(110deg);
+    }
+
+    100% {
+        transform: rotate(130deg);
+    }
+  }
+
+  @keyframes pop {
+    
+    10% {
+      transform:translateY(0px) ;
+    }
+    
+    30% {
+      transform:translateY(-10px) ;
+    }
+
+    60% {
+      transform:translateY(0) ;
+    }
+  }
+
+  .sundiv:hover{
+    animation: rotating 1s;
+  }
+  #moon:hover .moondiv{
+    animation: pop 1s;
+  }
