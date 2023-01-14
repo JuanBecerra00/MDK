@@ -40,7 +40,9 @@
                 </div>
                 <datalist id="customers">
                   @foreach($customers as $customer)
+                  @if($customer->status==1)
                   <option value="{{$customer->id}}  {{$customer->cc}}">{{$customer->name}}</option>
+                  @endif
                   @endforeach
                 </datalist>
               </div>
@@ -87,7 +89,7 @@
                 </div>
                 <datalist id="vehicles">
                   @foreach($vehicles as $vehicle)
-                  @if($vehicle->customer_id == $customerSelected)
+                  @if($vehicle->customer_id == $customerSelected && $vehicle->status==1)
                   <option value="{{$vehicle->id}}  {{$vehicle->plate}}">{{$vehicle->model}}</option>
                   @endif
                   @endforeach
