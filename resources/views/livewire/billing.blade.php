@@ -39,8 +39,8 @@
                   </div>
                 </div>
                 <datalist id="customers">
-                  @foreach($users as $user)
-                  <option value="{{$user->id}}  {{$user->cc}}">{{$user->name}}</option>
+                  @foreach($customers as $customer)
+                  <option value="{{$customer->id}}  {{$customer->cc}}">{{$customer->name}}</option>
                   @endforeach
                 </datalist>
               </div>
@@ -87,7 +87,9 @@
                 </div>
                 <datalist id="vehicles">
                   @foreach($vehicles as $vehicle)
+                  @if($vehicle->customer_id == $customerSelected)
                   <option value="{{$vehicle->id}}  {{$vehicle->plate}}">{{$vehicle->model}}</option>
+                  @endif
                   @endforeach
                 </datalist>
               </div>

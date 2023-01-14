@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Customer;
 use App\Models\Department;
 use App\Models\City;
 use App\Models\User;
@@ -19,7 +20,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //User::factory(10)->create();
+        Customer::factory(10)->create();
+        Vehicle::factory(10)->create();
 
         User::factory()->create([
             'type' => 'cc',
@@ -1193,6 +1195,5 @@ class DatabaseSeeder extends Seeder
         City::factory()->create(['name' => 'Santa Rosalía', 'department_id' => '99']);
         City::factory()->create(['name' => 'Cumaribo', 'department_id' => '99']);
 
-        Vehicle::factory(1)->create();
     }
 }

@@ -21,6 +21,7 @@ class VehicleFactory extends Factory
         return [
             'plate' => fake()->bothify('???-###'),
             'model' => fake()->word(),
+            'customer_id' => fake()->numberBetween(1, 10),
         ];
     }
 }

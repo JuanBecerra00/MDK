@@ -2,9 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\User;
-use App\Models\Vehicle;
 use App\Models\Customer;
+use App\Models\Vehicle;
 use App\Models\Product;
 use Livewire\Component;
 
@@ -12,6 +11,7 @@ class Billing extends Component
 {
     public $search;
     public $customer;
+    public $customerSelected;
     public $customerSearch;
     public $customerName = '';
     public $customerEmail = '';
@@ -36,12 +36,13 @@ class Billing extends Component
     }
     public function setCustomer($id)
     {
-        $this->customerSearch = User::find($id);
-        if(User::find($id)){
+        $this->customerSearch = Customer::find($id);
+        if(Customer::find($id)){
             $this->customerName = $this->customerSearch->name;
             $this->customerEmail = $this->customerSearch->email;
             $this->customerPhone = $this->customerSearch->phone;
             $this->customer = $this->customerSearch->cc;
+            $this->customerSelected = $this->customerSearch->id;
         }else{
             $this->customerName = 'No encontrado';
             $this->customerEmail = 'No encontrado';
@@ -108,6 +109,6 @@ class Billing extends Component
     }
     public function render()
     {
-        return view('livewire.billing', ['users' => User::all()], ['vehicles' => Vehicle::all(), 'customers' => Customer::all(), 'products' => Product::all()]);
+        return view('livewire.billing', ['customers' => Customer::all()], ['vehicles' => Vehicle::all(), 'customers' => Customer::all(), 'products' => Product::all()]);
     }
 }
