@@ -19,6 +19,7 @@ class Billing extends Component
     public $customerEmail = '';
     public $customerPhone = '';
     public $vehicle = '';
+    public $oilType = '0';
     public $vehicleSearch;
     public $vehiclePlate = '';
     public $vehicleModel = '';
@@ -37,6 +38,7 @@ class Billing extends Component
     public $sortDirection = 'desc';
     public $paginate = 10;
     public $filterType = 'I';
+    public $observations = '';
 
 
     public function test($value)
@@ -144,6 +146,11 @@ class Billing extends Component
     public function filterType($value)
     {
         $this->filterType = $value;
+    }
+
+    public function setOilType($value)
+    {
+        $this->oilType = $value;
     }
     public function render()
     {

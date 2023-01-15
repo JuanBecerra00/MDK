@@ -42,7 +42,7 @@
         transform: rotate(130deg);
     }
   }
-
+  
   @keyframes pop {
     
     10% {
@@ -58,9 +58,176 @@
     }
   }
 
+  @keyframes oil {
+    20% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(-30deg);
+    }
+    70% {
+        transform: rotate(5deg);
+    }
+    80% {
+        transform: rotate(0deg);
+    }
+  }
+  
+  @keyframes oil2 {
+    20% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(-30deg);
+    }
+    70% {
+        transform: rotate(5deg);
+    }
+    80% {
+        transform: rotate(0deg);
+    }
+  }
+  
+  @keyframes oil3 {
+    20% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(-30deg);
+    }
+    70% {
+        transform: rotate(5deg);
+    }
+    80% {
+        transform: rotate(0deg);
+    }
+  }
+  
+  @keyframes oil4 {
+    20% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(-30deg);
+    }
+    70% {
+        transform: rotate(5deg);
+    }
+    80% {
+        transform: rotate(0deg);
+    }
+  }
+
+  @keyframes drop {
+    0% {
+      transform: translateY(0px);
+      opacity: 0;
+    }
+
+    20% {
+      transform: translateY(0px);
+      opacity: 0;
+  }
+
+    60% {
+      opacity: 1;
+  }
+    
+    100% {
+      transform: translateY(50px);
+      opacity: 0;
+  }
+  }
+  @keyframes drop2 {
+    0% {
+      transform: translateY(0px);
+      opacity: 0;
+    }
+
+    20% {
+      transform: translateY(0px);
+      opacity: 0;
+  }
+
+    60% {
+      opacity: 1;
+  }
+    
+    100% {
+      transform: translateY(50px);
+      opacity: 0;
+  }
+  }
+  @keyframes drop3 {
+    0% {
+      transform: translateY(0px);
+      opacity: 0;
+    }
+
+    20% {
+      transform: translateY(0px);
+      opacity: 0;
+  }
+
+    60% {
+      opacity: 1;
+  }
+    
+    100% {
+      transform: translateY(50px);
+      opacity: 0;
+  }
+  }
+  @keyframes drop4 {
+    0% {
+      transform: translateY(0px);
+      opacity: 0;
+    }
+
+    20% {
+      transform: translateY(0px);
+      opacity: 0;
+  }
+
+    60% {
+      opacity: 1;
+  }
+    
+    100% {
+      transform: translateY(50px);
+      opacity: 0;
+  }
+  }
+
   .sundiv:hover{
     animation: rotating 1s;
   }
   #moon:hover .moondiv{
     animation: pop 1s;
+  }
+  .oil1{
+    animation: oil 1.5s;
+  }
+  .oil2{
+    animation: oil2 1.5s;
+  }
+  .oil3{
+    animation: oil3 1.5s;
+  }
+  .oil4{
+    animation: oil4 1.5s;
+  }
+  
+  .drop1{
+    opacity:1;
+    animation: drop 1s forwards;
+  }
+  .drop2{
+    animation: drop2 1s forwards;
+  }
+  .drop3{
+    animation: drop3 1s forwards;
+  }
+  .drop4{
+    animation: drop4 1s forwards;
   }

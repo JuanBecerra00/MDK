@@ -138,19 +138,74 @@
 
             <div class="w-full shadow-xl rounded-xl p-5 bg-white flex flex-col gap-2">
               <p class="text-xl">Filtros</p>
-              <div class="grid grid-cols-2 gap-2 p-5">
+              <?php
+              //var_dump($this->oilType)
+              ?>
+              <div class="grid grid-cols-2 gap-2 p-5 relative">
+                <div class="w-full h-10 bg-zinc-300 rounded absolute opacity-50 duration-200 flex justify-end items-center px-4
+                @if($this->oilType=='1')
+                translate-y-[10px]
+                @elseif($this->oilType=='2')
+                translate-y-[43px]
+                @elseif($this->oilType=='3')
+                translate-y-[76px]
+                @elseif($this->oilType=='4')
+                translate-y-[109px]
+                @endif
+                ">
+                  <div class="w-2 opacity-0
+                  @if($this->oilType=='1')
+                  drop1
+                  @elseif($this->oilType=='2')
+                  drop2
+                  @elseif($this->oilType=='3')
+                  drop3
+                  @elseif($this->oilType=='4')
+                  drop4
+                  @endif
+                  ">
+                  <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" viewBox="0 0 30 30" version="1.1" id="svg822" inkscape:version="0.92.4 (f8dce91, 2019-08-02)" sodipodi:docname="drop.svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <defs id="defs816"> <inkscape:path-effect only_selected="false" apply_with_weight="true" apply_no_weight="true" helper_size="0" steps="2" weight="33.333333" is_visible="true" id="path-effect1025" effect="bspline"></inkscape:path-effect> <inkscape:path-effect only_selected="false" apply_with_weight="true" apply_no_weight="true" helper_size="0" steps="2" weight="33.333333" is_visible="true" id="path-effect1021" effect="bspline"></inkscape:path-effect> </defs> <sodipodi:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:zoom="17.833333" inkscape:cx="15" inkscape:cy="15" inkscape:document-units="px" inkscape:current-layer="layer1" showgrid="true" units="px" inkscape:window-width="1366" inkscape:window-height="713" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" showguides="false" inkscape:guide-bbox="true"> <sodipodi:guide position="21.126168,22.794393" orientation="1,0" id="guide1575" inkscape:locked="false"></sodipodi:guide> <sodipodi:guide position="22.682243,23.285047" orientation="1,0" id="guide1635" inkscape:locked="false"></sodipodi:guide> <sodipodi:guide position="22.682243,7.6455921" orientation="0,1" id="guide1639" inkscape:locked="false"></sodipodi:guide> <sodipodi:guide position="18.859863,18.859863" orientation="1,0" id="guide1242" inkscape:locked="false"></sodipodi:guide> <inkscape:grid type="xygrid" id="grid1103"></inkscape:grid> </sodipodi:namedview> <metadata id="metadata819"> <rdf:rdf> <cc:work rdf:about=""> <dc:format>image/svg+xml</dc:format> <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type> <dc:title> </dc:title> </cc:work> </rdf:rdf> </metadata> <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1" transform="translate(0,-289.0625)"> <g id="layer1-3" inkscape:label="Layer 1" style="fill:#ffffff;stroke-width:1.41176474" transform="matrix(0.70833333,0,0,0.70833333,4.3750001,88.684897)"></g> <path style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="m 23,309.0625 c 0,3.86599 -3.581722,7 -8.000001,7 -4.418277,0 -7.9999989,-3.13401 -7.9999989,-7 0,-3.86599 7.9999989,-17 7.9999989,-17 0,0 8.000001,13.13401 8.000001,17 z" id="path919" inkscape:connector-curvature="0" sodipodi:nodetypes="ssscs"></path> </g> </g></svg>
+                  </div>
+
+                  <div class="w-8
+                  @if($this->oilType=='1')
+                  oil1 
+                  @elseif($this->oilType=='2')
+                  oil2
+                  @elseif($this->oilType=='3')
+                  oil3
+                  @elseif($this->oilType=='4')
+                  oil4
+                  @endif
+                  ">
+                  <svg fill="#000000" viewBox="0 -64 640 640" xmlns="http://www.w3.org/2000/svg" transform="matrix(-1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">  <path d="M629.8 160.31L416 224l-50.49-25.24a64.07 64.07 0 0 0-28.62-6.76H280v-48h56c8.84 0 16-7.16 16-16v-16c0-8.84-7.16-16-16-16H176c-8.84 0-16 7.16-16 16v16c0 8.84 7.16 16 16 16h56v48h-56L37.72 166.86a31.9 31.9 0 0 0-5.79-.53C14.67 166.33 0 180.36 0 198.34v94.95c0 15.46 11.06 28.72 26.28 31.48L96 337.46V384c0 17.67 14.33 32 32 32h274.63c8.55 0 16.75-3.42 22.76-9.51l212.26-214.75c1.5-1.5 2.34-3.54 2.34-5.66V168c.01-5.31-5.08-9.15-10.19-7"></path></g></svg>
+                  </div>
+                
+                </div>
                 <p>Aceite</p>
-                <input type="checkbox" list="vehicles" wire:change="setVehicle($event.target.value)"
-                  class="justify-self-center">
+                <input type="radio" name="oilType" value="1" wire:click="setOilType($event.target.value)"
+                @if($this->oilType=='1')
+                checked
+                @endif
+                  class="justify-self-center self-center z-40">
                 <p>Aire motor</p>
-                <input type="checkbox" list="vehicles" wire:change="setVehicle($event.target.value)"
-                  class="justify-self-center">
+                <input type="radio" name="oilType" value="2" wire:click="setOilType($event.target.value)"
+                @if($this->oilType=='2')
+                checked
+                @endif
+                  class="justify-self-center self-center z-40">
                 <p>Aire cabina</p>
-                <input type="checkbox" list="vehicles" wire:change="setVehicle($event.target.value)"
-                  class="justify-self-center">
+                <input type="radio" name="oilType" value="3" wire:click="setOilType($event.target.value)"
+                @if($this->oilType=='3')
+                checked
+                @endif
+                  class="justify-self-center self-center z-40">
                 <p>Combustible</p>
-                <input type="checkbox" list="vehicles" wire:change="setVehicle($event.target.value)"
-                  class="justify-self-center">
+                <input type="radio" name="oilType" value="4" wire:click="setOilType($event.target.value)"
+                @if($this->oilType=='4')
+                checked
+                @endif
+                  class="justify-self-center self-center z-40">
               </div>
             </div>
 
@@ -413,7 +468,7 @@
                       <div class="max-w-[12rem] overflow-x-auto">
                         <input type="number" max="{{$product->ammount}}" class="w-full border-0 
                         @if(!array_search($product->id, $this->productsSelected))
-                        bg-zinc-200
+                        bg-zinc-200 rounded
                         @else
                         border-black border-b
                         @endif
@@ -457,17 +512,28 @@
                 {{$this->total}}
               </div>
             </div>
-            {{$this->test}}<br>
             <?php
-            var_dump($this->productsAmmount);
-            var_dump($this->productsSelected);
+            //var_dump($this->productsAmmount);
+            //var_dump($this->productsSelected);
             ?>
-            <div class="bg-white w-full p-5 rounded-b-xl flex justify-end shadow-xl">
+
+          </div>
+        </div>
+      </section>
+      <section class="w-full flex justify-center">
+        <div class="sm:w-[90%]">
+          <p class="text-xl">Observaciones</p>
+          <div class="">
+            <div class="bg-zinc-800 w-full p-5 rounded-t-xl flex justify-end">
+            </div>
+            
+            <div class="bg-white p-5 rounded-b-xl flex shadow-xl">
+              <textarea class="w-full min-h-[20rem]" wire:model="observations"></textarea>
             </div>
 
           </div>
         </div>
       </section>
-
+      {{$this->observations}}
     </div>
   </div>
