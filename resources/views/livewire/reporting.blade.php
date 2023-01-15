@@ -1,7 +1,7 @@
 <div class="w-full flex justify-center items-center p-5">
     <div class="w-[70%] pt-20 flex flex-col gap-5">
       <div class="flex justify-between">
-        <p class="text-3xl">Facturación</p>
+        <p class="text-3xl">Reporte</p>
         <div class="bg-white rounded-xl shadow-xl p-3 flex gap-2">
           <div>
             <?php

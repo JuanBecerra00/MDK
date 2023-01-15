@@ -58,8 +58,6 @@
                 </div>
             </div>
 
-            
-
             <div class="flex items-center justify-between mt-4 gap-5">
                 @if (Route::has('password.request'))
                     <a class="underline text-sm text-red-600 hover:text-red-900" href="{{ route('password.request') }}">

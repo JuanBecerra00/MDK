@@ -8,7 +8,7 @@ use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Billing extends Component
+class Reporting extends Component
 {
     use WithPagination;
     public $day;
