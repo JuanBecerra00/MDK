@@ -3,7 +3,7 @@
     
   <h1 style="font-size: 30px;" class="dark:text-white">Usuarios</h1>
 
-      <div class="">
+      <div class="py-5">
         
       <div class="absolute right-0 rounded-xl flex flex-col justify-center items-center text-white">
         

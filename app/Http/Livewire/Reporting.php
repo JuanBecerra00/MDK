@@ -5,12 +5,16 @@ namespace App\Http\Livewire;
 use App\Models\Customer;
 use App\Models\Vehicle;
 use App\Models\Product;
+use App\Models\Bill;
+use App\Models\Report;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class Reporting extends Component
 {
     use WithPagination;
+    public $totalFinal;
+    public $date=[];
     public $day;
     public $month;
     public $year;
@@ -25,8 +29,8 @@ class Reporting extends Component
     public $vehicle = '';
     public $vehicleId;
     public $oilType;
-    public $boxType = 'c';
-    public $difType = "trans";
+    public $boxType;
+    public $difType;
     public $oilFilterType;
     public $vehicleSearch;
     public $vehiclePlate = '';
@@ -40,7 +44,8 @@ class Reporting extends Component
     public $procedureIsEdit = 0;
     public $procedureLastEdit;
     public $porcedureTotal=0;
-    public $productsAmmount = [[0 => '', '']];
+    public $productsAmmount = [[0 => '', '', '']];
+    public $strProductsAmmount = [];
     public $productsSelected = [''];
     public $total = 0;
     public $sortField = 'id';
@@ -48,6 +53,10 @@ class Reporting extends Component
     public $paginate = 10;
     public $filterType = 'I';
     public $observations = '';
+    
+    public $strProcedures;
+    public $strProductsSelected;
+    public $showingBillModal = false;
 
 
     public function test($value)
@@ -78,6 +87,7 @@ class Reporting extends Component
             $this->vehicleModel = $this->vehicleSearch->model;
             $this->vehicle = $this->vehicleSearch->plate;
             $this->vehicleId = $this->vehicleSearch->id;
+            $this->setCustomer($this->vehicleSearch->customer_id);
         }else{
             $this->vehiclePlate = 'No encontrado';
             $this->vehicleModel = 'No encontrado';
@@ -86,13 +96,16 @@ class Reporting extends Component
     public function resetCustomer()
     {
         $this->customer = '';
+        $this->customerId = '';
         $this->customerName = '';
         $this->customerEmail = '';
         $this->customerPhone = '';
+        $this->resetVehicle();
     }
     public function resetVehicle()
     {
         $this->vehicle = '';
+        $this->vehicleId = '';
         $this->vehiclePlate = '';
         $this->vehicleModel = '';
     }
@@ -116,6 +129,11 @@ class Reporting extends Component
             array_push($this->procedures, [$this->proceduresCounter, '']);
         }
         }
+        $lclprocedures = [];
+        foreach($this->procedures as $procedure){
+            array_push($lclprocedures, implode(',',$procedure));
+        }
+        $this->strProcedures = implode('|', $lclprocedures);
     }
     public function procedureEdit($id)
     {
@@ -129,6 +147,12 @@ class Reporting extends Component
         $this->procedures[$id][0]='';
         $this->procedures[$id][1]='';
     }
+
+    
+    public function modal($value)
+    {
+        $this->showingBillModal=$value;
+    }
     public function productAdd($value, $id)
     {
         if($value=='on'){
@@ -138,11 +162,17 @@ class Reporting extends Component
                 unset($this->productsAmmount[$a]);
                 unset($this->productsSelected[$a]);
             }else{
-                array_push($this->productsAmmount, [$id, 0, 0]);
+                $product = Product::find($id);
+                array_push($this->productsAmmount, [$id, 1, $product->price]);
                 array_push($this->productsSelected, $id);
                 $this->test = 'si';
             }
         }
+        $lclAmmount = [];
+        foreach($this->productsAmmount as $product){
+            array_push($lclAmmount, implode(',',$product));
+        }
+        $this->strProductsAmmount = implode('|', $lclAmmount);
     }
     public function productSave($id, $price, $value)
     {
@@ -163,17 +193,55 @@ class Reporting extends Component
     {
         $this->oilFilterType = $value;
     }
+    public function saveReport()
+    {
+        $this->strProductsSelected = implode(',', $this->productsSelected);
+        if($this->boxType==''){
+            $this->boxType='Ninguno';
+        }
+        if($this->difType==''){
+            $this->difType='Ninguno';
+        }
+        if($this->oilType==''){
+            $this->oilType='Ninguno';
+        }
+        if($this->oilFilterType==''){
+            $this->oilFilterType='Ninguno';
+        }
+            $this->validate([
+                'customer' => 'required',
+                'vehicle' => 'required',
+            ]);
+        $bill = new Report();
+        $bill->customer_id = $this->customerId;
+        $bill->vehicle_id = $this->vehicleId;
+        $bill->oilType = $this->oilType;
+        $bill->boxType = $this->boxType;
+        $bill->difType = $this->difType;
+        $bill->oilFilterType = $this->oilFilterType;
+        $bill->procedures = $this->strProcedures;
+        $bill->productsSelected = $this->strProductsSelected;
+        $bill->productsAmmount = $this->strProductsAmmount;
+        $bill->observations = $this->observations;
+        $bill->save();
+        $this->showingBillModal = false;
+    }
     public function render()
     {
         $this->porcedureTotal=0;
                 foreach($this->procedures as $procedure){
                   $this->porcedureTotal+=(int)$procedure[1];
                 }
+        $this->total=0;
+                foreach($this->productsAmmount as $product){
+                  $this->total+=(int)$product[2];
+                }
+        $this->totalFinal = $this->porcedureTotal + $this->total;
         $this->day = date('d');
         $this->month = date('m');
         $this->year = date('y');
         $products = Product::where('status', 'like', '%1%')->where('type', 'like', '%'.$this->filterType.'%')->where('name', 'like', '%'.$this->search.'%')
             ->orderBy($this->sortField, $this->sortDirection)->paginate($this->paginate);
-        return view('livewire.billing', ['customers' => Customer::all()], ['vehicles' => Vehicle::all(), 'customers' => Customer::all(), 'products' => $products]);
+        return view('livewire.reporting', ['customers' => Customer::all()], ['vehicles' => Vehicle::all(), 'customers' => Customer::all(), 'products' => $products]);
     }
 }

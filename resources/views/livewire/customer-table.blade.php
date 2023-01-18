@@ -1,9 +1,9 @@
 <div class="flex justify-center mt-20" style="font-size:{{ $this->fontSize }}px">
     <div class="max-w-[85vw] overflow-auto">
 
-      <h1 style="font-size: 30px;">Clientes</h1>
+      <h1 style="font-size: 30px;" class="dark:text-white">Clientes</h1>
 
-      <div class="">
+      <div class="py-5">
 
         <div class="absolute right-0 rounded-xl flex flex-col justify-center items-center text-white">
 
@@ -52,7 +52,7 @@
         <div class="m-2 p-2 relative ">
 
 
-          <div class="w-full bg-zinc-800 sm:flex items-center place-content-between p-5 relative rounded-t-xl">
+          <div class="w-full bg-zinc-800 dark:bg-zinc-900 sm:flex items-center place-content-between p-5 relative rounded-t-xl">
             <div class="flex max-sm:flex-col gap-5 items-center">
               <p class="text-white flex items-center">
                 Buscar
@@ -71,8 +71,8 @@
                 </button>
               </p>
               <input wire:model="search" type="search"
-                placeholder="documento, nombre, correo, telefono, pregunta, respuesta, id"
-                class="rounded max-sm:w-full">
+                placeholder="Numero de documento, nombre, departamento, ciudad, email, telefono"
+                class="rounded max-sm:w-full dark:bg-zinc-800 dark:text-white focus:border-red-800 focus:ring-red-800">
               <div class="flex gap-5 max-sm:flex-col items-center justify-center">
                 <x-jet-dropdown align="left" width="48">
                   <x-slot name="trigger">
@@ -315,12 +315,12 @@
           <div class="-my-2 overflow-x-auto">
             <div class="py-2 align-middle inline-block min-w-full
           ">
-              <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-bl-lg sm:rounded-br-lg">
+              <div class="bg-zinc-800 dark:bg-zinc-900 overflow-hidden sm:rounded-bl-lg sm:rounded-br-lg">
                 <table class="w-full divide-y divide-gray-200 ">
                   <thead class="bg-gray-50 dark:bg-gray-600 dark:text-gray-200">
 
                     <tr>
-                      <th class="bg-zinc-800">
+                      <th class="bg-zinc-800 dark:bg-zinc-900">
                         <div>
                           <input type="checkbox" value="4" wire:change="selectAll($event.target.value)"
                             class="checked:bg-red-800 focus:ring-red-800 text-red-800" @if($this->isSelectedAll==0)
@@ -331,7 +331,7 @@
                       </th>
                       @if($fieldId)
                       <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 dark:bg-zinc-900 cursor-pointer hover:bg-red-800 hover:underline"
                         wire:click="sortBy('id')">
                         <div class="flex">Id<svg class="h-4 w-4 @if($sortField!='id')
                         opacity-0
@@ -348,7 +348,7 @@
                       @endif
                       @if($fieldType)
                       <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 dark:bg-zinc-900 cursor-pointer hover:bg-red-800 hover:underline"
                         wire:click="sortBy('type')">
                         <div class="flex">Tipo de documento<svg class="h-4 w-4 @if($sortField!='type')
                         opacity-0
@@ -365,7 +365,7 @@
                       @endif
                       @if($fieldCc)
                       <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 dark:bg-zinc-900 cursor-pointer hover:bg-red-800 hover:underline"
                         wire:click="sortBy('cc')">
                         <div class="flex">Numero de documento<svg class="h-4 w-4 @if($sortField!='cc')
                         opacity-0
@@ -382,7 +382,7 @@
                       @endif
                       @if($fieldName)
                       <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 dark:bg-zinc-900 cursor-pointer hover:bg-red-800 hover:underline"
                         wire:click="sortBy('name')">
                         <div class="flex">Nombre<svg class="h-4 w-4 @if($sortField!='name')
                         opacity-0
@@ -399,7 +399,7 @@
                       @endif
                       @if($fieldDepartment_id)
                       <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 dark:bg-zinc-900 cursor-pointer hover:bg-red-800 hover:underline"
                         wire:click="sortBy('department_id')">
                         <div class="flex">Departamento<svg class="h-4 w-4 @if($sortField!='department_id')
                         opacity-0
@@ -416,7 +416,7 @@
                       @endif
                       @if($fieldCity_id)
                       <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 dark:bg-zinc-900 cursor-pointer hover:bg-red-800 hover:underline"
                         wire:click="sortBy('city_id')">
                         <div class="flex">Ciudad<svg class="h-4 w-4 @if($sortField!='city_id')
                         opacity-0
@@ -433,7 +433,7 @@
                       @endif
                       @if($fieldEmail)
                       <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 dark:bg-zinc-900 cursor-pointer hover:bg-red-800 hover:underline"
                         wire:click="sortBy('email')">
                         <div class="flex">Correo<svg class="h-4 w-4 @if($sortField!='email')
                         opacity-0
@@ -450,7 +450,7 @@
                       @endif
                       @if($fieldPhone)
                       <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 dark:bg-zinc-900 cursor-pointer hover:bg-red-800 hover:underline"
                         wire:click="sortBy('phone')">
                         <div class="flex">Telefono<svg class="h-4 w-4 @if($sortField!='phone')
                         opacity-0
@@ -467,7 +467,7 @@
                       @endif
                       @if($fieldStatus)
                       <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
+                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 dark:bg-zinc-900 cursor-pointer hover:bg-red-800 hover:underline"
                         wire:click="sortBy('status')">
                         <div class="flex">Estado<svg class="h-4 w-4 @if($sortField!='status')
                         opacity-0
@@ -484,16 +484,16 @@
                       @endif
                       @if(Auth::User()->job=='A')
                       <th scope="col"
-                        class="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider bg-zinc-800">Editar
+                        class="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 dark:bg-zinc-900">Editar
                       </th>
                       @endif
                     </tr>
                   </thead>
-                  <tbody class="bg-white divide-y divide-gray-200">
+                  <tbody class="bg-white divide-y divide-gray-200 dark:bg-neutral-800 dark:text-white">
                     @foreach($customers as $customer)
                     <tr class="
                     @if(in_array($customer->id, $selecteds))
-                        bg-zinc-300
+                        bg-zinc-300 dark:bg-neutral-700
                         @endif">
                       <td class="px-6 py-4 whitespace-nowrap">
                         <input type="checkbox" wire:change="addToSelecteds({{ $customer->id }})"
@@ -554,7 +554,7 @@
                       @if(Auth::User()->job=='A')
                       <td class="px-6 py-4 text-right text-sm flex justify-center gap-2">
                         <x-jet-button wire:click="showEditCustomerModal({{ $customer-> id }})"
-                          class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Editar</x-jet-button>
+                          class="bg-zinc-800 dark:bg-zinc-900 hover:bg-zinc-900 active:bg-zinc-700">Editar</x-jet-button>
                         <x-jet-button wire:click="delete({{ $customer-> id }})"
                           class="bg-red-800 hover:bg-red-900 active:bg-red-700">
                           @if($customer->status==0)
@@ -591,12 +591,12 @@
               <div class="space-y-8 divide-y divide-gray-200 mt-10">
                 @if($isHowToSearchMode)
                 Puedes buscar:<br>
-                documento de identidad<br>
-                nombre, <br>
-                departamento, <br>
-                ciudad,<br>
-                telefono, <br>
-                correo.<br>
+                Documento de identidad<br>
+                Nombre, <br>
+                Departamento, <br>
+                Ciudad,<br>
+                correo,<br>
+                Telefono.<br>
                 Ten en cuenta que filtro de estado estas utilizando.
                 @else
                 <div class="flex flex-col">
@@ -605,10 +605,10 @@
                     <div class="sm:flex place-content-around m-2">
                       <div>
                         <div class="sm:col-span-6">
-                          <label for="type" class="block text-sm font-medium text-gray-700"> Tipo de documento </label>
+                          <label for="type" class="block text-sm font-medium"> Tipo de documento </label>
                           <div class="mt-1">
                             <select id="type" wire:model.lazy="type" name="type" placeholder="cc"
-                              class="block w-full bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5">
+                              class="block w-full bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white">
                               <option value="CC">Cedula</option>
                               <option value="TI">Tarjeta de identidad</option>
                               <option value="CE">Cedula de extranjeria</option>
@@ -617,42 +617,42 @@
                           </div>
                         </div>
                         <div class="sm:col-span-6">
-                          <label for="cc" class="block text-sm font-medium text-gray-700"> Numero de documento </label>
+                          <label for="cc" class="block text-sm font-medium"> Numero de documento </label>
                           <div class="mt-1">
                             <input type="text" id="cc" wire:model.lazy="cc" name="cc"
-                              class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
+                              class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" />
                           </div>
                           @error('cc') <span class="error text-red-500">{{ $message }}</span> @enderror
                         </div>
                         <div class="sm:col-span-6">
-                          <label for="name" class="block text-sm font-medium text-gray-700"> Nombre </label>
+                          <label for="name" class="block text-sm font-medium"> Nombre </label>
                           <div class="mt-1">
                             <input type="text" id="name" wire:model.lazy="name" name="name"
-                              class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
+                              class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" />
                           </div>
                           @error('name') <span class="error text-red-500">{{ $message }}</span> @enderror
                         </div>
                         <div class="sm:col-span-6">
-                          <label for="department_id" class="block text-sm font-medium text-gray-700"> Departamento
+                          <label for="department_id" class="block text-sm font-medium"> Departamento
                           </label>
                           <div class="mt-1">
                             {{$this->city_id}}
-                            <input type="text" value="{{$this->selectedDepartment}}" list="departments" class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" wire:change="setDepartment($event.target.value)">
+                            <input type="text" value="{{$this->selectedDepartment}}" list="departments" class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" wire:change="setDepartment($event.target.value)">
                             <datalist id="departments">
                               @foreach($departments as $department)
                               <option value="{{$department->id}}">{{$department->name}}</option>
                               @endforeach
                             </datalist>
                             @error('department_id') <span class="error text-red-500">{{ $message }}</span> @enderror
-                            
+
                           </div>
                         </div>
                       </div>
                       <div>
                         <div class="sm:col-span-6">
-                          <label for="city_id" class="block text-sm font-medium text-gray-700"> Ciudad </label>
+                          <label for="city_id" class="block text-sm font-medium"> Ciudad </label>
                           <div class="mt-1">
-                            <input type="text" value="{{$this->selectedCity}}" list="cities" class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" wire:change="setCity($event.target.value)">
+                            <input type="text" value="{{$this->selectedCity}}" list="cities" class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" wire:change="setCity($event.target.value)">
                             <datalist id="cities">
                               @foreach($cities as $city)
                               @if($city->department_id==$this->department_id)
@@ -664,26 +664,26 @@
                           </div>
                         </div>
                         <div class="sm:col-span-6">
-                          <label for="phone" class="block text-sm font-medium text-gray-700"> Telefono </label>
+                          <label for="phone" class="block text-sm font-medium"> Telefono </label>
                           <div class="mt-1">
                             <input type="text" id="phone" wire:model.lazy="phone" name="phone"
-                              class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
+                              class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" />
                           </div>
                           @error('phone') <span class="error text-red-500">{{ $message }}</span> @enderror
                         </div>
                         <div class="sm:col-span-6">
-                          <label for="email" class="block text-sm font-medium text-gray-700"> Correo </label>
+                          <label for="email" class="block text-sm font-medium"> Correo </label>
                           <div class="mt-1">
                             <input type="text" id="email" wire:model.lazy="email" name="email"
-                              class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
+                              class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" />
                           </div>
                           @error('email') <span class="error text-red-500">{{ $message }}</span> @enderror
                         </div>
                         <div class="sm:col-span-6">
-                          <label for="status" class="block text-sm font-medium text-gray-700"> Estado </label>
+                          <label for="status" class="block text-sm font-medium"> Estado </label>
                           <div class="mt-1">
                             <select id="status" wire:model.lazy="status" name="status"
-                              class="block w-full bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5">
+                              class="block w-full bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white">
                               <option value="1">Activo</option>
                               <option value="0">Inactivo</option>
                             </select>
@@ -702,12 +702,12 @@
           <div class="w-full flex gap-5 place-content-between">
             @if($isEditMode)
             <x-jet-button wire:click="showEditCustomerModal({{ $customer-> id }})"
-              class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
+              class="bg-zinc-800 dark:bg-zinc-900 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
             @elseif($isHowToSearchMode)
             <x-jet-button class="invisible">Reset</x-jet-button>
             @else
             <x-jet-button wire:click="modalRegFormReset"
-              class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
+              class="bg-zinc-800 dark:bg-zinc-900 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
             @endif
             <div>
               @if($isEditMode)
@@ -719,7 +719,7 @@
                 class="bg-red-800 hover:bg-red-900 active:bg-red-700">Guardar</x-jet-button>
               @endif
               <x-jet-button wire:click="hideModal" type="button"
-                class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Cerrar</x-jet-button>
+                class="bg-zinc-800 dark:bg-zinc-900 hover:bg-zinc-900 active:bg-zinc-700">Cerrar</x-jet-button>
             </div>
           </div>
         </x-slot>

@@ -7,6 +7,7 @@ use App\Http\Livewire\ReportTable;
 use App\Http\Livewire\VehicleTable;
 use App\Http\Livewire\CustomerTable;
 use App\Http\Livewire\Billing;
+use App\Http\Livewire\Reporting;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('welcome');
 });
 
 Route::middleware([
@@ -39,7 +40,7 @@ Route::get('/Providers', ProviderTable::class)->name('providers.index');
 Route::get('/Reports', ReportTable::class)->name('reports.index');
 Route::get('/Vehicles', VehicleTable::class)->name('vehicles.index');
 Route::get('/Billing', Billing::class)->name('billing.index');
-Route::get('/Reporting', Billing::class)->name('reporting.index');
+Route::get('/Reporting', Reporting::class)->name('reporting.index');
 Route::get('billingPdf/{id}', [Billing::class, 'pdf'])->name('billing.pdf');
 Route::get('users/export/', [UsersController::class, 'export']);
 Route::get('pdf/{id}', [UserTable::class, 'pdf'])->name('users.pdf');

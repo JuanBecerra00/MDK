@@ -1,8 +1,9 @@
-<div class="w-full flex justify-center items-center p-5">
-    <div class="w-[70%] pt-20 flex flex-col gap-5">
+
+<div class="w-full flex justify-center items-center p-5 dark:text-white">
+    <div class="sm:w-[70%] max-sm:w-[95%] pt-20 flex flex-col gap-5">
       <div class="flex justify-between">
         <p class="text-3xl">Reporte</p>
-        <div class="bg-white rounded-xl shadow-xl p-3 flex gap-2">
+        <div class="bg-white dark:bg-zinc-700 rounded-xl shadow-xl p-3 flex gap-2">
           <div>
             <?php
           echo date('d');
@@ -23,15 +24,15 @@
         </div>
       </div>
       <section class="w-full flex justify-center">
-        <div class="sm:w-[90%]">
+        <div class="w-[90%] ">
           <p class="text-xl">Datos del cliente</p>
-          <div class="w-full sm:h-[15rem] shadow-xl rounded-xl p-5 bg-white flex flex-col gap-2">
+          <div class="w-full shadow-xl rounded-xl p-5 bg-white dark:bg-zinc-700 flex flex-col gap-2">
             <p class="text-xl">Cliente</p>
             <div>
               <p>Numero de documento</p>
               <div>
                 <div class="flex gap-2 items-center">
-                  <input type="text" list="customers" value="{{$customer}}" class="border-0 border-black border-b ring-0 focus:ring-0 focus:border-black"
+                  <input type="text" list="customers" value="{{$customer}}" class="border-0 border-black dark:border-white dark:bg-zinc-700 border-b ring-0 focus:ring-0 focus:border-black"
                     wire:change="setCustomer($event.target.value)">
                   @if($customer)
                   <button button class="rounded w-6 h-6 text-zinc-500" wire:click="resetCustomer()">Borrar</button>
@@ -46,22 +47,22 @@
                 @endforeach
               </datalist>
             </div>
-            <div class="flex gap-5 max-sm:flex-wrap">
+            <div class="flex gap-5 flex-wrap">
               <div class="flex flex-col gap-2">
                 <p>Nombre</p>
-                <div class="bg-zinc-200 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
+                <div class="dark:bg-zinc-600 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
                   {{$customerName}}
                 </div>
               </div>
               <div class="flex flex-col gap-2">
                 <p>Email</p>
-                <div class="bg-zinc-200 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
+                <div class="dark:bg-zinc-600 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
                   {{$customerEmail}}
                 </div>
               </div>
               <div class="flex flex-col gap-2">
                 <p>Telefono</p>
-                <div class="bg-zinc-200 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
+                <div class="dark:bg-zinc-600 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
                   {{$customerPhone}}
                 </div>
               </div>
@@ -70,16 +71,16 @@
         </div>
       </section>
       <section class="w-full flex justify-center">
-        <div class="sm:w-[90%]">
+        <div class="w-[90%]">
           <p class="text-xl">Vehiculo</p>
-          <div class="flex gap-5 flex-wrap lg:flex-nowrap">
-            <div class="w-full h-[15rem] shadow-xl rounded-xl p-5 bg-white flex flex-col gap-2">
+          <div class="flex gap-5 flex-wrap 2xl:flex-nowrap items-center">
+            <div class="w-full h-[15rem] shadow-xl rounded-xl p-5 bg-white dark:bg-zinc-700 flex flex-col gap-2">
               <p class="text-xl">Vehiculo</p>
-              <div class="">
+              <div>
                 <p>Placa</p>
                 <div class="flex gap-2 items-center pr-5">
                   <input type="text" list="vehicles" value="{{$vehicle}}" wire:change="setVehicle($event.target.value)"
-                    class="border-0 border-black border-b ring-0 focus:ring-0 focus:border-black">
+                    class="border-0 border-black dark:border-white dark:bg-zinc-700 border-b ring-0 focus:ring-0 focus:border-black">
 
                   <button class="rounded w-6 h-6 text-zinc-500
                   @if($vehicle=='')
@@ -89,36 +90,41 @@
                 </div>
                 <datalist id="vehicles">
                   @foreach($vehicles as $vehicle)
-                  @if($vehicle->customer_id == $customerSelected && $vehicle->status==1)
-                  <option value="{{$vehicle->id}}  {{$vehicle->plate}}">{{$vehicle->model}}</option>
-                  @endif
+                    @if($this->customerId)
+                        @if($vehicle->customer_id == $this->customerId && $vehicle->status==1)
+                        <option value="{{$vehicle->id}}  {{$vehicle->plate}}">{{$vehicle->model}}</option>
+                        @endif
+                    @else
+                        <option value="{{$vehicle->id}}  {{$vehicle->plate}}">{{$vehicle->model}}</option>
+                    @endif
                   @endforeach
                 </datalist>
               </div>
               <div class=" gap-5">
                 <div class="flex flex-col gap-2">
                   <p>Modelo</p>
-                  <div class="bg-zinc-200 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
+                  <div class="dark:bg-zinc-600 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
                     {{$this->vehicleModel}}
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="w-full shadow-xl rounded-xl p-5 bg-white flex flex-col gap-2">
+            <div class="w-full shadow-xl rounded-xl p-5 bg-white dark:bg-zinc-700 flex flex-col gap-2">
               <p class="text-xl">Aceites</p>
               <div class="flex flex-col gap-2">
                 <p>Tipo</p>
                 <div class="flex gap-2 items-center pr-5">
                   <input type="text" list="" wire:model="oilType"
-                    class="border-0 border-black border-b ring-0 focus:ring-0 focus:border-black">
+                    class="border-0 border-black dark:border-white dark:bg-zinc-700 border-b ring-0 focus:ring-0 focus:border-black">
                 </div>
               </div>
-              <div class="flex gap-5">
+              <div class="flex gap-5 max-sm:flex-wrap">
                 <div class="flex flex-col gap-2">
                   <p>Caja</p>
                   <div class="flex gap-2 items-center pr-5">
-                    <select wire:model="boxType">
+                    <select wire:model="boxType" class="dark:bg-zinc-700 dark:border-white">
+                      <option value="Ninguno">Ninguno</option>
                       <option value="c">De cambios</option>
                       <option value="t">De transferencia</option>
                     </select>
@@ -127,7 +133,8 @@
                 <div class="flex flex-col gap-2">
                   <p>Diferencial</p>
                   <div class="flex gap-2 items-center pr-5">
-                    <select wire:model="difType">
+                    <select wire:model="difType" class="dark:bg-zinc-700 dark:border-white">
+                      <option value="Ninguno">Ninguno</option>
                       <option value="trans">Trans</option>
                       <option value="del">Del</option>
                     </select>
@@ -136,7 +143,7 @@
               </div>
             </div>
 
-            <div class="w-full shadow-xl rounded-xl p-5 bg-white flex flex-col gap-2">
+            <div class="w-full shadow-xl rounded-xl p-5 bg-white dark:bg-zinc-700 flex flex-col gap-2">
               <p class="text-xl">Filtros</p>
               <?php
               //var_dump($this->oilFilterType)
@@ -186,25 +193,25 @@
                   </div>
                 
                 </div>
-                <p>Aceite</p>
+                <p class="w-[95px]">Aceite</p>
                 <input type="radio" name="oilFilterType" value="1" wire:click="setOilFilterType($event.target.value)"
                 @if($this->oilFilterType=='1')
                 checked
                 @endif
                   class="justify-self-center self-center z-40">
-                <p>Aire motor</p>
+                <p class="w-[95px]">Aire motor</p>
                 <input type="radio" name="oilFilterType" value="2" wire:click="setOilFilterType($event.target.value)"
                 @if($this->oilFilterType=='2')
                 checked
                 @endif
                   class="justify-self-center self-center z-40">
-                <p>Aire cabina</p>
+                <p class="w-[95px]">Aire cabina</p>
                 <input type="radio" name="oilFilterType" value="3" wire:click="setOilFilterType($event.target.value)"
                 @if($this->oilFilterType=='3')
                 checked
                 @endif
                   class="justify-self-center self-center z-40">
-                <p>Combustible</p>
+                <p class="w-[95px]">Combustible</p>
                 <input type="radio" name="oilFilterType" value="4" wire:click="setOilFilterType($event.target.value)"
                 @if($this->oilFilterType=='4')
                 checked
@@ -217,14 +224,15 @@
         </div>
       </section>
       <section class="w-full flex justify-center">
-        <div class="sm:w-[90%]">
+        <div class="w-[90%]">
           <p class="text-xl">Procedimientos</p>
           <div class="">
-            <div class="bg-zinc-800 w-full p-5 rounded-t-xl flex justify-end">
+            <div class="bg-zinc-800 dark:bg-zinc-900 w-full p-5 rounded-t-xl flex justify-end">
             </div>
+            <div class="w-full overflow-x-auto">
             <table class="w-full shadow-xl">
               <thead class="text-white">
-                <tr class="bg-zinc-800">
+                <tr class="bg-zinc-800 dark:bg-zinc-900">
                   <th class="">
                     <div class="px-6 py-3">Procedimiento</div>
                   </th>
@@ -239,7 +247,7 @@
               <tbody>
                 @foreach($this->procedures as $key => $val)
                 <tr class="w-full">
-                  <th class="bg-white
+                  <th class="bg-white dark:bg-zinc-700
                   @if($this->procedureIsEdit==$key)
                   px-6 py-3
                   @elseif($val[0]!='' or  $val[1]!='')
@@ -248,12 +256,12 @@
                   h-0
                   @endif">
                     @if($this->procedureIsEdit==$key)
-                    <input type="text" wire:model.lazy="procedureName" class="border-0 border-b border-black ring-0 focus:ring-0 focus:border-black">
+                    <input type="text" wire:model.lazy="procedureName" class="border-0 border-b border-black dark:border-white dark:bg-zinc-700 ring-0 focus:ring-0 focus:border-black">
                     @elseif($val[0] && $val[1])
                     {{$val[0]}}
                     @endif
                   </th>
-                  <th class="bg-white 
+                  <th class="bg-white dark:bg-zinc-700 
                   @if($this->procedureIsEdit==$key)
                   px-6 py-3
                   @elseif($val[0]!='' or  $val[1]!='')
@@ -262,19 +270,19 @@
                   h-0
                   @endif">
                     @if($this->procedureIsEdit==$key)
-                    <input type="number" wire:model.lazy="procedurePrice" class="border-0 border-b border-black ring-0 focus:ring-0 focus:border-black">
+                    <input type="number" wire:model.lazy="procedurePrice" class="border-0 border-b border-black dark:border-white dark:bg-zinc-700 ring-0 focus:ring-0 focus:border-black">
                     @elseif($val[0] && $val[1])
                     {{$val[1]}}
                     @endif
                   </th>
-                  <th class="bg-white">
+                  <th class="bg-white dark:bg-zinc-700">
                     @if($this->procedureIsEdit==$key)
                     <x-jet-button wire:click="procedureSave()" class="bg-red-800 hover:bg-red-900 active:bg-red-700">
                       Guardar
                     </x-jet-button>
                     @elseif($val[0] && $val[1])
                     <x-jet-button wire:click="procedureEdit({{ $key}})"
-                      class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">
+                      class="bg-zinc-800 dark:bg-zinc-900 hover:bg-zinc-900 active:bg-zinc-700">
                       Editar
                     </x-jet-button>
                     <x-jet-button wire:click="procedureDelete({{ $key}})"
@@ -287,7 +295,8 @@
                 @endforeach
               </tbody>
             </table>
-            <div class="bg-zinc-800 w-full flex justify-end text-white rounded-b-2xl px-6 py-4">
+            </div>
+            <div class="bg-zinc-800 dark:bg-zinc-900 w-full flex justify-end text-white rounded-b-2xl px-6 py-4">
                 Total:
                 {{$porcedureTotal}}
               </div>
@@ -298,10 +307,10 @@
 
 
       <section class="w-full flex justify-center">
-        <div class="sm:w-[90%]">
+        <div class="w-[90%]">
           <p class="text-xl">Productos</p>
           <div class="">
-            <div class="w-full bg-zinc-800 sm:flex items-center place-content-between p-5 relative rounded-t-xl">
+            <div class="w-full bg-zinc-800 dark:bg-zinc-900 sm:flex items-center place-content-between p-5 relative rounded-t-xl">
               <div class="flex max-sm:flex-col gap-5 items-center">
                 <p class="text-white flex items-center">
                   Buscar
@@ -321,7 +330,7 @@
                 </p>
                 <input wire:model="search" type="search"
                   placeholder="nombre, cantidad, precio, fecha, id, id del proveedor, id de la factura"
-                  class="rounded max-sm:w-full">
+                  class="rounded max-sm:w-full dark:bg-zinc-800 dark:text-white focus:border-red-800 focus:ring-red-800">
                 <div class="flex gap-5 max-sm:flex-col items-center justify-center">
 
 
@@ -424,10 +433,10 @@
               </div>
 
             </div>
-            <div class="bg">
+            <div class="bg overflow-x-auto">
               <table class="w-full">
                 <thead class="text-white">
-                  <tr class="bg-zinc-800">
+                  <tr class="bg-zinc-800 dark:bg-zinc-900">
                     <th class="">
                       <div class="px-6 py-3 flex justify-center"></div>
                     </th>
@@ -451,32 +460,32 @@
                 <tbody>
                   @foreach($products as $product)
                   @if($product->status==1)
-                  <tr class="w-full bg-white">
-                    <td class="bg-white px-6 py-4 whitespace-nowrap">
+                  <tr class="w-full bg-white dark:bg-zinc-700">
+                    <td class="bg-white dark:bg-zinc-700 px-6 py-4 whitespace-nowrap">
                       <div class="flex justify-center items-center"><input type="checkbox"
-                          wire:change="productAdd($event.target.value, {{$product->id}})" @if(array_search($product->id,
+                          wire:change="productAdd($event.target.value, {{$product->id}})" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if(array_search($product->id,
                         $this->productsSelected))
                         checked
                         @endif
                         >
                       </div>
                     </td>
-                    <td class="bg-white px-6 py-4 flex justify-center whitespace-nowrap">
+                    <td class="bg-white dark:bg-zinc-700 px-6 py-4 flex justify-center whitespace-nowrap">
                       <div class="max-w-[12rem] overflow-x-auto">{{ $product->id }}</div>
                     </td>
-                    <td class="bg-white px-6 py-4 whitespace-nowrap">
+                    <td class="bg-white dark:bg-zinc-700 px-6 py-4 whitespace-nowrap">
                       <div class="max-w-[12rem] overflow-x-auto">{{ $product->name }}</div>
                     </td>
-                    <td class="bg-white px-6 py-4 whitespace-nowrap">
+                    <td class="bg-white dark:bg-zinc-700 px-6 py-4 whitespace-nowrap">
                       <div class="max-w-[12rem] overflow-x-auto">{{ $product->price }}</div>
                     </td>
-                    <td class="bg-white px-6 py-4 whitespace-nowrap">
+                    <td class="bg-white dark:bg-zinc-700 px-6 py-4 whitespace-nowrap">
                       <div class="max-w-[12rem] overflow-x-auto">
                         <input type="number" max="{{$product->ammount}}" class="w-full border-0 focus:border-black
                         @if(!array_search($product->id, $this->productsSelected))
-                        bg-zinc-200 rounded
+                        dark:bg-zinc-700 rounded
                         @else
-                        border-black border-b
+                        border-black dark:border-white dark:bg-zinc-700 border-b
                         @endif
                         "
                         wire:change="productSave({{$product->id}}, {{$product->price}}, $event.target.value)"
@@ -492,14 +501,13 @@
                         >
                       </div>
                     </td>
-                    <td class="bg-white px-6 py-4 whitespace-nowrap">
+                    <td class="bg-white dark:bg-zinc-700 px-6 py-4 whitespace-nowrap">
                       <div class="max-w-[12rem] overflow-x-auto">
                         <p>
                           <?php
                 $a=array_search($product->id, $this->productsSelected);
                 if($a){
                   echo $this->productsAmmount[$a][2];
-                  $this->total+=$this->productsAmmount[$a][2];
                 }
                   ?>
                         </p>
@@ -513,7 +521,7 @@
               <div class="m-2 p-2">
                 {{ $products->links() }}
               </div>
-              <div class="bg-zinc-800 w-full flex justify-end text-white rounded-b-2xl px-6 py-4">
+              <div class="bg-zinc-800 dark:bg-zinc-900 w-full flex justify-end text-white rounded-b-2xl px-6 py-4">
                 Total:
                 {{$this->total}}
               </div>
@@ -527,68 +535,67 @@
         </div>
       </section>
       <section class="w-full flex justify-center">
-        <div class="sm:w-[90%]">
+        <div class="w-[90%]">
           <p class="text-xl">Observaciones</p>
           <div class="">
-            <div class="bg-zinc-800 w-full p-5 rounded-t-xl flex justify-end">
+            <div class="bg-zinc-800 dark:bg-zinc-900 w-full p-5 rounded-t-xl flex justify-end">
             </div>
             
-            <div class="bg-white p-5 rounded-b-xl flex shadow-xl">
-              <textarea class="w-full min-h-[20rem]" wire:model="observations"></textarea>
+            <div class="bg-white dark:bg-zinc-700 p-5 rounded-b-xl flex shadow-xl">
+              <textarea class="w-full min-h-[20rem] dark:bg-zinc-800 focus:border-red-800 focus:ring-red-800" wire:model="observations"></textarea>
             </div>
 
           </div>
         </div>
       </section>
-      <section class="w-full flex justify-center">
-        <div class="sm:w-[90%]">
-          <p class="text-xl">Observaciones</p>
+      <section class="flex justify-end max-sm:justify-center">
+        <div class="">
+          <p class="text-xl"></p>
           <div class="">
-            <div class="bg-zinc-800 w-full p-5 rounded-t-xl flex justify-end">
-            </div>
             
-            <div class="bg-white p-5 rounded-b-xl shadow-xl">
-              fecha={{$this->day}}|{{$this->month}}|{{$this->year}}
-              cliente={{$this->customerId}}<br>
-              vehiculo={{$this->vehicleId}}<br>
-              Aceite={{$this->oilType}}<br>
-              Caja={{$this->boxType}}<br>
-              Diferencial={{$this->difType}}<br>
-              filtro={{$this->oilFilterType}}<br>
-              procedimientos:
-              @foreach($this->procedures as $procedure)
-              <?php
-              var_dump($procedure);
-              ?>
-              @endforeach
-              <br>
-              Total de procedimientos=
-              {{$this->porcedureTotal}}<br>
-              productos:
-              @foreach($this->productsSelected as $pro)
-              {{$pro}}<br>
-              @endforeach
-              <?php
-              var_dump($this->productsAmmount)
-              ?><br>
+            <div class="bg-white dark:bg-zinc-700 p-5 rounded-xl flex justify-center items-center shadow-xl">
+                <p class="text-xl">Total: {{$this->totalFinal}}</p>
+                <div class="bg-white dark:bg-zinc-700 rounded-b-xl flex justify-center relative w-10 h-10">
+                    <svg fill="#1ca800" height="200px" width="200px" version="1.1" id="Capa_1" class="h-10" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 486.201 486.201" xml:space="preserve" stroke="#1ca800"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g><path d="M397.3,243.097c0-85.2-69-154.2-154.2-154.2s-154.2,69-154.2,154.2s69,154.2,154.2,154.2S397.3,328.297,397.3,243.097z M287.4,303.897c-6.7,8.2-15.5,13.7-25.7,16.5c-4.5,1.2-6.5,3.6-6.2,8.2c0.2,4.5,0,9.1,0,13.7c0,4.1-2.1,6.2-6.1,6.3 c-2.6,0.1-5.2,0.1-7.8,0.1c-2.3,0-4.6,0-6.9-0.1c-4.3-0.1-6.3-2.5-6.4-6.7c0-3.3-0.1-6.7-0.1-10c-0.1-7.3-0.3-7.6-7.4-8.8 c-9-1.4-17.9-3.5-26.2-7.5c-6.5-3.2-7.2-4.8-5.3-11.6c1.4-5.1,2.8-10.1,4.4-15.2c1.2-3.7,2.2-5.3,4.2-5.3c1.1,0,2.6,0.5,4.6,1.6 c9.1,4.8,18.9,7.4,29,8.7c1.7,0.2,3.5,0.3,5.2,0.3c4.8,0,9.4-0.9,13.9-2.8c11.3-4.9,13.1-18.1,3.5-26c-3.3-2.7-7-4.7-10.8-6.4 c-9.9-4.4-20.3-7.7-29.7-13.3c-15.2-9.1-24.9-21.6-23.8-40.2c1.3-21,13.1-34,32.3-41c7.9-2.9,8-2.8,8-11.1c0-2.8,0-5.6,0-8.4 c0.2-6.2,1.2-7.3,7.4-7.5c0.7,0,1.4,0,2.2,0c1.2,0,2.4,0,3.6,0c0.5,0,1,0,1.4,0c11.8,0,11.8,0.5,11.9,13.2c0,9.4,0,9.4,9.4,10.9 c7.1,1.1,14,3.2,20.6,6.1c3.6,1.6,5,4.2,3.9,8c-1.7,5.7-3.2,11.5-5,17.1c-1.1,3.5-2.2,5-4.2,5c-1.1,0-2.5-0.5-4.3-1.4 c-9.2-4.4-18.7-6.6-28.7-6.6c-1.3,0-2.6,0-3.9,0.1c-3,0.2-5.9,0.6-8.7,1.8c-9.9,4.3-11.5,15.2-3.1,21.9c4.2,3.4,9.1,5.9,14.2,8 c8.7,3.6,17.5,7.1,25.8,11.7C298.9,248.097,306,281.297,287.4,303.897z"></path> </g> </g> </g></svg>
+                    <!--<svg fill="#1ca800" height="200px" width="200px" version="1.1" id="Capa_1" class="absolute w-10 h-10 animate-spin-slow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 486.201 486.201" xml:space="preserve" stroke="#1ca800"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M325.5,66.897c6.7-14.4,13.4-28.8,20.5-44.1c-78.2-32.9-154.4-31.3-227.4,12.1c-70.5,42-108.8,105.7-118.6,187.8 c16.8,1.5,32.6,2.8,48.4,4.2C57,102.897,194.1,7.797,325.5,66.897z"></path> <path d="M482.7,201.697c-15.7,2.7-31.4,5.5-47.7,8.3c8.4,56.8-3.2,107.9-37.9,152.8c-34.5,44.6-80.6,69.1-137.1,75.4 c1.4,16,2.7,31.7,4.1,47.3C382.3,481.297,509,362.497,482.7,201.697z"></path> <path d="M47.7,260.997c-15,1.3-30.7,2.7-46.4,4c3.6,99.1,90.1,210.6,220.5,221.2c1.4-16.1,2.8-31.7,4.1-47 C124,422.197,64.9,363.097,47.7,260.997z"></path> a<path d="M397.3,125.097c12.2,15.8,21.5,33,28.8,52.2c15.2-5.5,30.1-10.9,45.7-16.6c-18.1-48-47.5-86.2-89.2-116.2 c-9.3,13.2-18.4,26.2-27.9,39.8C370.8,95.997,385.2,109.397,397.3,125.097z"></path> </g> </g> </g></svg>-->
+                </div>
             </div>
 
           </div>
         </div>
       </section>
       <section class="w-full flex justify-between">
-      <x-jet-button class="w-24 h-12 duration-300 flex justify-center items-center bg-zinc-800 hover:bg-zinc-900 focus:bg-zinc-700">
+      <x-jet-button class="w-24 h-12 duration-300 flex justify-center items-center bg-zinc-800 dark:bg-zinc-900 hover:bg-zinc-900 focus:bg-zinc-700">
                     {{ __('Resetear') }}
                 </x-jet-button>
                 <div class="flex gap-5">
                 <x-jet-button class="w-24 h-12 duration-300 flex justify-center items-center">
                     {{ __('Cancelar') }}
                 </x-jet-button>
-                <x-jet-button class="w-24 h-12 duration-300 flex justify-center items-center">
-                    {{ __('Imprimir') }}
+                <x-jet-button class="w-24 h-12 duration-300 flex justify-center items-center" wire:click="modal(true)">
+                    {{ __('Guardar') }}
                 </x-jet-button>
                 </div>
       </section>
-      {{$this->observations}}
     </div>
+    <x-jet-dialog-modal wire:model="showingBillModal">
+            <x-slot name="title">Editar usuario</x-slot>
+            <x-slot name="content">
+              <div class="space-y-8 divide-y divide-gray-200 mt-10">
+                ¿Seguro de que desea guardar este informe?<p class="text-red-500">>>No se podra editar despues<<</p>
+                
+        </div>
+
+        </x-slot>
+        <x-slot name="footer">
+          <div class="w-full flex gap-5 place-content-between">
+              <x-jet-button wire:click="modal(false)" type="button"
+                class="bg-zinc-800 dark:bg-zinc-900 dark:bg-zinc-900 hover:bg-zinc-900 active:bg-zinc-700">Cerrar</x-jet-button>
+
+          <x-jet-button wire:click="saveReport"
+                class="bg-red-800 hover:bg-red-900 active:bg-red-700">Guardar</x-jet-button>
+          </div>
+        </x-slot>
+        </x-jet-dialog-modal>
   </div>
+  
