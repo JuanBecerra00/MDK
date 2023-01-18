@@ -518,14 +518,15 @@
                   @endforeach
                 </tbody>
               </table>
+            </div>
               <div class="m-2 p-2">
                 {{ $products->links() }}
               </div>
-              <div class="bg-zinc-800 dark:bg-zinc-900 w-full flex justify-end text-white rounded-b-2xl px-6 py-4">
+            
+            <div class="bg-zinc-800 dark:bg-zinc-900 w-full flex justify-end text-white rounded-b-2xl px-6 py-4">
                 Total:
                 {{$this->total}}
               </div>
-            </div>
             <?php
             //var_dump($this->productsAmmount);
             //var_dump($this->productsSelected);

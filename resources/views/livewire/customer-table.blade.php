@@ -570,11 +570,11 @@
                     <!-- More items... -->
                   </tbody>
                 </table>
-                <div class="m-2 p-2">
-                  {{ $customers->links() }}
-                </div>
               </div>
             </div>
+          </div>
+          <div class="m-2 p-2">
+            {{ $customers->links() }}
           </div>
 
         </div>

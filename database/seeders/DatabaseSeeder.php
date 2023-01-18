@@ -24,13 +24,14 @@ class DatabaseSeeder extends Seeder
         Customer::factory(10)->create();
         Vehicle::factory(10)->create();
         Product::factory(100)->create();
+        User::factory(10)->create();
 
         User::factory()->create([
             'type' => 'cc',
             'cc' => '123456789',
             'name' => 'Admin',
             'job' => 'a',
-            'email' => 'admin@gmail.com',
+            'email' => 'megadatakit@gmail.com',
             'phone' => '123456789',
             'question' => 'pq',
             'answer' => 'pq zi',
