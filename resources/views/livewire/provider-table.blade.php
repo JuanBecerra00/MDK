@@ -90,8 +90,6 @@
                                 </x-slot>
                             </x-jet-dropdown>
 
-
-
                             <x-jet-dropdown align="left" width="48">
                                 <x-slot name="trigger">
                         <span class="inline-flex rounded-md">
@@ -293,7 +291,6 @@
                                                 </svg></div>
                                         </th>
                                     @endif
-
                                     @if($fieldStatus)
                                         <th scope="col"
                                             class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
@@ -371,9 +368,9 @@
                             <div class="m-2 p-2">
                                 {{ $providers->links() }}
                             </div>
-                        </div>
-                    </div>
-                </div>
+                                     </div>
+                                 </div>
+                            </div>
 
             </div>
             <div>
@@ -386,7 +383,6 @@
                         <x-slot name="title"> Registrar Proveedor</x-slot>
                     @endif
                     <x-slot name="content">
-
                         <div class="space-y-8 divide-y divide-gray-200 mt-10">
                             @if($isHowToSearchMode)
                                 Puedes buscar:<br>
@@ -426,9 +422,23 @@
                                                     @error('phone') <span class="error text-red-500">{{ $message }}</span> @enderror
                                                 </div>
                                             </div>
-
-                @endif
-
+                                            @if($idProvider!=1)
+                                                <div class="sm:col-span-6">
+                                                    <label for="status" class="block text-sm font-medium text-gray-700"> Estado </label>
+                                                    <div class="mt-1">
+                                                        <select id="status" wire:model.lazy="status" name="status"
+                                                                class="block w-full bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5">
+                                                            <option value="1">Activo</option>
+                                                            <option value="0">Inactivo</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                             @endif
+                                        </div>
+                                    </form>
+                                </div>
+                        @endif
+                        </div>
 
             </x-slot>
                         <x-slot name="footer">
@@ -483,7 +493,7 @@
                 <div class="flex gap-5 items-center px-4 py-2 text-xs text-gray-400">
                     Seleccionados
                     <x-jet-button wire:click="deselectAll()"
-                                  class="bg-red-800 hover:bg-red-900 active:bg-red-700 max-sm:w-full flex justify-center items-center">Deseleccionar</x-jet-button>
+                    class="bg-red-800 hover:bg-red-900 active:bg-red-700 max-sm:w-full flex justify-center items-center">Deseleccionar</x-jet-button>
                 </div>
                 <div class="flex flex-wrap gap-2 overflow-y-auto max-h-28 px-2 py-2">
                     @foreach($selecteds as $selected)

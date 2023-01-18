@@ -2,13 +2,294 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Vehicle;
+use App\Exports\VehiclesExportPdf;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\View;
 use Livewire\Component;
+use App\Models\Vehicle;
+use Illuminate\Support\Facades\Hash;
+use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VehicleTable extends Component
 {
+    use WithPagination;
+    public $showingVehicleModal = false;
+
+    public $vehiclesRendered;
+    public $idVehicle;
+    public $customers_id;
+    public $plate;
+    public $model;
+    public $status;
+    public $regstatus="";
+    public $isEditMode = false;
+    public $isHowToSearchMode = false;
+    public $vehicle;
+
+    public $sortField = 'id';
+    public $sortDirection = 'asc';
+    public $paginate = '5';
+    public $fieldId = true;
+    public $fieldCustomers_id = true;
+    public $fieldPlate = true;
+    public $fieldModel = true;
+    public $fieldStatus = true;
+    public $validateCustomers_id;
+    public $isSelectedAll = 0;
+    public $filter = 1;
+    public $filterType = '';
+    public $fontSize = 16;
+    public $selecteds = [];
+    public $fields = ['fieldId', 'fieldCustomers_id','fieldPlate', 'fieldModel', 'fieldStatus'];
+    public $fieldsExport = [];
+
+    public $exportData;
+    public $encryption;
+    public $test = 0;
+    public $pdfSelecteds = 0;
+    public $pdfFields = 0;
+    public $pdfSelectedsArray = [];
+
+    public $search;
+    protected $queryString = ['search'];
+    public function addToSelecteds($rowId)
+    {
+        if(in_array($rowId, $this->selecteds)){
+            $this->selecteds = \array_diff($this->selecteds, [$rowId]);
+        }else{
+            array_push($this->selecteds, $rowId);
+        }
+    }
+
+    public function selectAll($value)
+    {
+        $vehicles = Vehicle::where('plate', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+            ->orwhere('model', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+            ->orwhere('id', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+            ->orwhere('customers_id', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+            ->orderBy($this->sortField, $this->sortDirection)->paginate($this->paginate);
+
+        if($this->isSelectedAll!=0){
+            foreach($vehicles as $vehicle){
+                if(in_array($vehicle->id, $this->selecteds)==false){
+                    array_push($this->selecteds, $vehicle->id);
+                }
+            }
+        }else{
+            foreach($vehicles as $vehicle){
+                $this->selecteds = \array_diff($this->selecteds, [$vehicle->id]);
+            }
+        }
+    }
+
+    public function deselectAll()
+    {
+        $this->selecteds = [];
+    }
+    public function showVehicleModal()
+    {
+        $this->customers_id = '';
+        $this->plate = '';
+        $this->model = '';
+        $this->status = '';
+        $this->isEditMode = false;
+        $this->isHowToSearchMode = false;
+        $this->showingVehicleModal = true;
+    }
+
+    public function modalRegFormReset()
+    {
+        $this->customers_id = '';
+        $this->plate = '';
+        $this->model = '';
+        $this->status = '';
+    }
+
+    public function modalEditFormReset()
+    {
+        $this->customers_id = $this->vehicle->customers_id;
+        $this->plate = $this->vehicle->plate;
+        $this->model = $this->vehicle->model;
+        $this->status = $this->vehicle->status;
+    }
+
+    public function hideModal()
+    {
+        $this->showingVehicleModal = false;
+    }
+
+    public function sortBy($field)
+    {
+        if ($this->sortField == $field){
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+        $this->sortField = $field;
+    }
+
+    public function changePaginate($number)
+    {
+        $this->paginate = $number;
+    }
+
+    public function filter($value)
+    {
+        $this->filter = $value;
+    }
+
+    public function filterType($value)
+    {
+        $this->filterType = $value;
+    }
+
+    public function changeField($field)
+    {
+        if ($this->$field == true){
+            $this->$field = false;
+        } else {
+            $this->$field = true;
+        }
+        if(in_array($field, $this->fields)){
+            $this->fields = \array_diff($this->fields, [$field]);
+        }else{
+            array_push($this->fields, $field);
+        }
+    }
+
+
+    protected $validationAttributes = [
+
+        'customers_id' => 'id del cliente',
+        'plate' => 'Placa',
+        'model' => 'Modelo',
+    ];
+    protected $messages = [
+        'customers_id.same' => 'La id del cliente no valida.',
+        'plate.unique' => 'Numero de placa ya registrado.',
+        'model.unique' => 'Modelo ya registrado.',
+        'plate.max' => 'La placa no puede tener mas de :max caracteres.',
+    ];
+    public function saveVehicle()
+    {
+
+        $this->validate([
+            'customers_id' => 'required',
+            'plate' => 'required',
+            'model' => 'required',
+        ]);
+        $vehicle = new Vehicle();
+        $vehicle->plate = $this->plate;
+        $vehicle->customers_id = $this->customers_id;
+        $vehicle->model = $this->model;
+        $regstatus=$this->status;
+        if($this->status==""){
+            $this->status="1";
+        };
+        $vehicle->status = $this->status;
+        $vehicle->save();
+        $this->showingVehicleModal = false;
+    }
+
+    public function showEditVehicleModal($id)
+    {
+        $this->vehicle = Vehicle::findOrfail($id);
+        $this->idVehicle = $this->vehicle->id;
+        $this->customers_id = $this->vehicle->customers_id;
+        $this->plate = $this->vehicle->plate;
+        $this->model = $this->vehicle->model;
+        $this->status = $this->vehicle->status;
+        $this->isHowToSearchMode = false;
+        $this->isEditMode = true;
+        $this->showingVehicleModal = true;
+    }
+
+    public function showHowToSearchModal()
+    {
+        $this->isHowToSearchMode = true;
+        $this->isEditMode = false;
+        $this->showingVehicleModal = true;
+    }
+    public function updateVehicle(){
+        $this->vehicle->update([
+            'customers_id' => $this->customers_id,
+            'plate' => $this->plate,
+            'model' => $this->model,
+            'status' => $this->status,
+        ]);
+
+        $this->showingVehicleModal=false;
+    }
+    public function delete($id): array
+    {
+        $vehicle = Vehicle::find($id);
+        if ($vehicle->status == "0"){
+            $vehicle->status = "1";
+        }elseif ($vehicle->status == "1"){
+            $vehicle->status = "0";
+        }
+        return [
+
+            $vehicle->save()
+        ];
+    }
+    public function fontSizeBigger()
+    {
+        $this->fontSize+=1;
+    }
+
+    public function fontSizeSmaller()
+    {
+        $this->fontSize-=1;
+    }
+    public function exportExcel()
+    {
+        return Excel::download(new VehiclesExportPdf($this->selecteds, $this->fieldId, $this->fieldCustomers_id, $this->fieldPlate, $this->fieldModel, $this->fieldStatus), 'vehicles.xlsx');
+    }
+    public function exportCsv()
+    {
+        return Excel::download(new VehiclesExportPdf($this->selecteds , $this->fieldId, $this->fieldCustomers_id, $this->fieldPlate, $this->fieldModel, $this->fieldStatus), 'vehicles.csv');
+    }
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function loadSelecteds($selecteds)
+    {
+        return view("exports.pdf",['selecteds' => $selecteds]);
+
+    }
+    public function pdf($exportData)
+    {
+        $vehicles = Vehicle::all();
+        $pdf = PDF::loadView('exports.vehiclePdf', compact('vehicles'),['exportData' => $exportData]);
+        return $pdf->stream('vehicle.pdf');
+
+    }
     public function render()
     {
-        return view('livewire.vehicle-table', ['vehicles' => Vehicle::all()]);
+        $this->pdfFields = implode(',',$this->fields);
+        $this->pdfSelecteds = implode(',',$this->selecteds);
+        $this->exportData=$this->pdfSelecteds.','.$this->pdfFields;
+        $this->isSelectedAll=0;
+        $this->encryption = openssl_encrypt($this->exportData, "AES-128-CTR",
+            "34567890odxcvbnko8765", 0, '1234567891011121');
+        $this->encryption = str_replace('/', 'ñ', $this->encryption);
+        $vehicles = Vehicle::where('plate', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+            ->orwhere('model', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+            ->orwhere('id', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+            ->orwhere('customers_id', 'like', '%'.$this->search.'%')->where('status', 'like', '%'.$this->filter.'%')
+            ->orderBy($this->sortField, $this->sortDirection)->paginate($this->paginate);
+        foreach($vehicles as $vehicle){
+            if(in_array($vehicle->id, $this->selecteds)){
+            }else{
+                $this->isSelectedAll+=1;
+            }
+        }
+        return view('livewire.vehicle-table', ['vehicles' => $vehicles]);
+
     }
 }

@@ -26,7 +26,7 @@
                             <button class="w-full text-center block px-2 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="fontSizeSmaller()">
                                 -
                             </button>
-                            <div class="flex justify-center items-center px-5">
+                            <div class="flex jusvv tify-center items-center px-5">
                                 {{ $fontSize }}
                             </div>
                             <button class="w-full text-center block px-2 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="fontSizeBigger()">
