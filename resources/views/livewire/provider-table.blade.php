@@ -506,6 +506,10 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="m-2 p-2">
+                          {{ $products->links() }}
+                      </div>
 
             </div>
             <div>

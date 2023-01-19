@@ -1,7 +1,7 @@
 <div class="flex justify-center mt-20" style="font-size:{{ $this->fontSize }}px">
     <div class="max-w-[85vw] overflow-auto">
 
-        <h1 style="font-size: 30px;" class="dark:text-white">Vehiculos</h1>
+        <h1 style="font-size: 30px;" class="dark:text-white">Reportes</h1>
 
         <div class="">
 
