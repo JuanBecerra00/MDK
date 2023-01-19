@@ -39,6 +39,7 @@ Route::get('/Products', ProductTable::class)->name('products.index');
 Route::get('/Providers', ProviderTable::class)->name('providers.index');
 Route::get('/Reports', ReportTable::class)->name('reports.index');
 Route::get('/Vehicles', VehicleTable::class)->name('vehicles.index');
+Route::get('vehiclePdf/{id}', [VehicleTable::class, 'pdf'])->name('vehicles.pdf');
 Route::get('/Billing', Billing::class)->name('billing.index');
 Route::get('/Reporting', Reporting::class)->name('reporting.index');
 Route::get('billingPdf/{id}', [Billing::class, 'pdf'])->name('billing.pdf');
