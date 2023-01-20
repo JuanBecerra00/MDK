@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Exports\ProductsExportPdf;
+use App\Models\Provider;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
@@ -341,7 +342,7 @@ class ProductTable extends Component
                 $this->isSelectedAll+=1;
             }
         }
-        return view('livewire.product-table', ['products' => $products]);
+        return view('livewire.product-table', ['products' => $products], ['providers' => Provider::all()]);
 
     }
 }

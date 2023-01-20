@@ -37,6 +37,8 @@ Route::middleware([
 Route::get('/Users', UserTable::class)->name('users.index');
 Route::get('/Products', ProductTable::class)->name('products.index');
 Route::get('/Providers', ProviderTable::class)->name('providers.index');
+    Route::get('providers/export/', [ProvidersController::class, 'export']);
+    Route::get('ProvidersExportPdf/{id}', [ProviderTable::class, 'pdf'])->name('ProvidersExportPdf.pdf');
 Route::get('/Reports', ReportTable::class)->name('reports.index');
 Route::get('/Vehicles', VehicleTable::class)->name('vehicles.index');
 Route::get('vehiclePdf/{id}', [VehicleTable::class, 'pdf'])->name('vehicles.pdf');

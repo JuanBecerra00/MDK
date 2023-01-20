@@ -538,10 +538,15 @@
                                         <div class="sm:flex place-content-around m-2">
                                             <div>
                                                 <div class="sm:col-span-6">
-                                                    <label for="providers_id" class="block text-sm font-medium"> Id del proveedora </label>
+                                                    <label for="providers_id" class="block text-sm font-medium"> Id del proveedor </label>
                                                     <div class="mt-1">
-                                                        <input type="number" id="providers_id" wire:model.lazy="providers_id" name="providers_id"
+                                                        <input type="number" id="providers_id" wire:model.lazy="providers_id" name="providers_id" list="providers" 
                                                                class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" />
+                                                               <datalist id="providers">
+                                                                @foreach($providers as $provider)
+                                                                <option value="{{$provider->id}}">{{$provider->name}}</option>
+                                                                @endforeach
+                                                                </datalist>
                                                     </div>
                                                     @error('providers_id') <span class="error text-red-500">{{ $message }}</span> @enderror
                                                 </div>

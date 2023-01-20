@@ -51,7 +51,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>¿Como funciona la busqueda?</title><path d="M256 80a176 176 0 10176 176A176 176 0 00256 80z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path d="M200 202.29s.84-17.5 19.57-32.57C230.68 160.77 244 158.18 256 158c10.93-.14 20.69 1.67 26.53 4.45 10 4.76 29.47 16.38 29.47 41.09 0 26-17 37.81-36.37 50.8S251 281.43 251 296" fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="28"/><circle fill="currentColor" stroke="currentColor" cx="250" cy="348" r="20"/></svg>
                             </button>
                         </p>
-                        <input wire:model="search" type="search" placeholder="nombre, cantidad, precio, fecha, id, id del proveedor, id de la factura" class="rounded max-sm:w-full">
+                        <input wire:model="search" type="search" placeholder="nombre, telefono, nit, id" class="rounded max-sm:w-full">
                         <div class="flex gap-5 max-sm:flex-col items-center justify-center">
                             <x-jet-dropdown align="left" width="48">
                                 <x-slot name="trigger">
@@ -86,43 +86,6 @@
                                     </button>
                                     <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="filter(0)">
                                         Inactivos
-                                    </button>
-                                </x-slot>
-                            </x-jet-dropdown>
-
-                            <x-jet-dropdown align="left" width="48">
-                                <x-slot name="trigger">
-                        <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-800 hover:bg-red-700 focus:bg-red-900 focus:outline-none transition shadow-[0px_8px_10px_0px_rgba(0,0,0,0.3)]">
-                                        Tipo:
-                                        @if($filterType=='C')
-                                            Compras
-                                        @elseif($filterType=='I')
-                                            Insumos
-                                        @else
-                                            Todos
-                                        @endif
-
-                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                        </svg>
-                                    </button>
-                                </span>
-                                </x-slot>
-
-                                <x-slot name="content">
-                                    <!-- Account Management -->
-                                    <div class="block px-4 py-2 text-xs text-gray-400">
-                                        {{ __('Tipo') }}
-                                    </div>
-                                    <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="filterType('')">
-                                        Todos
-                                    </button>
-                                    <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="filterType('C')">
-                                        Compras
-                                    </button>
-                                    <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="filterType('I')">
-                                        Insumos
                                     </button>
                                 </x-slot>
                             </x-jet-dropdown>
@@ -183,33 +146,17 @@
                                         <p class="">Id</p>
                                         <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldId) checked @endif>
                                     </button>
-                                    <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldProviders_id')">
-                                        <p class="">Id del proveedor</p>
-                                        <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldProviders_id) checked @endif>
-                                    </button>
-                                    <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldBills_id')">
-                                        <p class="">Id de la factura</p>
-                                        <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldBills_id) checked @endif>
+                                    <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldNit')">
+                                        <p class="">Nit</p>
+                                        <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldNit) checked @endif>
                                     </button>
                                     <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldName')">
                                         <p class="">Nombre</p>
                                         <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldName) checked @endif>
                                     </button>
-                                    <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldAmmount')">
-                                        <p class="">Cantidad</p>
-                                        <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldAmmount) checked @endif>
-                                    </button>
-                                    <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldPrice')">
-                                        <p class="">Precio</p>
-                                        <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldPrice) checked @endif>
-                                    </button>
-                                    <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldDate')">
-                                        <p class="">Fecha</p>
-                                        <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldDate) checked @endif>
-                                    </button>
-                                    <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldType')">
-                                        <p class="">Tipo</p>
-                                        <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldType) checked @endif>
+                                    <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldPhone')">
+                                        <p class="">Telefono</p>
+                                        <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldPhone) checked @endif>
                                     </button>
                                     <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldStatus')">
                                         <p class="">Estado</p>
@@ -240,7 +187,7 @@
                                         <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="exportCsv()">
                                             CSV
                                         </button>
-                                        <a href="/productPdf/{{$this->encryption}}" target="blank">
+                                        <a href="/ProvidersExportPdf/{{$this->encryption}}" target="blank">
                                             <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition">
                                                 PDF
                                             </button>
@@ -252,14 +199,14 @@
                         </div>
                     </div>
                     @if(Auth::user()->job!='M')
-                        <x-jet-button wire:click="showProductModal"
+                        <x-jet-button wire:click="showProviderModal"
                                       class="bg-red-800 hover:bg-red-900 active:bg-red-700 max-sm:mt-5 max-sm:w-full flex justify-center imtems-center sm:ml-5">Registrar</x-jet-button>
                     @endif
 
                 </div>
                 <div class="-my-2 overflow-x-auto">
-                    <div class="py-2 align-middle inline-block min-w-full
-          ">
+                    <div class="py-2 align-middle inline-block min-w-full">
+
                         <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-bl-lg sm:rounded-br-lg">
 
                             <table class="w-full divide-y divide-gray-200 ">
@@ -292,11 +239,11 @@
                                                 </svg></div>
                                         </th>
                                     @endif
-                                    @if($fieldProviders_id)
+                                    @if($fieldNit)
                                         <th scope="col"
                                             class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
-                                            wire:click="sortBy('providers_id')">
-                                            <div class="flex">Id del proveedor<svg class="h-4 w-4 @if($sortField!='providers_id')
+                                            wire:cli ck="sortBy('nit')">
+                                            <div class="flex">Nit<svg class="h-4 w-4 @if($sortField!='nit')
                         opacity-0
                         @endif
                         @if($sortDirection=='desc')
@@ -309,23 +256,7 @@
                                                 </svg></div>
                                         </th>
                                     @endif
-                                    @if($fieldBills_id)
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
-                                            wire:click="sortBy('bills_id')">
-                                            <div class="flex">Id de la factura<svg class="h-4 w-4 @if($sortField!='bills_id')
-                        opacity-0
-                        @endif
-                        @if($sortDirection=='desc')
-                        rotate-180
-                        @endif
-                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd"
-                                                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                          clip-rule="evenodd" />
-                                                </svg></div>
-                                        </th>
-                                    @endif
+
                                     @if($fieldName)
                                         <th scope="col"
                                             class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
@@ -343,61 +274,11 @@
                                                 </svg></div>
                                         </th>
                                     @endif
-                                    @if($fieldAmmount)
+                                    @if($fieldPhone)
                                         <th scope="col"
                                             class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
-                                            wire:click="sortBy('ammount')">
-                                            <div class="flex">Cantidad<svg class="h-4 w-4 @if($sortField!='ammount')
-                        opacity-0
-                        @endif
-                        @if($sortDirection=='desc')
-                        rotate-180
-                        @endif
-                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd"
-                                                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                          clip-rule="evenodd" />
-                                                </svg></div>
-                                        </th>
-                                    @endif
-                                    @if($fieldPrice)
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
-                                            wire:click="sortBy('price')">
-                                            <div class="flex">Precio<svg class="h-4 w-4 @if($sortField!='price')
-                        opacity-0
-                        @endif
-                        @if($sortDirection=='desc')
-                        rotate-180
-                        @endif
-                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd"
-                                                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                          clip-rule="evenodd" />
-                                                </svg></div>
-                                        </th>
-                                    @endif
-                                    @if($fieldDate)
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 cursor-pointer hover:bg-red-800 hover:underline"
-                                            wire:click="sortBy('updated_at')">
-                                            <div class="flex">Fecha<svg class="h-4 w-4 @if($sortField!='updated_at')
-                        opacity-0
-                        @endif
-                        @if($sortDirection=='desc')
-                        rotate-180
-                        @endif
-                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd"
-                                                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                          clip-rule="evenodd" />
-                                                </svg></div>
-                                        </th>
-                                    @endif
-                                    @if($fieldType)
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800">
-                                            <div class="flex">Tipo<svg class="h-4 w-4 @if($sortField!='type')
+                                            wire:click="sortBy('phone')">
+                                            <div class="flex">Telefono<svg class="h-4 w-4 @if($sortField!='phone')
                         opacity-0
                         @endif
                         @if($sortDirection=='desc')
@@ -433,51 +314,32 @@
                                 </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach($products as $product)
+                                @foreach($providers as $provider)
                                     <tr class="
-                    @if(in_array($product->id, $selecteds))
+                    @if(in_array($provider->id, $selecteds))
                         bg-zinc-300
                         @endif">
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <input type="checkbox" wire:change="addToSelecteds({{ $product->id }})" class="checked:bg-red-800 focus:ring-red-800 text-red-800"
-                                                   @if(in_array($product->id, $selecteds))
+                                            <input type="checkbox" wire:change="addToSelecteds({{ $provider->id }})" class="checked:bg-red-800 focus:ring-red-800 text-red-800"
+                                                   @if(in_array($provider->id, $selecteds))
                                                        checked
                                             @endif">
                                         </td>
                                         @if($fieldId)
-                                            <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $product->id }}</div></td>
+                                            <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $provider->id }}</div></td>
                                         @endif
-                                        @if($fieldProviders_id)
-                                            <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $product->providers_id }}</div></td>
-                                        @endif
-                                        @if($fieldBills_id)
-                                            <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $product->bills_id }}</div></td>
+                                        @if($fieldNit)
+                                            <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $provider->nit }}</div></td>
                                         @endif
                                         @if($fieldName)
-                                            <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $product->name }}</div></td>
+                                            <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $provider->name }}</div></td>
                                         @endif
-                                        @if($fieldAmmount)
-                                            <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $product->ammount }}</div></td>
-                                        @endif
-                                        @if($fieldPrice)
-                                            <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $product->price }}</div></td>
-                                        @endif
-                                        @if($fieldDate)
-                                            <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $product->updated_at }}</div></td>
-                                        @endif
-                                        @if($fieldType)
-                                            <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">
-                                                    @if($product->type=='C')
-                                                        Compra
-                                                    @elseif($product->type=='I')
-                                                        Insumo
-                                                    @endif
-                                                </div>
-                                            </td>
+                                        @if($fieldPhone)
+                                            <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $provider->phone }}</div></td>
                                         @endif
                                         @if($fieldStatus)
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                @if($product->status=='1')
+                                                @if($provider->status=='1')
                                                     Activo
                                                 @else
                                                     Inactivo
@@ -486,11 +348,11 @@
                                         @endif
                                         @if(Auth::user()->job=='A')
                                             <td class="px-6 py-4 text-right text-sm flex justify-center gap-2">
-                                                <x-jet-button wire:click="showEditProductModal({{ $product-> id }})"
+                                                <x-jet-button wire:click="showEditProviderModal({{ $provider-> id }})"
                                                               class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Editar</x-jet-button>
-                                                <x-jet-button wire:click="delete({{ $product-> id }})"
+                                                <x-jet-button wire:click="delete({{ $provider-> id }})"
                                                               class="bg-red-800 hover:bg-red-900 active:bg-red-700">
-                                                    @if($product->status==0)
+                                                    @if($provider->status==0)
                                                         Activar
                                                     @else
                                                         Desactivar
@@ -503,35 +365,30 @@
                                 <!-- More items... -->
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="m-2 p-2">
-                          {{ $products->links() }}
-                      </div>
+                            <div class="m-2 p-2">
+                                {{ $providers->links() }}
+                            </div>
+                                     </div>
+                                 </div>
+                            </div>
 
             </div>
             <div>
-                <x-jet-dialog-modal wire:model="showingProductModal">
+                <x-jet-dialog-modal wire:model="showingProviderModal">
                     @if($isEditMode)
-                        <x-slot name="title">Editar usuario</x-slot>
+                        <x-slot name="title">Editar proveedor</x-slot>
                     @elseif($isHowToSearchMode)
                         <x-slot name="title">¿Como funciona la busqueda?</x-slot>
                     @else
-                        <x-slot name="title">Registrar producto</x-slot>
+                        <x-slot name="title"> Registrar Proveedor</x-slot>
                     @endif
                     <x-slot name="content">
-                        {{$this->providers_id}}
                         <div class="space-y-8 divide-y divide-gray-200 mt-10">
                             @if($isHowToSearchMode)
                                 Puedes buscar:<br>
+                                Nit, <br>
                                 Nombre, <br>
-                                Cantidad, <br>
-                                Precio, <br>
-                                Fecha,<br>
-                                Id del proveedor,<br>
-                                o la id de la factura.<br>
+                                Telefono, <br>
                                 Ten en cuenta que filtro de estado lo estas utilizando.
                             @else
                                 <div class="flex flex-col">
@@ -540,21 +397,14 @@
                                         <div class="sm:flex place-content-around m-2">
                                             <div>
                                                 <div class="sm:col-span-6">
-                                                    <label for="providers_id" class="block text-sm font-medium text-gray-700"> Id del proveedora </label>
+                                                    <label for="nit" class="block text-sm font-medium text-gray-700">Nit </label>
                                                     <div class="mt-1">
-                                                        <input type="number" id="providers_id" wire:model.lazy="providers_id" name="providers_id"
+                                                        <input type="number" id="nit" wire:model.lazy="nit" name="nit"
                                                                class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
                                                     </div>
-                                                    @error('providers_id') <span class="error text-red-500">{{ $message }}</span> @enderror
+                                                    @error('nit') <span class="error text-red-500">{{ $message }}</span> @enderror
                                                 </div>
-                                                <div class="sm:col-span-6">
-                                                    <label for="bills_id" class="block text-sm font-medium text-gray-700"> Id de la factura </label>
-                                                    <div class="mt-1">
-                                                        <input type="number" id="bills_id" wire:model.lazy="bills_id" name="bills_id"
-                                                               class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
-                                                    </div>
-                                                    @error('bills_id') <span class="error text-red-500">{{ $message }}</span> @enderror
-                                                </div>
+
                                                 <div class="sm:col-span-6">
                                                     <label for="name" class="block text-sm font-medium text-gray-700"> Nombre </label>
                                                     <div class="mt-1">
@@ -564,81 +414,52 @@
                                                     @error('name') <span class="error text-red-500">{{ $message }}</span> @enderror
                                                 </div>
                                                 <div class="sm:col-span-6">
-                                                    <label for="ammount" class="block text-sm font-medium text-gray-700"> Cantidad </label>
+                                                    <label for="phone" class="block text-sm font-medium text-gray-700"> Telefono </label>
                                                     <div class="mt-1">
-                                                        <input type="number" id="ammount" wire:model.lazy="ammount" name="ammount"
+                                                        <input type="number" id="phone" wire:model.lazy="phone" name="phone"
                                                                class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
                                                     </div>
-                                                    @error('ammount') <span class="error text-red-500">{{ $message }}</span> @enderror
+                                                    @error('phone') <span class="error text-red-500">{{ $message }}</span> @enderror
                                                 </div>
                                             </div>
-                                            <div>
+                                            @if($idProvider!=1)
                                                 <div class="sm:col-span-6">
-                                                    <label for="price" class="block text-sm font-medium text-gray-700"> Precio </label>
+                                                    <label for="status" class="block text-sm font-medium text-gray-700"> Estado </label>
                                                     <div class="mt-1">
-                                                        <input type="number" id="price" wire:model.lazy="price" name="price"
-                                                               class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
-                                                    </div>
-                                                    @error('price') <span class="error text-red-500">{{ $message }}</span> @enderror
-                                                </div>
-                                                <div class="sm:col-span-6">
-                                                    <label for="date" class="block text-sm font-medium text-gray-700"> Fecha </label>
-                                                    <div class="mt-1">
-                                                        <input type="datetime-local" id="date" wire:model.lazy="date" name="date"
-                                                               class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5" />
-                                                    </div>
-                                                    @error('date') <span class="error text-red-500">{{ $message }}</span> @enderror
-                                                </div>
-                                                <div class="sm:col-span-6">
-                                                    <label for="type" class="block text-sm font-medium text-gray-700"> Tipo </label>
-                                                    <div class="mt-1">
-                                                        <select id="type" wire:model.lazy="type" name="type"
+                                                        <select id="status" wire:model.lazy="status" name="status"
                                                                 class="block w-full bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5">
-                                                            <option value="C">Compra</option>
-                                                            <option value="I">Insumo</option>
+                                                            <option value="1">Activo</option>
+                                                            <option value="0">Inactivo</option>
                                                         </select>
                                                     </div>
                                                 </div>
-                                                @if($idProduct!=1)
-                                                    <div class="sm:col-span-6">
-                                                        <label for="status" class="block text-sm font-medium text-gray-700"> Estado </label>
-                                                        <div class="mt-1">
-                                                            <select id="status" wire:model.lazy="status" name="status"
-                                                                    class="block w-full bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5">
-                                                                <option value="1">Activo</option>
-                                                                <option value="0">Inactivo</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                @endif
-
-                                            </div>
+                                             @endif
+                                        </div>
                                     </form>
                                 </div>
+                        @endif
                         </div>
-                @endif
-            </div>
 
             </x-slot>
-            <x-slot name="footer">
-                <div class="w-full flex gap-5 place-content-between">
-                    @if($isEditMode)
-                        <x-jet-button wire:click="modalEditFormReset"
-                                      class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
-                    @elseif($isHowToSearchMode)
-                        <x-jet-button
-                            class="invisible">Reset</x-jet-button>
-                    @else
-                        <x-jet-button wire:click="modalRegFormReset"
-                                      class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
-                    @endif
+                        <x-slot name="footer">
+                            <div class="w-full flex gap-5 place-content-between">
+                                @if($isEditMode)
+                                    <x-jet-button wire:click="modalEditFormReset"
+                                                  class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
+                                @elseif($isHowToSearchMode)
+                                    <x-jet-button
+                                        class="invisible">Reset</x-jet-button>
+                                @else
+                                    <x-jet-button wire:click="modalRegFormReset"
+                                                  class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
+                                @endif
                     <div>
                         @if($isEditMode)
-                            <x-jet-button wire:click="updateProduct"
-                                          class="bg-red-800 hover:bg-red-900 active:bg-red-700">Actualizar</x-jet-button>
+                            <x-jet-button wire:click="updateProvider"
+                                          class="bg-red-800 hover:bg-red-900 active:bg-red-700"> Actualizar </x-jet-button>
                         @elseif($isHowToSearchMode)
                         @else
-                            <x-jet-button wire:click="saveProduct"
+                            <x-jet-button wire:click="saveProvider"
                                           class="bg-red-800 hover:bg-red-900 active:bg-red-700">Guardar</x-jet-button>
                         @endif
                         <x-jet-button wire:click="hideModal" type="button"
@@ -658,7 +479,7 @@
                         <span class="inline-flex rounded-md">
                                     <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-800 hover:bg-red-700 focus:bg-red-900 focus:outline-none transition shadow-[0px_8px_10px_0px_rgba(0,0,0,0.3)]">
 
-                            Seleccionados
+                             Seleccionados
 
                                         <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -672,7 +493,7 @@
                 <div class="flex gap-5 items-center px-4 py-2 text-xs text-gray-400">
                     Seleccionados
                     <x-jet-button wire:click="deselectAll()"
-                                  class="bg-red-800 hover:bg-red-900 active:bg-red-700 max-sm:w-full flex justify-center imtems-center">Deseleccionar</x-jet-button>
+                    class="bg-red-800 hover:bg-red-900 active:bg-red-700 max-sm:w-full flex justify-center items-center">Deseleccionar</x-jet-button>
                 </div>
                 <div class="flex flex-wrap gap-2 overflow-y-auto max-h-28 px-2 py-2">
                     @foreach($selecteds as $selected)
