@@ -2,178 +2,307 @@
 
 namespace App\Http\Livewire;
 
+use App\Exports\ReportsExportPdf;
 use App\Models\Customer;
 use App\Models\Vehicle;
-use App\Models\Product;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\View;
 use Livewire\Component;
+use App\Models\Report;
+use Illuminate\Support\Facades\Hash;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Billing extends Component
 {
     use WithPagination;
-    public $day;
-    public $month;
-    public $year;
-    public $search;
-    public $customer;
-    public $customerId;
-    public $customerSelected;
-    public $customerSearch;
-    public $customerName = '';
-    public $customerEmail = '';
-    public $customerPhone = '';
-    public $vehicle = '';
-    public $vehicleId;
-    public $oilType;
-    public $boxType = 'c';
-    public $difType = "trans";
-    public $oilFilterType;
-    public $vehicleSearch;
-    public $vehiclePlate = '';
-    public $vehicleModel = '';
-    protected $queryString = ['search'];
-    public $test = 0;
-    public $procedures = [[0 => '', '']];
-    public $proceduresCounter = 0;
-    public $procedureName;
-    public $procedurePrice;
-    public $procedureIsEdit = 0;
-    public $procedureLastEdit;
-    public $porcedureTotal=0;
-    public $productsAmmount = [[0 => '', '']];
-    public $productsSelected = [''];
-    public $total = 0;
+    public $showingReportModal = false;
+
+    public $reportsRendered;
+    public $idReport;
+    public $customer_id;
+    public $vehicle_id;
+    public $date;
+    public $status;
+    public $regstatus="";
+    public $isEditMode = false;
+    public $isHowToSearchMode = false;
+    public $report;
+
     public $sortField = 'id';
     public $sortDirection = 'asc';
-    public $paginate = 10;
-    public $filterType = 'I';
-    public $observations = '';
+    public $paginate = '5';
+    public $fieldId = true;
+    public $fieldCustomer_id = true;
+    public $fieldVehicle_id = true;
+    public $fieldDate = true;
+    public $fieldStatus = true;
+    public $validateCustomer_id;
+    public $isSelectedAll = 0;
+    public $filter = 1;
+    public $filterType = '';
+    public $fontSize = 16;
+    public $selecteds = [];
+    public $fields = ['fieldId', 'fieldCustomer_id','fieldVehicle_id', 'fieldDate', 'fieldStatus'];
+    public $fieldsExport = [];
 
+    public $exportData;
+    public $encryption;
+    public $test = 0;
+    public $pdfSelecteds = 0;
+    public $pdfFields = 0;
+    public $pdfSelectedsArray = [];
 
-    public function test($value)
+    public $search;
+    protected $queryString = ['search'];
+    public function addToSelecteds($rowId)
     {
-        $this->test=$value;
-    }
-    public function setCustomer($id)
-    {
-        $this->customerSearch = Customer::find($id);
-        if(Customer::find($id)){
-            $this->customerName = $this->customerSearch->name;
-            $this->customerEmail = $this->customerSearch->email;
-            $this->customerPhone = $this->customerSearch->phone;
-            $this->customer = $this->customerSearch->cc;
-            $this->customerId = $this->customerSearch->id;
-            $this->customerSelected = $this->customerSearch->id;
+        if(in_array($rowId, $this->selecteds)){
+            $this->selecteds = \array_diff($this->selecteds, [$rowId]);
         }else{
-            $this->customerName = 'No encontrado';
-            $this->customerEmail = 'No encontrado';
-            $this->customerPhone = 'No encontrado';
+            array_push($this->selecteds, $rowId);
         }
     }
-    public function setVehicle($id)
+
+    public function searchCustomer($Id)
     {
-        $this->vehicleSearch = Vehicle::find($id);
-        if(Vehicle::find($id)){
-            $this->vehiclePlate = $this->vehicleSearch->plate;
-            $this->vehicleModel = $this->vehicleSearch->model;
-            $this->vehicle = $this->vehicleSearch->plate;
-            $this->vehicleId = $this->vehicleSearch->id;
+        $customer = Customer::findOrfail($Id);
+        return $customer->name;
+    }
+
+    public function searchVehicle($Id)
+    {
+        $vehicle = Vehicle::findOrfail($Id);
+        return $vehicle->plate;
+    }
+
+    public function selectAll($value)
+    {
+        $reports = Report::where('vehicle_id', 'like', '%'.$this->search.'%')
+            ->orwhere('date', 'like', '%'.$this->search.'%')
+            ->orwhere('id', 'like', '%'.$this->search.'%')
+            ->orwhere('customer_id', 'like', '%'.$this->search.'%')
+            ->orderBy($this->sortField, $this->sortDirection)->paginate($this->paginate);
+
+        if($this->isSelectedAll!=0){
+            foreach($reports as $report){
+                if(in_array($report->id, $this->selecteds)==false){
+                    array_push($this->selecteds, $report->id);
+                }
+            }
         }else{
-            $this->vehiclePlate = 'No encontrado';
-            $this->vehicleModel = 'No encontrado';
-        }
-    }
-    public function resetCustomer()
-    {
-        $this->customer = '';
-        $this->customerName = '';
-        $this->customerEmail = '';
-        $this->customerPhone = '';
-    }
-    public function resetVehicle()
-    {
-        $this->vehicle = '';
-        $this->vehiclePlate = '';
-        $this->vehicleModel = '';
-    }
-    public function addProcedure($id)
-    {
-        $this->procedures[0]=$this->procedureName;
-    }
-    public function procedureSave()
-    {
-        if($this->procedureName!='' && $this->procedurePrice!=''){
-            $this->procedures[$this->procedureIsEdit][0]=$this->procedureName;
-        $this->procedures[$this->procedureIsEdit][1]=$this->procedurePrice;
-        $this->proceduresCounter++;
-        $this->procedureName = '';
-        $this->procedurePrice = '';
-        $this->procedureIsEdit++;
-        if($this->procedureLastEdit){
-            $this->procedureIsEdit = $this->procedureLastEdit;
-            $this->procedureLastEdit = '';
-        }else{
-            array_push($this->procedures, [$this->proceduresCounter, '']);
-        }
-        }
-    }
-    public function procedureEdit($id)
-    {
-        $this->procedureLastEdit = $this->procedureIsEdit;
-        $this->procedureIsEdit = $id;
-        $this->procedureName = $this->procedures[$id][0];
-        $this->procedurePrice = $this->procedures[$id][1];
-    }
-    public function procedureDelete($id)
-    {
-        $this->procedures[$id][0]='';
-        $this->procedures[$id][1]='';
-    }
-    public function productAdd($value, $id)
-    {
-        if($value=='on'){
-            if(array_search($id, $this->productsSelected)){
-                $a=array_search($id, $this->productsSelected);
-                $this->test = $a;
-                unset($this->productsAmmount[$a]);
-                unset($this->productsSelected[$a]);
-            }else{
-                array_push($this->productsAmmount, [$id, 0, 0]);
-                array_push($this->productsSelected, $id);
-                $this->test = 'si';
+            foreach($reports as $report){
+                $this->selecteds = \array_diff($this->selecteds, [$report->id]);
             }
         }
     }
-    public function productSave($id, $price, $value)
+
+    public function deselectAll()
     {
-        $a=array_search($id, $this->productsSelected);
-        $this->productsAmmount[$a][1]=$value;
-        $this->productsAmmount[$a][2]=$value*$price;
+        $this->selecteds = [];
     }
+    public function showReportModal()
+    {
+        $this->customer_id = '';
+        $this->vehicle_id = '';
+        $this->date = '';
+        $this->status = '';
+        $this->isEditMode = false;
+        $this->isHowToSearchMode = false;
+        $this->showingReportModal = true;
+    }
+
+    public function modalRegFormReset()
+    {
+        $this->customer_id = '';
+        $this->vehicle_id = '';
+        $this->date = '';
+        $this->status = '';
+    }
+
+    public function modalEditFormReset()
+    {
+        $this->customer_id = $this->report->customer_id;
+        $this->vehicle_id = $this->report->vehicle_id;
+        $this->date = $this->report->date;
+        $this->status = $this->report->status;
+    }
+
+    public function hideModal()
+    {
+        $this->showingReportModal = false;
+    }
+
+    public function sortBy($field)
+    {
+        if ($this->sortField == $field){
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+        $this->sortField = $field;
+    }
+
     public function changePaginate($number)
     {
         $this->paginate = $number;
     }
+
+    public function filter($value)
+    {
+        $this->filter = $value;
+    }
+
     public function filterType($value)
     {
         $this->filterType = $value;
     }
 
-    public function setOilFilterType($value)
+    public function changeField($field)
     {
-        $this->oilFilterType = $value;
+        if ($this->$field == true){
+            $this->$field = false;
+        } else {
+            $this->$field = true;
+        }
+        if(in_array($field, $this->fields)){
+            $this->fields = \array_diff($this->fields, [$field]);
+        }else{
+            array_push($this->fields, $field);
+        }
+    }
+
+
+    protected $validationAttributes = [
+
+        'customer_id' => 'id del cliente',
+        'vehicle_id' => 'Placa',
+        'date' => 'Modelo',
+    ];
+    protected $messages = [
+        'customer_id.same' => 'La id del cliente no valida.',
+        'vehicle_id.unique' => 'Numero de placa ya registrado.',
+        'date.unique' => 'Modelo ya registrado.',
+        'vehicle_id.max' => 'La placa no puede tener mas de :max caracteres.',
+    ];
+    public function saveReport()
+    {
+
+        $this->validate([
+            'customer_id' => 'required',
+            'vehicle_id' => 'required',
+            'date' => 'required',
+        ]);
+        $report = new Report();
+        $report->vehicle_id = $this->vehicle_id;
+        $report->customer_id = $this->customer_id;
+        $report->date = $this->date;
+        $regstatus=$this->status;
+        if($this->status==""){
+            $this->status="1";
+        };
+        $report->status = $this->status;
+        $report->save();
+        $this->showingReportModal = false;
+    }
+
+    public function showEditReportModal($id)
+    {
+        $this->report = Report::findOrfail($id);
+        $this->idReport = $this->report->id;
+        $this->customer_id = $this->report->customer_id;
+        $this->vehicle_id = $this->report->vehicle_id;
+        $this->date = $this->report->date;
+        $this->status = $this->report->status;
+        $this->isHowToSearchMode = false;
+        $this->isEditMode = true;
+        $this->showingReportModal = true;
+    }
+
+    public function showHowToSearchModal()
+    {
+        $this->isHowToSearchMode = true;
+        $this->isEditMode = false;
+        $this->showingReportModal = true;
+    }
+    public function updateReport(){
+        $this->report->update([
+            'customer_id' => $this->customer_id,
+            'vehicle_id' => $this->vehicle_id,
+            'date' => $this->date,
+            'status' => $this->status,
+        ]);
+
+        $this->showingReportModal=false;
+    }
+    public function delete($id): array
+    {
+        $report = Report::find($id);
+        if ($report->status == "0"){
+            $report->status = "1";
+        }elseif ($report->status == "1"){
+            $report->status = "0";
+        }
+        return [
+
+            $report->save()
+        ];
+    }
+    public function fontSizeBigger()
+    {
+        $this->fontSize+=1;
+    }
+
+    public function fontSizeSmaller()
+    {
+        $this->fontSize-=1;
+    }
+    public function exportExcel()
+    {
+        return Excel::download(new ReportsExportPdf($this->selecteds, $this->fieldId, $this->fieldCustomer_id, $this->fieldVehicle_id, $this->fieldDate, $this->fieldStatus), 'reports.xlsx');
+    }
+    public function exportCsv()
+    {
+        return Excel::download(new ReportsExportPdf($this->selecteds , $this->fieldId, $this->fieldCustomer_id, $this->fieldVehicle_id, $this->fieldDate, $this->fieldStatus), 'reports.csv');
+    }
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function loadSelecteds($selecteds)
+    {
+        return view("exports.pdf",['selecteds' => $selecteds]);
+
+    }
+    public function pdf($exportData)
+    {
+        $reports = Report::all();
+        $pdf = PDF::loadView('exports.reportPdf', compact('reports'),['exportData' => $exportData]);
+        return $pdf->stream('report.pdf');
+
     }
     public function render()
     {
-        $this->porcedureTotal=0;
-                foreach($this->procedures as $procedure){
-                  $this->porcedureTotal+=(int)$procedure[1];
-                }
-        $this->day = date('d');
-        $this->month = date('m');
-        $this->year = date('y');
-        $products = Product::where('status', 'like', '%1%')->where('type', 'like', '%'.$this->filterType.'%')->where('name', 'like', '%'.$this->search.'%')
+        $this->pdfFields = implode(',',$this->fields);
+        $this->pdfSelecteds = implode(',',$this->selecteds);
+        $this->exportData=$this->pdfSelecteds.','.$this->pdfFields;
+        $this->isSelectedAll=0;
+        $this->encryption = openssl_encrypt($this->exportData, "AES-128-CTR",
+            "34567890odxcvbnko8765", 0, '1234567891011121');
+        $this->encryption = str_replace('/', 'ñ', $this->encryption);
+        $reports = Report::where('vehicle_id', 'like', '%'.$this->search.'%')
+            ->orwhere('id', 'like', '%'.$this->search.'%')
+            ->orwhere('customer_id', 'like', '%'.$this->search.'%')
             ->orderBy($this->sortField, $this->sortDirection)->paginate($this->paginate);
-        return view('livewire.billing', ['customers' => Customer::all()], ['vehicles' => Vehicle::all(), 'customers' => Customer::all(), 'products' => $products]);
+        foreach($reports as $report){
+            if(in_array($report->id, $this->selecteds)){
+            }else{
+                $this->isSelectedAll+=1;
+            }
+        }
+        return view('livewire.report-table', ['reports' => $reports]);
+
     }
 }

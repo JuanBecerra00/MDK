@@ -8,6 +8,7 @@ use App\Http\Livewire\VehicleTable;
 use App\Http\Livewire\CustomerTable;
 use App\Http\Livewire\Billing;
 use App\Http\Livewire\Reporting;
+use App\Http\Livewire\VehicleView;
 use Illuminate\Support\Facades\Route;
 
 /*

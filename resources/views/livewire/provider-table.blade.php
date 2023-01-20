@@ -207,7 +207,7 @@
                 <div class="-my-2 overflow-x-auto">
                     <div class="py-2 align-middle inline-block min-w-full">
 
-                        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-bl-lg sm:rounded-br-lg">
+                        <div class="shadow overflow-hidden border-b border-gray-200">
 
                             <table class="w-full divide-y divide-gray-200 ">
                                 <thead class="bg-gray-50 dark:bg-gray-600 dark:text-gray-200">
@@ -365,7 +365,7 @@
                                 <!-- More items... -->
                                 </tbody>
                             </table>
-                            <div class="m-2 p-2">
+          <div class="p-2 bg-zinc-800 dark:bg-zinc-900 rounded-b-2xl mt-2">
                                 {{ $providers->links() }}
                             </div>
                                      </div>

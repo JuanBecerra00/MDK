@@ -1,594 +1,516 @@
-<div class="w-full flex justify-center items-center p-5">
-    <div class="w-[70%] pt-20 flex flex-col gap-5">
-      <div class="flex justify-between">
-        <p class="text-3xl">Facturación</p>
-        <div class="bg-white rounded-xl shadow-xl p-3 flex gap-2">
-          <div>
-            <?php
-          echo date('d');
-          ?>
-          </div>
-          <p class="text-slate-300">|</p>
-          <div>
-            <?php
-          echo date('m');
-          ?>
-          </div>
-          <p class="text-slate-300">|</p>
-          <div>
-            <?php
-          echo date('y');
-          ?>
-          </div>
-        </div>
-      </div>
-      <section class="w-full flex justify-center">
-        <div class="sm:w-[90%]">
-          <p class="text-xl">Datos del cliente</p>
-          <div class="w-full sm:h-[15rem] shadow-xl rounded-xl p-5 bg-white flex flex-col gap-2">
-            <p class="text-xl">Cliente</p>
-            <div>
-              <p>Numero de documento</p>
-              <div>
-                <div class="flex gap-2 items-center">
-                  <input type="text" list="customers" value="{{$customer}}" class="border-0 border-black border-b ring-0 focus:ring-0 focus:border-black"
-                    wire:change="setCustomer($event.target.value)">
-                  @if($customer)
-                  <button button class="rounded w-6 h-6 text-zinc-500" wire:click="resetCustomer()">Borrar</button>
-                  @endif
-                </div>
-              </div>
-              <datalist id="customers">
-                @foreach($customers as $customer)
-                @if($customer->status==1)
-                <option value="{{$customer->id}}  {{$customer->cc}}">{{$customer->name}}</option>
-                @endif
-                @endforeach
-              </datalist>
-            </div>
-            <div class="flex gap-5 max-sm:flex-wrap">
-              <div class="flex flex-col gap-2">
-                <p>Nombre</p>
-                <div class="bg-zinc-200 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
-                  {{$customerName}}
-                </div>
-              </div>
-              <div class="flex flex-col gap-2">
-                <p>Email</p>
-                <div class="bg-zinc-200 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
-                  {{$customerEmail}}
-                </div>
-              </div>
-              <div class="flex flex-col gap-2">
-                <p>Telefono</p>
-                <div class="bg-zinc-200 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
-                  {{$customerPhone}}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="w-full flex justify-center">
-        <div class="sm:w-[90%]">
-          <p class="text-xl">Vehiculo</p>
-          <div class="flex gap-5 flex-wrap lg:flex-nowrap">
-            <div class="w-full h-[15rem] shadow-xl rounded-xl p-5 bg-white flex flex-col gap-2">
-              <p class="text-xl">Vehiculo</p>
-              <div class="">
-                <p>Placa</p>
-                <div class="flex gap-2 items-center pr-5">
-                  <input type="text" list="vehicles" value="{{$vehicle}}" wire:change="setVehicle($event.target.value)"
-                    class="border-0 border-black border-b ring-0 focus:ring-0 focus:border-black">
+<div class="flex justify-center mt-20" style="font-size:{{ $this->fontSize }}px">
+    <div class="max-w-[85vw] overflow-auto">
 
-                  <button class="rounded w-6 h-6 text-zinc-500
-                  @if($vehicle=='')
-                  invisible
-                  @endif
-                  " wire:click="resetVehicle()">Borrar</button>
-                </div>
-                <datalist id="vehicles">
-                  @foreach($vehicles as $vehicle)
-                  @if($vehicle->customer_id == $customerSelected && $vehicle->status==1)
-                  <option value="{{$vehicle->id}}  {{$vehicle->plate}}">{{$vehicle->model}}</option>
-                  @endif
-                  @endforeach
-                </datalist>
-              </div>
-              <div class=" gap-5">
-                <div class="flex flex-col gap-2">
-                  <p>Modelo</p>
-                  <div class="bg-zinc-200 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
-                    {{$this->vehicleModel}}
-                  </div>
-                </div>
-              </div>
-            </div>
+        <h1 style="font-size: 30px;" class="dark:text-white">Reportes</h1>
 
-            <div class="w-full shadow-xl rounded-xl p-5 bg-white flex flex-col gap-2">
-              <p class="text-xl">Aceites</p>
-              <div class="flex flex-col gap-2">
-                <p>Tipo</p>
-                <div class="flex gap-2 items-center pr-5">
-                  <input type="text" list="" wire:model="oilType"
-                    class="border-0 border-black border-b ring-0 focus:ring-0 focus:border-black">
-                </div>
-              </div>
-              <div class="flex gap-5">
-                <div class="flex flex-col gap-2">
-                  <p>Caja</p>
-                  <div class="flex gap-2 items-center pr-5">
-                    <select wire:model="boxType">
-                      <option value="c">De cambios</option>
-                      <option value="t">De transferencia</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="flex flex-col gap-2">
-                  <p>Diferencial</p>
-                  <div class="flex gap-2 items-center pr-5">
-                    <select wire:model="difType">
-                      <option value="trans">Trans</option>
-                      <option value="del">Del</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div class="">
 
-            <div class="w-full shadow-xl rounded-xl p-5 bg-white flex flex-col gap-2">
-              <p class="text-xl">Filtros</p>
-              <?php
-              //var_dump($this->oilFilterType)
-              ?>
-              <div class="grid grid-cols-2 gap-2 p-5 relative">
-                <div class="w-full h-10 bg-zinc-300 rounded absolute duration-200 flex justify-end items-center px-4 opacity-0
-                @if($this->oilFilterType=='1')
-                translate-y-[10px]
-                opacity-50
-                @elseif($this->oilFilterType=='2')
-                translate-y-[43px]
-                opacity-50
-                @elseif($this->oilFilterType=='3')
-                translate-y-[76px]
-                opacity-50
-                @elseif($this->oilFilterType=='4')
-                translate-y-[109px]
-                opacity-50
-                @endif
-                ">
-                  <div class="w-2 opacity-0
-                  @if($this->oilFilterType=='1')
-                  drop1
-                  @elseif($this->oilFilterType=='2')
-                  drop2
-                  @elseif($this->oilFilterType=='3')
-                  drop3
-                  @elseif($this->oilFilterType=='4')
-                  drop4
-                  @endif
-                  ">
-                  <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" viewBox="0 0 30 30" version="1.1" id="svg822" inkscape:version="0.92.4 (f8dce91, 2019-08-02)" sodipodi:docname="drop.svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <defs id="defs816"> <inkscape:path-effect only_selected="false" apply_with_weight="true" apply_no_weight="true" helper_size="0" steps="2" weight="33.333333" is_visible="true" id="path-effect1025" effect="bspline"></inkscape:path-effect> <inkscape:path-effect only_selected="false" apply_with_weight="true" apply_no_weight="true" helper_size="0" steps="2" weight="33.333333" is_visible="true" id="path-effect1021" effect="bspline"></inkscape:path-effect> </defs> <sodipodi:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:zoom="17.833333" inkscape:cx="15" inkscape:cy="15" inkscape:document-units="px" inkscape:current-layer="layer1" showgrid="true" units="px" inkscape:window-width="1366" inkscape:window-height="713" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1" showguides="false" inkscape:guide-bbox="true"> <sodipodi:guide position="21.126168,22.794393" orientation="1,0" id="guide1575" inkscape:locked="false"></sodipodi:guide> <sodipodi:guide position="22.682243,23.285047" orientation="1,0" id="guide1635" inkscape:locked="false"></sodipodi:guide> <sodipodi:guide position="22.682243,7.6455921" orientation="0,1" id="guide1639" inkscape:locked="false"></sodipodi:guide> <sodipodi:guide position="18.859863,18.859863" orientation="1,0" id="guide1242" inkscape:locked="false"></sodipodi:guide> <inkscape:grid type="xygrid" id="grid1103"></inkscape:grid> </sodipodi:namedview> <metadata id="metadata819"> <rdf:rdf> <cc:work rdf:about=""> <dc:format>image/svg+xml</dc:format> <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type> <dc:title> </dc:title> </cc:work> </rdf:rdf> </metadata> <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1" transform="translate(0,-289.0625)"> <g id="layer1-3" inkscape:label="Layer 1" style="fill:#ffffff;stroke-width:1.41176474" transform="matrix(0.70833333,0,0,0.70833333,4.3750001,88.684897)"></g> <path style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="m 23,309.0625 c 0,3.86599 -3.581722,7 -8.000001,7 -4.418277,0 -7.9999989,-3.13401 -7.9999989,-7 0,-3.86599 7.9999989,-17 7.9999989,-17 0,0 8.000001,13.13401 8.000001,17 z" id="path919" inkscape:connector-curvature="0" sodipodi:nodetypes="ssscs"></path> </g> </g></svg>
-                  </div>
-
-                  <div class="w-8
-                  @if($this->oilFilterType=='1')
-                  oil1 
-                  @elseif($this->oilFilterType=='2')
-                  oil2
-                  @elseif($this->oilFilterType=='3')
-                  oil3
-                  @elseif($this->oilFilterType=='4')
-                  oil4
-                  @endif
-                  ">
-                  <svg fill="#000000" viewBox="0 -64 640 640" xmlns="http://www.w3.org/2000/svg" transform="matrix(-1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">  <path d="M629.8 160.31L416 224l-50.49-25.24a64.07 64.07 0 0 0-28.62-6.76H280v-48h56c8.84 0 16-7.16 16-16v-16c0-8.84-7.16-16-16-16H176c-8.84 0-16 7.16-16 16v16c0 8.84 7.16 16 16 16h56v48h-56L37.72 166.86a31.9 31.9 0 0 0-5.79-.53C14.67 166.33 0 180.36 0 198.34v94.95c0 15.46 11.06 28.72 26.28 31.48L96 337.46V384c0 17.67 14.33 32 32 32h274.63c8.55 0 16.75-3.42 22.76-9.51l212.26-214.75c1.5-1.5 2.34-3.54 2.34-5.66V168c.01-5.31-5.08-9.15-10.19-7"></path></g></svg>
-                  </div>
-                
-                </div>
-                <p>Aceite</p>
-                <input type="radio" name="oilFilterType" value="1" wire:click="setOilFilterType($event.target.value)"
-                @if($this->oilFilterType=='1')
-                checked
-                @endif
-                  class="justify-self-center self-center z-40">
-                <p>Aire motor</p>
-                <input type="radio" name="oilFilterType" value="2" wire:click="setOilFilterType($event.target.value)"
-                @if($this->oilFilterType=='2')
-                checked
-                @endif
-                  class="justify-self-center self-center z-40">
-                <p>Aire cabina</p>
-                <input type="radio" name="oilFilterType" value="3" wire:click="setOilFilterType($event.target.value)"
-                @if($this->oilFilterType=='3')
-                checked
-                @endif
-                  class="justify-self-center self-center z-40">
-                <p>Combustible</p>
-                <input type="radio" name="oilFilterType" value="4" wire:click="setOilFilterType($event.target.value)"
-                @if($this->oilFilterType=='4')
-                checked
-                @endif
-                  class="justify-self-center self-center z-40">
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-      <section class="w-full flex justify-center">
-        <div class="sm:w-[90%]">
-          <p class="text-xl">Procedimientos</p>
-          <div class="">
-            <div class="bg-zinc-800 w-full p-5 rounded-t-xl flex justify-end">
-            </div>
-            <table class="w-full shadow-xl">
-              <thead class="text-white">
-                <tr class="bg-zinc-800">
-                  <th class="">
-                    <div class="px-6 py-3">Procedimiento</div>
-                  </th>
-                  <th class="w-56">
-                    <div class="px-6 py-3">Precio</div>
-                  </th>
-                  <th class="w-56">
-                    <div class="px-6 py-3">Acciones</div>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach($this->procedures as $key => $val)
-                <tr class="w-full">
-                  <th class="bg-white
-                  @if($this->procedureIsEdit==$key)
-                  px-6 py-3
-                  @elseif($val[0]!='' or  $val[1]!='')
-                  px-6 py-3
-                  @elseif($val[0]=='' or  $val[1]=='')
-                  h-0
-                  @endif">
-                    @if($this->procedureIsEdit==$key)
-                    <input type="text" wire:model.lazy="procedureName" class="border-0 border-b border-black ring-0 focus:ring-0 focus:border-black">
-                    @elseif($val[0] && $val[1])
-                    {{$val[0]}}
-                    @endif
-                  </th>
-                  <th class="bg-white 
-                  @if($this->procedureIsEdit==$key)
-                  px-6 py-3
-                  @elseif($val[0]!='' or  $val[1]!='')
-                  px-6 py-3
-                  @elseif($val[0]=='' or  $val[1]=='')
-                  h-0
-                  @endif">
-                    @if($this->procedureIsEdit==$key)
-                    <input type="number" wire:model.lazy="procedurePrice" class="border-0 border-b border-black ring-0 focus:ring-0 focus:border-black">
-                    @elseif($val[0] && $val[1])
-                    {{$val[1]}}
-                    @endif
-                  </th>
-                  <th class="bg-white">
-                    @if($this->procedureIsEdit==$key)
-                    <x-jet-button wire:click="procedureSave()" class="bg-red-800 hover:bg-red-900 active:bg-red-700">
-                      Guardar
-                    </x-jet-button>
-                    @elseif($val[0] && $val[1])
-                    <x-jet-button wire:click="procedureEdit({{ $key}})"
-                      class="bg-zinc-800 hover:bg-zinc-900 active:bg-zinc-700">
-                      Editar
-                    </x-jet-button>
-                    <x-jet-button wire:click="procedureDelete({{ $key}})"
-                      class="bg-red-800 hover:bg-red-900 active:bg-red-700">
-                      Quitar
-                    </x-jet-button>
-                    @endif
-                  </th>
-                </tr>
-                @endforeach
-              </tbody>
-            </table>
-            <div class="bg-zinc-800 w-full flex justify-end text-white rounded-b-2xl px-6 py-4">
-                Total:
-                {{$porcedureTotal}}
-              </div>
-
-          </div>
-        </div>
-      </section>
+            <div class="absolute right-0 rounded-xl flex flex-col justify-center items-center text-white">
 
 
-      <section class="w-full flex justify-center">
-        <div class="sm:w-[90%]">
-          <p class="text-xl">Productos</p>
-          <div class="">
-            <div class="w-full bg-zinc-800 sm:flex items-center place-content-between p-5 relative rounded-t-xl">
-              <div class="flex max-sm:flex-col gap-5 items-center">
-                <p class="text-white flex items-center">
-                  Buscar
-
-                  <button class="w-5 h-5" wire:click="showHowToSearchModal()">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
-                      <title>¿Como funciona la busqueda?</title>
-                      <path d="M256 80a176 176 0 10176 176A176 176 0 00256 80z" fill="none" stroke="currentColor"
-                        stroke-miterlimit="10" stroke-width="32" />
-                      <path
-                        d="M200 202.29s.84-17.5 19.57-32.57C230.68 160.77 244 158.18 256 158c10.93-.14 20.69 1.67 26.53 4.45 10 4.76 29.47 16.38 29.47 41.09 0 26-17 37.81-36.37 50.8S251 281.43 251 296"
-                        fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
-                        stroke-width="28" />
-                      <circle fill="currentColor" stroke="currentColor" cx="250" cy="348" r="20" />
-                    </svg>
-                  </button>
-                </p>
-                <input wire:model="search" type="search"
-                  placeholder="nombre, cantidad, precio, fecha, id, id del proveedor, id de la factura"
-                  class="rounded max-sm:w-full">
-                <div class="flex gap-5 max-sm:flex-col items-center justify-center">
-
-
-                  <x-jet-dropdown align="left" width="48">
+                <x-jet-dropdown align="right" width="48" class="" closeClick="open">
                     <x-slot name="trigger">
-                      <span class="inline-flex rounded-md">
-                        <button type="button"
-                          class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-800 hover:bg-red-700 focus:bg-red-900 focus:outline-none transition shadow-[0px_8px_10px_0px_rgba(0,0,0,0.3)]">
-                          Tipo:
-                          @if($filterType=='C')
-                          Compras
-                          @elseif($filterType=='I')
-                          Insumos
-                          @else
-                          Todos
-                          @endif
-
-                          <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                            fill="currentColor">
-                            <path fill-rule="evenodd"
-                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                              clip-rule="evenodd" />
-                          </svg>
-                        </button>
-                      </span>
+                        <span class="inline-flex rounded-md">
+                                    <button type="button" class="inline-flex items-center p-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-800 hover:bg-red-700 focus:bg-red-900 focus:outline-none transition shadow-[0px_8px_10px_0px_rgba(0,0,0,0.3)] w-10 h-10 text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Accessibility</title><path fill="currentColor" stroke="currentColor" d="M256 112a56 56 0 1156-56 56.06 56.06 0 01-56 56z"/><path fill="currentColor" stroke="currentColor" d="M432 112.8l-.45.12-.42.13c-1 .28-2 .58-3 .89-18.61 5.46-108.93 30.92-172.56 30.92-59.13 0-141.28-22-167.56-29.47a73.79 73.79 0 00-8-2.58c-19-5-32 14.3-32 31.94 0 17.47 15.7 25.79 31.55 31.76v.28l95.22 29.74c9.73 3.73 12.33 7.54 13.6 10.84 4.13 10.59.83 31.56-.34 38.88l-5.8 45-32.19 176.19q-.15.72-.27 1.47l-.23 1.27c-2.32 16.15 9.54 31.82 32 31.82 19.6 0 28.25-13.53 32-31.94s28-157.57 42-157.57 42.84 157.57 42.84 157.57c3.75 18.41 12.4 31.94 32 31.94 22.52 0 34.38-15.74 32-31.94a57.17 57.17 0 00-.76-4.06L329 301.27l-5.79-45c-4.19-26.21-.82-34.87.32-36.9a1.09 1.09 0 00.08-.15c1.08-2 6-6.48 17.48-10.79l89.28-31.21a16.9 16.9 0 001.62-.52c16-6 32-14.3 32-31.93S451 107.81 432 112.8z"/></svg>
+                                    </button>
+                                </span>
                     </x-slot>
 
                     <x-slot name="content">
-                      <!-- Account Management -->
-                      <div class="block px-4 py-2 text-xs text-gray-400">
-                        {{ __('Tipo') }}
-                      </div>
-                      <button
-                        class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition"
-                        wire:click="filterType('')">
-                        Todos
-                      </button>
-                      <button
-                        class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition"
-                        wire:click="filterType('C')">
-                        Compras
-                      </button>
-                      <button
-                        class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition"
-                        wire:click="filterType('I')">
-                        Insumos
-                      </button>
+                        <!-- Account Management -->
+                        <div class="block px-4 py-2 text-xs text-gray-400">
+                            {{ __('Tamaño de fuente') }}
+                        </div>
+                        <div class="flex">
+                            <button class="w-full text-center block px-2 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="fontSizeSmaller()">
+                                -
+                            </button>
+                            <div class="flex jusvv tify-center items-center px-5">
+                                {{ $fontSize }}
+                            </div>
+                            <button class="w-full text-center block px-2 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="fontSizeBigger()">
+                                +
+                            </button>
+                        </div>
+
                     </x-slot>
-                  </x-jet-dropdown>
-
-                  <x-jet-dropdown align="left" width="48">
-                    <x-slot name="trigger">
-                      <span class="inline-flex rounded-md">
-                        <button type="button"
-                          class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-800 hover:bg-red-700 focus:bg-red-900 focus:outline-none transition shadow-[0px_8px_10px_0px_rgba(0,0,0,0.3)]">
-                          Elementos: {{ $paginate }}
-
-                          <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                            fill="currentColor">
-                            <path fill-rule="evenodd"
-                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                              clip-rule="evenodd" />
-                          </svg>
-                        </button>
-                      </span>
-                    </x-slot>
-
-                    <x-slot name="content">
-                      <!-- Account Management -->
-                      <div class="block px-4 py-2 text-xs text-gray-400">
-                        {{ __('Elementos por página') }}
-                      </div>
-                      <button
-                        class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition"
-                        wire:click="changePaginate(5)">
-                        5
-                      </button>
-                      <button
-                        class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition"
-                        wire:click="changePaginate(10)">
-                        10
-                      </button>
-                      <button
-                        class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition"
-                        wire:click="changePaginate(15)">
-                        15
-                      </button>
-                      <button
-                        class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition"
-                        wire:click="changePaginate('')">
-                        Todos
-                      </button>
-                    </x-slot>
-                  </x-jet-dropdown>
-
-
-
-
-                </div>
-              </div>
-
+                </x-jet-dropdown>
             </div>
-            <div class="bg">
-              <table class="w-full">
-                <thead class="text-white">
-                  <tr class="bg-zinc-800">
-                    <th class="">
-                      <div class="px-6 py-3 flex justify-center"></div>
-                    </th>
-                    <th class="">
-                      <div class="px-6 py-3 flex justify-center">Id</div>
-                    </th>
-                    <th class="">
-                      <div class="px-6 py-3">Nombre</div>
-                    </th>
-                    <th class="">
-                      <div class="px-6 py-3">Valor Unitario</div>
-                    </th>
-                    <th class="">
-                      <div class="px-6 py-3">Cantidad</div>
-                    </th>
-                    <th class="">
-                      <div class="px-6 py-3">Subtotal</div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach($products as $product)
-                  @if($product->status==1)
-                  <tr class="w-full bg-white">
-                    <td class="bg-white px-6 py-4 whitespace-nowrap">
-                      <div class="flex justify-center items-center"><input type="checkbox"
-                          wire:change="productAdd($event.target.value, {{$product->id}})" @if(array_search($product->id,
-                        $this->productsSelected))
-                        checked
-                        @endif
-                        >
-                      </div>
-                    </td>
-                    <td class="bg-white px-6 py-4 flex justify-center whitespace-nowrap">
-                      <div class="max-w-[12rem] overflow-x-auto">{{ $product->id }}</div>
-                    </td>
-                    <td class="bg-white px-6 py-4 whitespace-nowrap">
-                      <div class="max-w-[12rem] overflow-x-auto">{{ $product->name }}</div>
-                    </td>
-                    <td class="bg-white px-6 py-4 whitespace-nowrap">
-                      <div class="max-w-[12rem] overflow-x-auto">{{ $product->price }}</div>
-                    </td>
-                    <td class="bg-white px-6 py-4 whitespace-nowrap">
-                      <div class="max-w-[12rem] overflow-x-auto">
-                        <input type="number" max="{{$product->ammount}}" class="w-full border-0 focus:border-black
-                        @if(!array_search($product->id, $this->productsSelected))
-                        bg-zinc-200 rounded
-                        @else
-                        border-black border-b
-                        @endif
-                        "
-                        wire:change="productSave({{$product->id}}, {{$product->price}}, $event.target.value)"
-                        @if(!array_search($product->id, $this->productsSelected))
-                        disabled
-                        @else
-                        <?php
-                          $a=array_search($product->id, $this->productsSelected);
-                          $v=$this->productsAmmount[$a][1];
-                        ?>
-                        value="{{$v}}"
-                        @endif
-                        >
-                      </div>
-                    </td>
-                    <td class="bg-white px-6 py-4 whitespace-nowrap">
-                      <div class="max-w-[12rem] overflow-x-auto">
-                        <p>
-                          <?php
-                $a=array_search($product->id, $this->productsSelected);
-                if($a){
-                  echo $this->productsAmmount[$a][2];
-                  $this->total+=$this->productsAmmount[$a][2];
-                }
-                  ?>
+
+            <div class="m-2 p-2 relative ">
+
+
+                <div
+                    class="w-full bg-zinc-800 dark:bg-zinc-900 sm:flex items-center place-content-between p-5 relative rounded-t-xl">
+                    <div class="flex max-sm:flex-col gap-5 items-center">
+                        <p class="text-white flex items-center">
+                            Buscar
+
+                            <button class="w-5 h-5" wire:click="showHowToSearchModal()">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>¿Como funciona la busqueda?</title><path d="M256 80a176 176 0 10176 176A176 176 0 00256 80z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path d="M200 202.29s.84-17.5 19.57-32.57C230.68 160.77 244 158.18 256 158c10.93-.14 20.69 1.67 26.53 4.45 10 4.76 29.47 16.38 29.47 41.09 0 26-17 37.81-36.37 50.8S251 281.43 251 296" fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="28"/><circle fill="currentColor" stroke="currentColor" cx="250" cy="348" r="20"/></svg>
+                            </button>
                         </p>
-                      </div>
-                    </td>
-                  </tr>
-                  @endif
-                  @endforeach
-                </tbody>
-              </table>
-              <div class="m-2 p-2">
-                {{ $products->links() }}
-              </div>
-              <div class="bg-zinc-800 w-full flex justify-end text-white rounded-b-2xl px-6 py-4">
-                Total:
-                {{$this->total}}
-              </div>
-            </div>
-            <?php
-            //var_dump($this->productsAmmount);
-            //var_dump($this->productsSelected);
-            ?>
+                        <input wire:model="search" type="search" placeholder="id, placa, modelo, id del cliente" class="rounded max-sm:w-full dark:bg-zinc-800 dark:text-white focus:border-red-800 focus:ring-red-800">
+                        <div class="flex gap-5 max-sm:flex-col items-center justify-center">
+                            <x-jet-dropdown align="left" width="48">
+                                <x-slot name="trigger">
+                        <span class="inline-flex rounded-md">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-800 hover:bg-red-700 focus:bg-red-900 focus:outline-none transition shadow-[0px_8px_10px_0px_rgba(0,0,0,0.3)]">
+                                        Filtrar:
+                                        @if($filter==1)
+                                            Activos
+                                        @elseif($filter==0)
+                                            Inactivos
+                                        @else
+                                            Todos
+                                        @endif
 
-          </div>
-        </div>
-      </section>
-      <section class="w-full flex justify-center">
-        <div class="sm:w-[90%]">
-          <p class="text-xl">Observaciones</p>
-          <div class="">
-            <div class="bg-zinc-800 w-full p-5 rounded-t-xl flex justify-end">
-            </div>
-            
-            <div class="bg-white p-5 rounded-b-xl flex shadow-xl">
-              <textarea class="w-full min-h-[20rem]" wire:model="observations"></textarea>
-            </div>
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+                                </x-slot>
 
-          </div>
-        </div>
-      </section>
-      <section class="w-full flex justify-center">
-        <div class="sm:w-[90%]">
-          <p class="text-xl">Observaciones</p>
-          <div class="">
-            <div class="bg-zinc-800 w-full p-5 rounded-t-xl flex justify-end">
-            </div>
-            
-            <div class="bg-white p-5 rounded-b-xl shadow-xl">
-              fecha={{$this->day}}|{{$this->month}}|{{$this->year}}
-              cliente={{$this->customerId}}<br>
-              vehiculo={{$this->vehicleId}}<br>
-              Aceite={{$this->oilType}}<br>
-              Caja={{$this->boxType}}<br>
-              Diferencial={{$this->difType}}<br>
-              filtro={{$this->oilFilterType}}<br>
-              procedimientos:
-              @foreach($this->procedures as $procedure)
-              <?php
-              var_dump($procedure);
-              ?>
-              @endforeach
-              <br>
-              Total de procedimientos=
-              {{$this->porcedureTotal}}<br>
-              productos:
-              @foreach($this->productsSelected as $pro)
-              {{$pro}}<br>
-              @endforeach
-              <?php
-              var_dump($this->productsAmmount)
-              ?><br>
-            </div>
+                                <x-slot name="content">
+                                    <!-- Account Management -->
+                                    <div class="block px-4 py-2 text-xs text-gray-400">
+                                        {{ __('Estado') }}
+                                    </div>
+                                    <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="filter('')">
+                                        Todos
+                                    </button>
+                                    <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="filter(1)">
+                                        Activos
+                                    </button>
+                                    <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="filter(0)">
+                                        Inactivos
+                                    </button>
+                                </x-slot>
+                            </x-jet-dropdown>
 
-          </div>
-        </div>
-      </section>
-      <section class="w-full flex justify-between">
-      <x-jet-button class="w-24 h-12 duration-300 flex justify-center items-center bg-zinc-800 hover:bg-zinc-900 focus:bg-zinc-700">
-                    {{ __('Resetear') }}
-                </x-jet-button>
-                <div class="flex gap-5">
-                <x-jet-button class="w-24 h-12 duration-300 flex justify-center items-center">
-                    {{ __('Cancelar') }}
-                </x-jet-button>
-                <x-jet-button class="w-24 h-12 duration-300 flex justify-center items-center">
-                    {{ __('Imprimir') }}
-                </x-jet-button>
+                            <x-jet-dropdown align="left" width="48">
+                                <x-slot name="trigger">
+                        <span class="inline-flex rounded-md">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-800 hover:bg-red-700 focus:bg-red-900 focus:outline-none transition shadow-[0px_8px_10px_0px_rgba(0,0,0,0.3)]">
+                                        Elementos: {{ $paginate }}
+
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+                                </x-slot>
+
+                                <x-slot name="content">
+                                    <!-- Account Management -->
+                                    <div class="block px-4 py-2 text-xs text-gray-400">
+                                        {{ __('Elementos por página') }}
+                                    </div>
+                                    <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changePaginate(5)">
+                                        5
+                                    </button>
+                                    <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changePaginate(10)">
+                                        10
+                                    </button>
+                                    <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changePaginate(15)">
+                                        15
+                                    </button>
+                                    <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changePaginate('')">
+                                        Todos
+                                    </button>
+                                </x-slot>
+                            </x-jet-dropdown>
+
+
+                            <x-jet-dropdown align="left" closeClick="open" width="48">
+                                <x-slot name="trigger">
+                        <span class="inline-flex rounded-md">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-800 hover:bg-red-700 focus:bg-red-900 focus:outline-none transition shadow-[0px_8px_10px_0px_rgba(0,0,0,0.3)]">
+                                        Columnas
+
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+                                </x-slot>
+
+                                <x-slot name="content">
+                                    <!-- Account Management -->
+                                    <div class="block px-4 py-2 text-xs text-gray-400">
+                                        Columnas
+                                    </div>
+                                    <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldId')">
+                                        <p class="">Id</p>
+                                        <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldId) checked @endif>
+                                    </button>
+                                    <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldCustomer_id')">
+                                        <p class="">Id del cliente</p>
+                                        <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldCustomer_id) checked @endif>
+                                    </button>
+                                    <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldVehicle_id')">
+                                        <p class="">Vehiculo</p>
+                                        <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldVehicle_id) checked @endif>
+                                    </button>
+                                    <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldVehicle_id')">
+                                        <p class="">Fecha</p>
+                                        <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldVehicle_id) checked @endif>
+                                    </button>
+                                    <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldStatus')">
+                                        <p class="">Estado</p>
+                                        <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldStatus) checked @endif>
+                                </x-slot>
+                            </x-jet-dropdown>
+                            @if($selecteds)
+                                <x-jet-dropdown align="left" width="48">
+                                    <x-slot name="trigger">
+                        <span class="inline-flex rounded-md">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-800 hover:bg-red-700 focus:bg-red-900 focus:outline-none transition shadow-[0px_8px_10px_0px_rgba(0,0,0,0.3)]">
+                                        Exportar
+
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+                                    </x-slot>
+                                    <x-slot name="content">
+                                        <!-- Account Management -->
+                                        <div class="block px-4 py-2 text-xs text-gray-400">
+                                            {{ __('Formato') }}
+                                        </div>
+                                        <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="exportExcel()">
+                                            Excel
+                                        </button>
+                                        <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="exportCsv()">
+                                            CSV
+                                        </button>
+                                        <a href="/reportPdf/{{$this->encryption}}" target="blank">
+                                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition">
+                                                PDF
+                                            </button>
+                                        </a>
+
+                                    </x-slot>
+                                </x-jet-dropdown>
+                            @endif
+                        </div>
+                    </div>
+                    @if(Auth::user()->job!='M')
+                        <x-jet-button wire:click="showReportModal"
+                                      class="bg-red-800 hover:bg-red-900 active:bg-red-700 max-sm:mt-5 max-sm:w-full flex justify-center imtems-center sm:ml-5">Registrar</x-jet-button>
+                    @endif
+
                 </div>
-      </section>
-      {{$this->observations}}
+                <div class="-my-2 overflow-x-auto">
+                    <div class="py-2 align-middle inline-block min-w-full
+          ">
+                        <div class="bg-zinc-800 dark:bg-zinc-900 overflow-hidden">
+
+                            <table class="w-full divide-y divide-gray-200 ">
+                                <thead class="bg-gray-50 dark:bg-gray-600 dark:text-gray-200">
+
+                                <tr>
+                                    <th class ="bg-zinc-800 dark:bg-zinc-900">
+                                        <div>
+                                            <input type="checkbox" value="4" wire:change="selectAll($event.target.value)" class="checked:bg-red-800 focus:ring-red-800 text-red-800"
+                                                   @if($this->isSelectedAll==0)
+                                                       checked
+                                                @endif
+                                            >
+                                        </div>
+                                    </th>
+                                    @if($fieldId)
+                                        <th scope="col"
+                                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 dark:bg-zinc-900 cursor-pointer hover:bg-red-800 hover:underline"
+                                            wire:click="sortBy('id')">
+                                            <div class="flex">Id<svg class="h-4 w-4 @if($sortField!='id')
+                        opacity-0
+                        @endif
+                        @if($sortDirection=='desc')
+                        rotate-180
+                        @endif
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd"
+                                                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                          clip-rule="evenodd" />
+                                                </svg></div>
+                                        </th>
+                                    @endif
+                                    @if($fieldCustomer_id)
+                                        <th scope="col"
+                                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 dark:bg-zinc-900 cursor-pointer hover:bg-red-800 hover:underline"
+                                            wire:click="sortBy('customer_id')">
+                                            <div class="flex">Id del cliente<svg class="h-4 w-4 @if($sortField!='customer_id')
+                        opacity-0
+                        @endif
+                        @if($sortDirection=='desc')
+                        rotate-180
+                        @endif
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd"
+                                                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                          clip-rule="evenodd" />
+                                                </svg></div>
+                                        </th>
+                                    @endif
+                                    @if($fieldVehicle_id)
+                                        <th scope="col"
+                                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 dark:bg-zinc-900 cursor-pointer hover:bg-red-800 hover:underline"
+                                            wire:click="sortBy('Vehicle_id')">
+                                            <div class="flex">Vehiculo<svg class="h-4 w-4 @if($sortField!='Vehicle_id')
+                        opacity-0
+                        @endif
+                        @if($sortDirection=='desc')
+                        rotate-180
+                        @endif
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd"
+                                                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                          clip-rule="evenodd" />
+                                                </svg></div>
+                                        </th>
+                                    @endif
+                                    @if($fieldDate)
+                                        <th scope="col"
+                                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 dark:bg-zinc-900 cursor-pointer hover:bg-red-800 hover:underline"
+                                            wire:click="sortBy('model')">
+                                            <div class="flex">Fecha<svg class="h-4 w-4 @if($sortField!='modelo')
+                        opacity-0
+                        @endif
+                        @if($sortDirection=='desc')
+                        rotate-180
+                        @endif
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd"
+                                                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                          clip-rule="evenodd" />
+                                                </svg></div>
+                                        </th>
+                                    @endif
+                                    @if($fieldStatus)
+                                        <th scope="col"
+                                            class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 dark:bg-zinc-900 cursor-pointer hover:bg-red-800 hover:underline"
+                                            wire:click="sortBy('status')">
+                                            <div class="flex">Estado<svg class="h-4 w-4 @if($sortField!='status')
+                        opacity-0
+                        @endif
+                        @if($sortDirection=='desc')
+                        rotate-180
+                        @endif
+                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd"
+                                                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                          clip-rule="evenodd" />
+                                                </svg></div>
+                                        </th>
+                                    @endif
+                                    @if(Auth::user()->job=='A')
+                                        <th scope="col" class="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 dark:bg-zinc-900">Editar</th>
+                                    @endif
+                                </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200 dark:bg-neutral-800 dark:text-white">
+                                @foreach($reports as $report)
+                                    <tr class="
+                    @if(in_array($report->id, $selecteds))
+                        bg-zinc-300
+                        @endif">
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <input type="checkbox" wire:change="addToSelecteds({{ $report->id }})" class="checked:bg-red-800 focus:ring-red-800 text-red-800"
+                                                   @if(in_array($report->id, $selecteds))
+                                                       checked
+                                            @endif">
+                                        </td>
+                                        @if($fieldId)
+                                            <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $report->id }}</div></td>
+                                        @endif
+                                        @if($fieldCustomer_id)
+                                            <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">
+                                            <?php
+                                            echo $this->searchCustomer($report->customer_id);
+                                                ?>    
+                                            </div></td>
+                                        @endif
+                                        @if($fieldVehicle_id)
+                                            <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">
+                                            <?php
+                                            echo $this->searchVehicle($report->vehicle_id);
+                                                ?>  
+                                            </div></td>
+                                        @endif
+                                        @if($fieldVehicle_id)
+                                            <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $report->created_at }}</div></td>
+                                        @endif
+                                        @if($fieldStatus)
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                @if($report->status=='1')
+                                                    Activo
+                                                @else
+                                                    Inactivo
+                                                @endif
+                                            </td>
+                                        @endif
+                                        @if(Auth::user()->job=='A')
+                                            <td class="px-6 py-4 text-right text-sm flex justify-center gap-2">
+                                                <x-jet-button wire:click="showEditReportModal({{ $report-> id }})"
+                                                              class="bg-zinc-800 dark:bg-zinc-900 hover:bg-zinc-900 active:bg-zinc-700">Editar</x-jet-button>
+                                                <x-jet-button wire:click="delete({{ $report-> id }})"
+                                                              class="bg-red-800 hover:bg-red-900 active:bg-red-700">
+                                                    @if($report->status==0)
+                                                        Activar
+                                                    @else
+                                                        Desactivar
+                                                    @endif
+                                                </x-jet-button>
+                                            </td>
+                                        @endif
+                                    </tr>
+                                @endforeach
+                                <!-- More items... -->
+                                </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+          <div class="p-2 bg-zinc-800 dark:bg-zinc-900 rounded-b-2xl mt-2">
+                          {{ $reports->links() }}
+                      </div>
+
+            </div>
+            <div>
+                <x-jet-dialog-modal wire:model="showingReportModal">
+                    @if($isEditMode)
+                        <x-slot name="title">Editar Vehiculo</x-slot>
+                    @elseif($isHowToSearchMode)
+                        <x-slot name="title">¿Como funciona la busqueda?</x-slot>
+                    @else
+                        <x-slot name="title">Registrar vehiculo</x-slot>
+                    @endif
+                    <x-slot name="content">
+
+                        <div class="space-y-8 divide-y divide-gray-200 mt-10">
+                            @if($isHowToSearchMode)
+                                Puedes buscar:<br>
+                                Placa, <br>
+                                Vehicle_ido, <br>
+                                Id del cliente,<br>
+                                Ten en cuenta que filtro de estado lo estas utilizando.
+                            @else
+                                <div class="flex flex-col">
+                                    <form enctype="multipart/form-data">
+                                        <p>Información</p>
+                                        <div class="sm:flex place-content-around m-2">
+                                            <div>
+                                                <div class="sm:col-span-6">
+                                                    <label for="customer_id" class="block text-sm font-medium text-gray-700"> Id del cliente </label>
+                                                    <div class="mt-1">
+                                                        <input type="number" id="customer_id" wire:model.lazy="customer_id" name="customer_id"
+                                                               class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" />
+                                                    </div>
+                                                    @error('customer_id') <span class="error text-red-500">{{ $message }}</span> @enderror
+                                                </div>
+                                                <div class="sm:col-span-6">
+                                                    <label for="Vehicle_id" class="block text-sm font-medium text-gray-700"> Vehiculo </label>
+                                                    <div class="mt-1">
+                                                        <input type="text" id="Vehicle_id" wire:model.lazy="Vehicle_id" name="Vehicle_id"
+                                                               class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" />
+                                                    </div>
+                                                    @error('Vehicle_id') <span class="error text-red-500">{{ $message }}</span> @enderror
+                                                </div>
+                                                <div class="sm:col-span-6">
+                                                    <label for="model" class="block text-sm font-medium text-gray-700"> Vehicle_ido </label>
+                                                    <div class="mt-1">
+                                                        <input type="text" id="model" wire:model.lazy="model" name="model"
+                                                               class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" />
+                                                    </div>
+                                                    @error('model') <span class="error text-red-500">{{ $message }}</span> @enderror
+                                                </div>
+                                            </div>
+                                            <div>
+
+                                            </div>
+                                    </form>
+                                </div>
+                        </div>
+                @endif
+            </div>
+
+            </x-slot>
+            <x-slot name="footer">
+                <div class="w-full flex gap-5 place-content-between">
+                    @if($isEditMode)
+                        <x-jet-button wire:click="modalEditFormReset"
+                                      class="bg-zinc-800 dark:bg-zinc-900 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
+                    @elseif($isHowToSearchMode)
+                        <x-jet-button
+                            class="invisible">Reset</x-jet-button>
+                    @else
+                        <x-jet-button wire:click="modalRegFormReset"
+                                      class="bg-zinc-800 dark:bg-zinc-900 hover:bg-zinc-900 active:bg-zinc-700">Reset</x-jet-button>
+                    @endif
+                    <div>
+                        @if($isEditMode)
+                            <x-jet-button wire:click="updateReport"
+                                          class="bg-red-800 hover:bg-red-900 active:bg-red-700">Actualizar</x-jet-button>
+                        @elseif($isHowToSearchMode)
+                        @else
+                            <x-jet-button wire:click="saveReport"
+                                          class="bg-red-800 hover:bg-red-900 active:bg-red-700">Guardar</x-jet-button>
+                        @endif
+                        <x-jet-button wire:click="hideModal" type="button"
+                                      class="bg-zinc-800 dark:bg-zinc-900 hover:bg-zinc-900 active:bg-zinc-700">Cerrar</x-jet-button>
+                    </div>
+                </div>
+            </x-slot>
+            </x-jet-dialog-modal>
+
+        </div>
     </div>
-  </div>
+</div>
+@if($selecteds)
+    <div class="fixed top-32 left-5">
+        <x-jet-dropdown align="left" closeClick="open" width="">
+            <x-slot name="trigger">
+                        <span class="inline-flex rounded-md">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-800 hover:bg-red-700 focus:bg-red-900 focus:outline-none transition shadow-[0px_8px_10px_0px_rgba(0,0,0,0.3)]">
+
+                            Seleccionados
+
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </span>
+            </x-slot>
+
+            <x-slot name="content">
+                <!-- Account Management -->
+                <div class="flex gap-5 items-center px-4 py-2 text-xs text-gray-400">
+                    Seleccionados
+                    <x-jet-button wire:click="deselectAll()"
+                                  class="bg-red-800 hover:bg-red-900 active:bg-red-700 max-sm:w-full flex justify-center imtems-center">Deseleccionar</x-jet-button>
+                </div>
+                <div class="flex flex-wrap gap-2 overflow-y-auto max-h-28 px-2 py-2">
+                    @foreach($selecteds as $selected)
+                        <button class="selected-container relative bg-red-800 hover:bg-red-900 active:bg-red-700 cursor-pointer w-8 h-8 flex justify-center items-center text-white rounded-md overflow-hidden" wire:click="addToSelecteds({{$selected}})">
+                            X
+                            <div class="selected-value opacity-100 w-full h-full absolute flex justify-center items-center rounded-md bg-red-800 duration-500">
+                                {{$selected}}
+                            </div>
+                        </button>
+                    @endforeach
+                </div>
+            </x-slot>
+        </x-jet-dropdown>
+    </div>
+    @endif
+    </div>
+    <script>
+        window.onload=function()
+        {
+            PrintElem();
+        }
+    </script>

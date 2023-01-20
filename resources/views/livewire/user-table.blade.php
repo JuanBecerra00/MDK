@@ -226,7 +226,7 @@
           </div>
           <div class="-my-2 overflow-x-auto">
             <div class="py-2 align-middle inline-block min-w-full">
-              <div class="bg-zinc-800 dark:bg-zinc-900 overflow-hidden sm:rounded-bl-lg sm:rounded-br-lg">
+              <div class="bg-zinc-800 dark:bg-zinc-900 overflow-hidden">
 
 
               
@@ -497,7 +497,7 @@
               </div>
             </div>
           </div>
-          <div class="m-2 p-2">
+          <div class="p-2 bg-zinc-800 dark:bg-zinc-900 rounded-b-2xl mt-2">
             {{ $users->links() }}
           </div>
 
