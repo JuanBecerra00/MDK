@@ -6,7 +6,7 @@
 /vendor
 
 !*/vendor/laravel/framework/src/Illuminate/Mail/resources/views/html/themes/default.css
-!*/vendor/laravel/framework/src/Illuminate/Auth/Notifications/
+!*/vendor/laravel/framework/src/Illuminate/Auth/Notifications/*
 .env.backup
 .env.production
 .phpunit.result.cache
