@@ -50,19 +50,19 @@
             <div class="flex gap-5 flex-wrap">
               <div class="flex flex-col gap-2">
                 <p>Nombre</p>
-                <div class="dark:bg-zinc-600 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
+                <div class="bg-zinc-200 dark:bg-zinc-600 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
                   {{$customerName}}
                 </div>
               </div>
               <div class="flex flex-col gap-2">
                 <p>Email</p>
-                <div class="dark:bg-zinc-600 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
+                <div class="bg-zinc-200 dark:bg-zinc-600 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
                   {{$customerEmail}}
                 </div>
               </div>
               <div class="flex flex-col gap-2">
                 <p>Telefono</p>
-                <div class="dark:bg-zinc-600 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
+                <div class="bg-zinc-200 dark:bg-zinc-600 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
                   {{$customerPhone}}
                 </div>
               </div>
@@ -103,7 +103,7 @@
               <div class=" gap-5">
                 <div class="flex flex-col gap-2">
                   <p>Modelo</p>
-                  <div class="dark:bg-zinc-600 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
+                  <div class="bg-zinc-200 dark:bg-zinc-600 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10">
                     {{$this->vehicleModel}}
                   </div>
                 </div>
