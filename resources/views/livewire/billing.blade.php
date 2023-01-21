@@ -40,7 +40,7 @@
                     class="border-0 border-black dark:border-white bg-zinc-200 dark:bg-zinc-600 border-b ring-0 focus:ring-0 focus:border-black"
                     wire:change="setCustomer($event.target.value)">
                   @if($this->customer)
-                  <button button class="rounded w-15 h-6 text-white bg-red-800 px-2 rounded hover:bg-red-900 active:bg-red-700 duration-200" wire:click="resetCustomer()">X</button>
+                  <button button class="rounded w-15 h-6 text-white px-2 rounded spc duration-200" wire:click="resetCustomer()">X</button>
                   @endif
                 </div>
               </div>
@@ -86,7 +86,7 @@
                       wire:change="setVehicle($event.target.value)"
                       class="border-0 border-black dark:border-white bg-zinc-200 dark:bg-zinc-600 border-b ring-0 focus:ring-0 focus:border-black">
                     @if($this->vehicle)
-                    <button button class="rounded w-15 h-6 text-white bg-red-800 px-2 rounded hover:bg-red-900 active:bg-red-700 duration-200" wire:click="resetVehicle()">X</button>
+                    <button button class="rounded w-15 h-6 text-white px-2 rounded spc duration-200" wire:click="resetVehicle()">X</button>
                     @endif
                   </div>
                   <datalist id="vehicles">
@@ -127,7 +127,7 @@
                   <input type="text" list="reports" value="{{$this->report}}" wire:change="setReport($event.target.value)"
                     class="border-0 border-black dark:border-white bg-zinc-200 dark:bg-zinc-600 border-b ring-0 focus:ring-0 focus:border-black">
                   @if($this->report)
-                  <button button class="rounded w-15 h-6 text-white bg-red-800 px-2 rounded hover:bg-red-900 active:bg-red-700 duration-200" wire:click="resetReport()">X</button>
+                  <button button class="rounded w-15 h-6 text-white px-2 rounded spc duration-200" wire:click="resetReport()">X</button>
                   @endif
                 </div>
               </div>
@@ -158,7 +158,7 @@
           </div>
           <div class="w-full mt-5 flex justify-end">
           @if($this->reportSearch)
-          <x-jet-button wire:click="facturate()" class="bg-red-800 hover:bg-red-900 active:bg-red-700">
+          <x-jet-button wire:click="facturate()" class="spc">
                       Facturar
                     </x-jet-button>
           @endif
@@ -169,7 +169,18 @@
     @endif
 
     @if($this->goFacturate==true)
-    <section class="w-full flex justify-center items-center">
+    <section class="w-full flex flex-col justify-center items-center">
+      <div class="flex w-[90%] h-20 justify-start items-center">
+        
+      <a href="">
+      <x-jet-button type="button"
+          class="spc shadow-2xl h-10 flex gap-5">
+          <div class="w-5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Arrow Back</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M244 400L100 256l144-144M120 256h292"/></svg>
+          </div>
+          Atras</x-jet-button>
+      </a>
+      </div>
       <div class="w-[90%] bg-white dark:bg-zinc-700 p-5 rounded-xl flex shadow-xl gap-5 flex-col">
         <div class="flex gap-2">
           <p class="text-xl"></p>
@@ -575,8 +586,8 @@
 
 
     <section class="w-full flex justify-center items-center">
-      <div class="w-[90%] h-[20vh] flex justify-end items-center">
-        <div class="h-full w-[30rem] bg-white dark:bg-zinc-700 p-5 rounded-xl flex shadow-xl gap-5 justify-center items-center">
+      <div class="w-[90%] h-full flex justify-center items-center">
+        <div class="h-full w-full bg-white dark:bg-zinc-700 p-5 rounded-xl flex shadow-xl gap-5 justify-between items-center">
           <p class="text-2xl font-bold flex items-center justify-center">
           <svg fill="#1ca800" height="200px" width="50px" version="1.1" id="Capa_1" class="h-10" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 486.201 486.201" xml:space="preserve" stroke="#1ca800"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g><path d="M397.3,243.097c0-85.2-69-154.2-154.2-154.2s-154.2,69-154.2,154.2s69,154.2,154.2,154.2S397.3,328.297,397.3,243.097z M287.4,303.897c-6.7,8.2-15.5,13.7-25.7,16.5c-4.5,1.2-6.5,3.6-6.2,8.2c0.2,4.5,0,9.1,0,13.7c0,4.1-2.1,6.2-6.1,6.3 c-2.6,0.1-5.2,0.1-7.8,0.1c-2.3,0-4.6,0-6.9-0.1c-4.3-0.1-6.3-2.5-6.4-6.7c0-3.3-0.1-6.7-0.1-10c-0.1-7.3-0.3-7.6-7.4-8.8 c-9-1.4-17.9-3.5-26.2-7.5c-6.5-3.2-7.2-4.8-5.3-11.6c1.4-5.1,2.8-10.1,4.4-15.2c1.2-3.7,2.2-5.3,4.2-5.3c1.1,0,2.6,0.5,4.6,1.6 c9.1,4.8,18.9,7.4,29,8.7c1.7,0.2,3.5,0.3,5.2,0.3c4.8,0,9.4-0.9,13.9-2.8c11.3-4.9,13.1-18.1,3.5-26c-3.3-2.7-7-4.7-10.8-6.4 c-9.9-4.4-20.3-7.7-29.7-13.3c-15.2-9.1-24.9-21.6-23.8-40.2c1.3-21,13.1-34,32.3-41c7.9-2.9,8-2.8,8-11.1c0-2.8,0-5.6,0-8.4 c0.2-6.2,1.2-7.3,7.4-7.5c0.7,0,1.4,0,2.2,0c1.2,0,2.4,0,3.6,0c0.5,0,1,0,1.4,0c11.8,0,11.8,0.5,11.9,13.2c0,9.4,0,9.4,9.4,10.9 c7.1,1.1,14,3.2,20.6,6.1c3.6,1.6,5,4.2,3.9,8c-1.7,5.7-3.2,11.5-5,17.1c-1.1,3.5-2.2,5-4.2,5c-1.1,0-2.5-0.5-4.3-1.4 c-9.2-4.4-18.7-6.6-28.7-6.6c-1.3,0-2.6,0-3.9,0.1c-3,0.2-5.9,0.6-8.7,1.8c-9.9,4.3-11.5,15.2-3.1,21.9c4.2,3.4,9.1,5.9,14.2,8 c8.7,3.6,17.5,7.1,25.8,11.7C298.9,248.097,306,281.297,287.4,303.897z"></path> </g> </g> </g></svg>
           Total: 
@@ -584,7 +595,11 @@
             echo $this->report_ProceduresTotal+$this->report_ProductsTotal;
             ?>
           </p>
+          <x-jet-button wire:click="pdf()" type="button"
+          class="spc shadow-2xl">Imprimir</x-jet-button>
         </div>
+        
+        
       </div>
     </section>
     
