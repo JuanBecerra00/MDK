@@ -14,20 +14,37 @@ class Billing extends Component
 {
     use WithPagination;
     public $totalFinal;
+    public $goFacturate=false;
     public $date=[];
     public $day;
     public $month;
     public $year;
     public $search;
     public $customer;
-    public $customerId;
+    public $report;
+    public $customerId="";
     public $customerSelected;
     public $customerSearch;
+    public $reportSearch;
+    public $report_Created_At;
+    public $report_ProductsSelected;
+    public $report_ProductsSelectedArr=[];
+    
+    public $report_ProductsAmmount;
+    public $report_ProductsAmmountArr=[];
+    public $report_ProductsAmmountArrFinal=[[]];
+    public $report_Procedures;
+    public $report_ProceduresArr=[];
+    public $report_ProceduresArrFinal=[[]];
+    public $report_ProductsTotal=0;
+    public $report_ProceduresTotal=0;
+    public $report_ProceduresCant=0;
+    public $report_ProductsCant=0;
     public $customerName = '';
     public $customerEmail = '';
     public $customerPhone = '';
     public $vehicle = '';
-    public $vehicleId;
+    public $vehicleId="";
     public $oilType;
     public $boxType;
     public $difType;
@@ -63,6 +80,10 @@ class Billing extends Component
     {
         $this->test=$value;
     }
+    public function facturate()
+    {
+        $this->goFacturate=true;
+    }
     public function setCustomer($id)
     {
         $this->customerSearch = Customer::find($id);
@@ -93,6 +114,74 @@ class Billing extends Component
             $this->vehicleModel = 'No encontrado';
         }
     }
+    public function setReport($id)
+    {
+        $this->reportSearch = Report::find($id);
+        if(Report::find($id)){
+            $this->report = $this->reportSearch->id;
+            $this->report_Created_At = $this->reportSearch->created_at;
+            $this->report_ProductsSelected = $this->reportSearch->productsSelected;
+            $this->report_ProductsSelectedArr = explode(",", $this->report_ProductsSelected);
+            $removed = array_shift($this->report_ProductsSelectedArr);
+            $this->report_ProductsAmmount = $this->reportSearch->productsAmmount;
+            $this->report_ProductsAmmountArr = explode("|", $this->report_ProductsAmmount);
+            $removed = array_shift($this->report_ProductsAmmountArr);
+            foreach($this->report_ProductsAmmountArr as $a){
+                array_push($this->report_ProductsAmmountArrFinal, explode(",", $a));
+            }
+            $removed = array_shift($this->report_ProductsAmmountArrFinal);
+            $this->report_Procedures = $this->reportSearch->procedures;
+            $this->report_ProceduresArr = explode("|", $this->report_Procedures);
+            $this->report_ProceduresArrFinal = [];
+            foreach($this->report_ProceduresArr as $a){
+                array_push($this->report_ProceduresArrFinal, explode(",", $a));
+            }
+            $removed = array_pop($this->report_ProceduresArrFinal);
+        }else{
+            $this->report_Created_At = 'No encontrado';
+            $this->report_ProductsSelected = 'No encontrado';
+        }
+
+        $this->customerSearch = Customer::find($this->reportSearch->customer_id);
+        if(Customer::find($this->reportSearch->customer_id)){
+            $this->customerName = $this->customerSearch->name;
+            $this->customerEmail = $this->customerSearch->email;
+            $this->customerPhone = $this->customerSearch->phone;
+            $this->customer = $this->customerSearch->cc;
+            $this->customerId = $this->customerSearch->id;
+            $this->customerSelected = $this->customerSearch->id;
+        }else{
+            $this->customerName = 'No encontrado';
+            $this->customerEmail = 'No encontrado';
+            $this->customerPhone = 'No encontrado';
+        }
+
+        $this->vehicleSearch = Vehicle::find($this->reportSearch->vehicle_id);
+        if(Vehicle::find($this->reportSearch->vehicle_id)){
+            $this->vehiclePlate = $this->vehicleSearch->plate;
+            $this->vehicleModel = $this->vehicleSearch->model;
+            $this->vehicle = $this->vehicleSearch->plate;
+            $this->vehicleId = $this->vehicleSearch->id;
+            $this->setCustomer($this->vehicleSearch->customer_id);
+        }else{
+            $this->vehiclePlate = 'No encontrado';
+            $this->vehicleModel = 'No encontrado';
+        }
+        foreach ($this->report_ProductsAmmountArrFinal as $product) {
+            $this->report_ProductsTotal += $product[2];
+            $this->report_ProductsCant += $product[1];
+        }
+        $i = 1;
+        foreach ($this->report_ProceduresArrFinal as $procedure) {
+            $this->report_ProceduresTotal += $procedure[1];
+            $this->report_ProceduresCant = $i;
+            $i++;
+        }
+    }
+    public function searchReport($value)
+    {
+        return $this->reportSearch->$value;
+    }
     public function resetCustomer()
     {
         $this->customer = '';
@@ -108,6 +197,35 @@ class Billing extends Component
         $this->vehicleId = '';
         $this->vehiclePlate = '';
         $this->vehicleModel = '';
+    }
+    public function resetReport()
+    {
+        $this->reportSearch = '';
+        $this->report = '';
+        
+        $this->report = '';
+        $this->report_Created_At = '';
+        $this->report_ProductsSelected = '';
+        $this->report_ProductsSelectedArr = [];
+        $this->report_ProductsAmmount = '';
+        $this->report_ProductsAmmountArr = [];
+        $this->report_ProductsAmmountArrFinal = [[]];
+    }
+    public function searchProduct($id, $col)
+    {
+        $product = Product::find($id);
+        return $product->$col;
+    }
+    public function searchCustomer($id, $col)
+    {
+        $customer = Customer::find($id);
+        return $customer->$col;
+    }
+
+    public function searchVehicle($id, $col)
+    {
+        $vehicle = Vehicle::find($id);
+        return $vehicle->$col;
     }
     public function addProcedure($id)
     {
@@ -245,6 +363,7 @@ class Billing extends Component
         $this->year = date('y');
         $products = Product::where('status', 'like', '%1%')->where('type', 'like', '%'.$this->filterType.'%')->where('name', 'like', '%'.$this->search.'%')
             ->orderBy($this->sortField, $this->sortDirection)->paginate($this->paginate);
-        return view('livewire.billing', ['customers' => Customer::all()], ['vehicles' => Vehicle::all(), 'customers' => Customer::all(), 'products' => $products]);
+        $reports = Report::all();
+        return view('livewire.billing', ['customers' => Customer::all()], ['vehicles' => Vehicle::all(), 'customers' => Customer::all(), 'products' => $products, 'reports' => $reports]);
     }
 }

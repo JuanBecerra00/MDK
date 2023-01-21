@@ -232,6 +232,7 @@ class Reporting extends Component
         if($this->oilType==''){
             $this->oilType='Ninguno';
         }
+        $this->strProductsSelected=implode(',',$this->productsSelected);
         
             $this->validate([
                 'customer' => 'required',

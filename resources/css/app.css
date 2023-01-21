@@ -231,3 +231,174 @@
   .drop4{
     animation: drop4 1s forwards;
   }
+
+  .spc {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+  }
+  
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  .glass{
+      background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .billoil .drop{
+      opacity: 0;
+    }
+    .billoil:hover .drop{
+      animation: billdrop 1s forwards;
+    }
+    .billoil:hover .oil{
+      animation: billoil 1s forwards;
+    }
+    
+  @keyframes billoil {
+    20% {
+        transform: rotate(0deg)translateX(20px);
+    }
+    50% {
+        transform: rotate(-30deg)translateX(20px);
+    }
+    70% {
+        transform: rotate(5deg)translateX(20px);
+    }
+    80% {
+        transform: rotate(0deg)translateX(20px);
+    }
+  }
+  
+  @keyframes billdrop {
+    0% {
+      transform: translateY(0px)translateX(-25px);
+      opacity: 0;
+    }
+
+    20% {
+      transform: translateY(0px)translateX(-25px);
+      opacity: 0;
+  }
+
+    60% {
+      opacity: 1;
+  }
+    
+    100% {
+      transform: translateY(50px)translateX(-25px);
+      opacity: 0;
+  }
+  }
+  .gearbox{
+    transform: translate(-63px, -25px);
+  }
+  .gear:hover .gearbox{
+    animation: gearbox 4s forwards;
+  }
+  @keyframes gearbox {
+    0% {
+      transform: translate(-63px, -25px);
+    }
+
+    10% {
+      transform: translate(-63px, -2px);
+  }
+
+  20% {
+    transform: translate(-40px, -2px);
+}
+
+30% {
+  transform: translate(-40px, -25px);
+}
+
+40% {
+  transform: translate(-40px, 25px);
+}
+
+50% {
+  transform: translate(-40px, -2px);
+}
+
+60% {
+  transform: translate(-17px, -2px);
+}
+
+70% {
+  transform: translate(-17px, -25px);
+}
+
+80% {
+  transform: translate(-17px, 25px);
+}
+
+87% {
+  transform: translate(-17px, -2px);
+}
+
+94% {
+  transform: translate(-63px, -2px);
+}
+  }
+  .filbox:hover .filter{
+    animation: filter 1s  forwards;
+  }
+  .fildrop{
+    opacity: 0;
+  }
+  .filbox:hover .fildrop{
+    animation: fildrop 1s  forwards;
+  }
+  
+  @keyframes filter {
+    10% {
+      transform: rotate(10deg);
+    }
+    20% {
+      transform: rotate(-10deg);
+    }
+    40% {
+      transform: rotate(10deg);
+    }
+    60% {
+      transform: rotate(-10deg);
+    }
+    90% {
+      transform: rotate(10deg);
+    }
+  }
+  
+  @keyframes fildrop {
+    0% {
+      transform: translateY(0px);
+      opacity: 0;
+    }
+
+    50% {
+      transform: translateY(0px);
+      opacity: 1;
+  }
+
+    80% {
+      opacity: 1;
+  }
+    
+    100% {
+      transform: translateY(50px);
+      opacity: 0;
+  }
+  }
