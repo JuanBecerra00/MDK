@@ -21,10 +21,12 @@ return new class extends Migration
             $table->string('boxType');
             $table->string('difType');
             $table->string('oilFilterType');
-            $table->string('procedures');
-            $table->string('productsSelected');
-            $table->string('productsAmmount');
-            $table->string('observations');
+            $table->string('procedures', 2000);
+            $table->string('productsSelected', 2000);
+            $table->string('productsAmmount', 2000);
+            $table->string('observations', 2000);
+            $table->string('prev', 2000);
+            $table->string('post', 2000);
             $table->timestamps();
             $table->unique(["id"], 'id_UNIQUE');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');

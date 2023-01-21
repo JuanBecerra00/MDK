@@ -23,11 +23,13 @@
           </div>
         </div>
       </div>
+      @if($this->finished==false)
+      <div class=" flex flex-col gap-5">
       <section class="w-full flex justify-center">
         <div class="w-[90%] ">
           <p class="text-xl">Datos del cliente</p>
           <div class="w-full shadow-xl rounded-xl p-5 bg-white dark:bg-zinc-700 flex flex-col gap-2">
-            <p class="text-xl">Cliente</p>
+            <div class="flex gap-2"><p class="text-xl">Cliente</p><p class="text-red-500 text-2xl">*</p></div>
             <div>
               <p>Numero de documento</p>
               <div>
@@ -75,7 +77,7 @@
           <p class="text-xl">Vehiculo</p>
           <div class="flex gap-5 flex-wrap 2xl:flex-nowrap items-center">
             <div class="w-full h-[15rem] shadow-xl rounded-xl p-5 bg-white dark:bg-zinc-700 flex flex-col gap-2">
-              <p class="text-xl">Vehiculo</p>
+            <div class="flex gap-2"><p class="text-xl">Vehiculo</p><p class="text-red-500 text-2xl">*</p></div>
               <div>
                 <p>Placa</p>
                 <div class="flex gap-2 items-center pr-5">
@@ -115,7 +117,7 @@
               <div class="flex flex-col gap-2">
                 <p>Tipo</p>
                 <div class="flex gap-2 items-center pr-5">
-                  <input type="text" list="" wire:model="oilType"
+                  <input type="text" list="" wire:model="oilType" maxlength="50"
                     class="border-0 border-black dark:border-white dark:bg-zinc-700 border-b ring-0 focus:ring-0 focus:border-black">
                 </div>
               </div>
@@ -144,13 +146,23 @@
             </div>
 
             <div class="w-full shadow-xl rounded-xl p-5 bg-white dark:bg-zinc-700 flex flex-col gap-2">
+              <div class="flex gap-2 items-center">
               <p class="text-xl">Filtros</p>
+              <button class="rounded w-6 h-6 text-zinc-500
+                  @if($this->oilFilterType=='Ninguno')
+                  invisible
+                  @endif
+                  " wire:click="deleteOilFilterType()">Borrar</button>
+              </div>
               <?php
               //var_dump($this->oilFilterType)
               ?>
               <div class="grid grid-cols-2 gap-2 p-5 relative">
                 <div class="w-full h-10 bg-zinc-300 rounded absolute duration-200 flex justify-end items-center px-4 opacity-0
-                @if($this->oilFilterType=='1')
+                @if($this->oilFilterType=='')
+                -translate-y-[10px]
+                opacity-0
+                @elseif($this->oilFilterType=='1')
                 translate-y-[10px]
                 opacity-50
                 @elseif($this->oilFilterType=='2')
@@ -193,26 +205,26 @@
                   </div>
                 
                 </div>
-                <p class="w-[95px]">Aceite</p>
-                <input type="radio" name="oilFilterType" value="1" wire:click="setOilFilterType($event.target.value)"
+                  <p class="z-20 w-[95px]">Aceite</p>
+                <input type="radio" name="oilFilterType" value="1" wire:click="setOilFilterType($event.target.value)" class="z-20 checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center place-self-center"
                 @if($this->oilFilterType=='1')
                 checked
                 @endif
                   class="justify-self-center self-center z-40">
-                <p class="w-[95px]">Aire motor</p>
-                <input type="radio" name="oilFilterType" value="2" wire:click="setOilFilterType($event.target.value)"
+                <p class="z-20 w-[95px]">Aire motor</p>
+                <input type="radio" name="oilFilterType" value="2" wire:click="setOilFilterType($event.target.value)" class="z-20 checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center place-self-center"
                 @if($this->oilFilterType=='2')
                 checked
                 @endif
                   class="justify-self-center self-center z-40">
-                <p class="w-[95px]">Aire cabina</p>
-                <input type="radio" name="oilFilterType" value="3" wire:click="setOilFilterType($event.target.value)"
+                <p class="z-20 w-[95px]">Aire cabina</p>
+                <input type="radio" name="oilFilterType" value="3" wire:click="setOilFilterType($event.target.value)" class="z-20 checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center place-self-center"
                 @if($this->oilFilterType=='3')
                 checked
                 @endif
                   class="justify-self-center self-center z-40">
-                <p class="w-[95px]">Combustible</p>
-                <input type="radio" name="oilFilterType" value="4" wire:click="setOilFilterType($event.target.value)"
+                <p class="z-20 w-[95px]">Combustible</p>
+                <input type="radio" name="oilFilterType" value="4" wire:click="setOilFilterType($event.target.value)" class="z-20 checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center place-self-center"
                 @if($this->oilFilterType=='4')
                 checked
                 @endif
@@ -223,9 +235,29 @@
           </div>
         </div>
       </section>
+
+      
+
+
       <section class="w-full flex justify-center">
         <div class="w-[90%]">
-          <p class="text-xl">Procedimientos</p>
+        <div class="flex gap-2"><p class="text-xl">Diagnostico de llegada</p><p class="text-red-500 text-2xl">*</p></div>
+          <div class="">
+            <div class="bg-zinc-800 dark:bg-zinc-900 w-full p-5 rounded-t-xl flex justify-end">
+            </div>
+            
+            <div class="bg-white dark:bg-zinc-700 p-5 rounded-b-xl flex shadow-xl">
+              <textarea maxlength="2000" class="w-full min-h-[20rem] dark:bg-zinc-800 focus:border-red-800 focus:ring-red-800" wire:model="prev"></textarea>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+
+      <section class="w-full flex justify-center">
+        <div class="w-[90%]">
+        <div class="flex gap-2"><p class="text-xl">Procedimientos</p><p class="text-red-500 text-2xl">*</p></div>
           <div class="">
             <div class="bg-zinc-800 dark:bg-zinc-900 w-full p-5 rounded-t-xl flex justify-end">
             </div>
@@ -304,7 +336,6 @@
           </div>
         </div>
       </section>
-
 
       <section class="w-full flex justify-center">
         <div class="w-[90%]">
@@ -447,6 +478,9 @@
                       <div class="px-6 py-3">Nombre</div>
                     </th>
                     <th class="">
+                      <div class="px-6 py-3">Inventario</div>
+                    </th>
+                    <th class="">
                       <div class="px-6 py-3">Valor Unitario</div>
                     </th>
                     <th class="">
@@ -477,18 +511,21 @@
                       <div class="max-w-[12rem] overflow-x-auto">{{ $product->name }}</div>
                     </td>
                     <td class="bg-white dark:bg-zinc-700 px-6 py-4 whitespace-nowrap">
+                      <div class="max-w-[12rem] overflow-x-auto">{{ $product->ammount }}</div>
+                    </td>
+                    <td class="bg-white dark:bg-zinc-700 px-6 py-4 whitespace-nowrap">
                       <div class="max-w-[12rem] overflow-x-auto">{{ $product->price }}</div>
                     </td>
                     <td class="bg-white dark:bg-zinc-700 px-6 py-4 whitespace-nowrap">
                       <div class="max-w-[12rem] overflow-x-auto">
-                        <input type="number" max="{{$product->ammount}}" class="w-full border-0 focus:border-black
+                        <input type="number" min="0" max="{{$product->ammount}}" maxlength='3' class="w-full border-0 focus:border-black
                         @if(!array_search($product->id, $this->productsSelected))
                         dark:bg-zinc-700 rounded
                         @else
                         border-black dark:border-white dark:bg-zinc-700 border-b
                         @endif
                         "
-                        wire:change="productSave({{$product->id}}, {{$product->price}}, $event.target.value)"
+                        wire:change="productSave({{$product->id}}, {{$product->price}}, $event.target.value, {{$product->ammount}})"
                         @if(!array_search($product->id, $this->productsSelected))
                         disabled
                         @else
@@ -519,7 +556,7 @@
                 </tbody>
               </table>
             </div>
-              <div class="m-2 p-2">
+              <div class="p-2 bg-zinc-800 dark:bg-zinc-900 mt-2">
                 {{ $products->links() }}
               </div>
             
@@ -537,13 +574,27 @@
       </section>
       <section class="w-full flex justify-center">
         <div class="w-[90%]">
+        <div class="flex gap-2"><p class="text-xl">Diagnostico de salida</p><p class="text-red-500 text-2xl">*</p></div>
+          <div class="">
+            <div class="bg-zinc-800 dark:bg-zinc-900 w-full p-5 rounded-t-xl flex justify-end">
+            </div>
+            
+            <div class="bg-white dark:bg-zinc-700 p-5 rounded-b-xl flex shadow-xl">
+              <textarea maxlength="2000" class="w-full min-h-[20rem] dark:bg-zinc-800 focus:border-red-800 focus:ring-red-800" wire:model="post"></textarea>
+            </div>
+
+          </div>
+        </div>
+      </section>
+      <section class="w-full flex justify-center">
+        <div class="w-[90%]">
           <p class="text-xl">Observaciones</p>
           <div class="">
             <div class="bg-zinc-800 dark:bg-zinc-900 w-full p-5 rounded-t-xl flex justify-end">
             </div>
             
             <div class="bg-white dark:bg-zinc-700 p-5 rounded-b-xl flex shadow-xl">
-              <textarea class="w-full min-h-[20rem] dark:bg-zinc-800 focus:border-red-800 focus:ring-red-800" wire:model="observations"></textarea>
+              <textarea maxlength="2000" class="w-full min-h-[20rem] dark:bg-zinc-800 focus:border-red-800 focus:ring-red-800" wire:model="observations"></textarea>
             </div>
 
           </div>
@@ -565,25 +616,69 @@
           </div>
         </div>
       </section>
-      <section class="w-full flex justify-between">
-      <x-jet-button class="w-24 h-12 duration-300 flex justify-center items-center bg-zinc-800 dark:bg-zinc-900 hover:bg-zinc-900 focus:bg-zinc-700">
-                    {{ __('Resetear') }}
-                </x-jet-button>
+      <section class="w-full flex justify-end">
                 <div class="flex gap-5">
-                <x-jet-button class="w-24 h-12 duration-300 flex justify-center items-center">
-                    {{ __('Cancelar') }}
-                </x-jet-button>
                 <x-jet-button class="w-24 h-12 duration-300 flex justify-center items-center" wire:click="modal(true)">
                     {{ __('Guardar') }}
                 </x-jet-button>
                 </div>
       </section>
+      </div>
+      @elseif($this->finished==true)
+      <div class="w-full h-[50vh] bg-white dark:bg-zinc-700 p-5 rounded-xl flex justify-center items-center shadow-xl">
+        <div class="flex  h-40">
+          <div class="text-green-500 w-40">
+          <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Checkmark</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M416 128L192 384l-96-96"/></svg>
+          </div>
+          <div>
+          <div class="text-2xl h-20 flex items-end">
+            Reporte terminado
+          </div>
+          
+          <div class="text-xl h-20 flex items-start opacity-50">
+            {{Auth::user()->name}}
+          </div>
+          </div>
+        </div>
+      </div>
+      @endif
     </div>
     <x-jet-dialog-modal wire:model="showingBillModal">
             <x-slot name="title">Editar usuario</x-slot>
             <x-slot name="content">
               <div class="space-y-8 divide-y divide-gray-200 mt-10">
-                ¿Seguro de que desea guardar este informe?<p class="text-red-500">>>No se podra editar despues<<</p>
+                ¿Seguro de que desea guardar este informe?<p class="text-red-500 mb-10">>>No se podra editar despues<<</p>
+                
+                @error('customer') <span class="error text-red-500">
+                <div class="flex items-center">
+                <div class="w-8 h-8"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Alert Circle</title><path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path d="M250.26 166.05L256 288l5.73-121.95a5.74 5.74 0 00-5.79-6h0a5.74 5.74 0 00-5.68 6z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path d="M256 367.91a20 20 0 1120-20 20 20 0 01-20 20z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg></div>  
+                {{ $message }}
+                </div></span> @enderror
+                @error('vehicle') <span class="error text-red-500">
+                <div class="flex items-center">
+                <div class="w-8 h-8"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Alert Circle</title><path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path d="M250.26 166.05L256 288l5.73-121.95a5.74 5.74 0 00-5.79-6h0a5.74 5.74 0 00-5.68 6z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path d="M256 367.91a20 20 0 1120-20 20 20 0 01-20 20z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg></div>  
+                {{ $message }}
+                </div></span> @enderror
+                @error('strProcedures') <span class="error text-red-500">
+                <div class="flex items-center">
+                <div class="w-8 h-8"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Alert Circle</title><path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path d="M250.26 166.05L256 288l5.73-121.95a5.74 5.74 0 00-5.79-6h0a5.74 5.74 0 00-5.68 6z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path d="M256 367.91a20 20 0 1120-20 20 20 0 01-20 20z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg></div>  
+                {{ $message }}
+                </div></span> @enderror
+                @error('prev') <span class="error text-red-500">
+                <div class="flex items-center">
+                <div class="w-8 h-8"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Alert Circle</title><path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path d="M250.26 166.05L256 288l5.73-121.95a5.74 5.74 0 00-5.79-6h0a5.74 5.74 0 00-5.68 6z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path d="M256 367.91a20 20 0 1120-20 20 20 0 01-20 20z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg></div>  
+                {{ $message }}
+                </div></span> @enderror
+                @error('post') <span class="error text-red-500">
+                <div class="flex items-center">
+                <div class="w-8 h-8"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Alert Circle</title><path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path d="M250.26 166.05L256 288l5.73-121.95a5.74 5.74 0 00-5.79-6h0a5.74 5.74 0 00-5.68 6z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path d="M256 367.91a20 20 0 1120-20 20 20 0 01-20 20z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg></div>  
+                {{ $message }}
+                </div></span> @enderror
+                @error('strProductsAmmount') <span class="error text-red-500">
+                <div class="flex items-center">
+                <div class="w-8 h-8"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Alert Circle</title><path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path d="M250.26 166.05L256 288l5.73-121.95a5.74 5.74 0 00-5.79-6h0a5.74 5.74 0 00-5.68 6z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path d="M256 367.91a20 20 0 1120-20 20 20 0 01-20 20z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg></div>  
+                {{ $message }}
+                </div></span> @enderror
                 
         </div>
 

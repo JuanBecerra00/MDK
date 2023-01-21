@@ -31,21 +31,21 @@ class Reporting extends Component
     public $oilType;
     public $boxType;
     public $difType;
-    public $oilFilterType;
+    public $oilFilterType = 'Ninguno';
     public $vehicleSearch;
     public $vehiclePlate = '';
     public $vehicleModel = '';
     protected $queryString = ['search'];
     public $test = 0;
-    public $procedures = [[0 => '', '']];
+    public $procedures = [[0 => '0', '0']];
     public $proceduresCounter = 0;
     public $procedureName;
     public $procedurePrice;
     public $procedureIsEdit = 0;
     public $procedureLastEdit;
     public $porcedureTotal=0;
-    public $productsAmmount = [[0 => '', '', '']];
-    public $strProductsAmmount = [];
+    public $productsAmmount = [[0 => '0', '0', '0']];
+    public $strProductsAmmount='Ninguno';
     public $productsSelected = [''];
     public $total = 0;
     public $sortField = 'id';
@@ -53,10 +53,13 @@ class Reporting extends Component
     public $paginate = 10;
     public $filterType = 'I';
     public $observations = '';
+    public $prev = '';
+    public $post = '';
     
     public $strProcedures;
-    public $strProductsSelected;
+    public $strProductsSelected='Ninguno';
     public $showingBillModal = false;
+    public $finished = false;
 
 
     public function test($value)
@@ -174,11 +177,18 @@ class Reporting extends Component
         }
         $this->strProductsAmmount = implode('|', $lclAmmount);
     }
-    public function productSave($id, $price, $value)
+    public function productSave($id, $price, $value, $max)
     {
         $a=array_search($id, $this->productsSelected);
         $this->productsAmmount[$a][1]=$value;
-        $this->productsAmmount[$a][2]=$value*$price;
+        if($value=='' or $value==0){
+            $this->productAdd('on', $id);
+        }elseif($value && $max>=$value){
+            $this->productsAmmount[$a][2]=$value*$price; 
+        }else{
+            $this->productsAmmount[$a][1] = $max;
+            $this->productSave($id, $price, $max, $max);
+        }
     }
     public function changePaginate($number)
     {
@@ -193,9 +203,26 @@ class Reporting extends Component
     {
         $this->oilFilterType = $value;
     }
+    public function deleteOilFilterType()
+    {
+        $this->oilFilterType = 'Ninguno';
+    }
+    protected $validationAttributes = [
+        'customer' => 'Cliente',
+        'vehicle' => 'Vehiculo',
+        'strProcedures' => 'Procedimientos',
+    ];
+    protected $messages = [
+        'customer.required' => 'Debe seleccionar un cliente.',
+        'vehicle.required' => 'Debe seleccionar un vehiculo.',
+        'strProcedures.required' => 'Debe escribir los procedimientos realizados.',
+        'prev.required' => 'Debe escribir el diagnostico de llegada del vehiculo.',
+        'post.required' => 'Debe escribir el diagnostico de salida del vehiculo.',
+        'strProcedures.max' => 'Demasiada informacion en procedimientos realizados.',
+        'strProductsAmmount.max' => 'Demasiados productos registrados.',
+    ];
     public function saveReport()
     {
-        $this->strProductsSelected = implode(',', $this->productsSelected);
         if($this->boxType==''){
             $this->boxType='Ninguno';
         }
@@ -205,12 +232,15 @@ class Reporting extends Component
         if($this->oilType==''){
             $this->oilType='Ninguno';
         }
-        if($this->oilFilterType==''){
-            $this->oilFilterType='Ninguno';
-        }
+        
             $this->validate([
                 'customer' => 'required',
                 'vehicle' => 'required',
+                'prev' => 'required',
+                'post' => 'required',
+                'strProcedures' => 'required|max:2000',
+                'strProductsAmmount' => 'required|max:2000',
+                'strProductsSelected' => 'required|max:2000',
             ]);
         $bill = new Report();
         $bill->customer_id = $this->customerId;
@@ -223,8 +253,21 @@ class Reporting extends Component
         $bill->productsSelected = $this->strProductsSelected;
         $bill->productsAmmount = $this->strProductsAmmount;
         $bill->observations = $this->observations;
+        $bill->prev = $this->prev;
+        $bill->post = $this->post;
         $bill->save();
+        $i = 0;
+        foreach($this->productsAmmount as $productlist){
+            if($i!=0){
+            $product = Product::find($productlist[0]);
+            $product->update([
+                'ammount' => $product->ammount - $productlist[1],
+            ]);
+        }
+        $i++;
+        }
         $this->showingBillModal = false;
+        $this->finished = true;
     }
     public function render()
     {

@@ -54,7 +54,7 @@ class Billing extends Component
     public $filterType = 'I';
     public $observations = '';
     
-    public $strProcedures;
+    public $strProcedures='Ninguno';
     public $strProductsSelected;
     public $showingBillModal = false;
 
@@ -129,11 +129,14 @@ class Billing extends Component
             array_push($this->procedures, [$this->proceduresCounter, '']);
         }
         }
-        $lclprocedures = [];
+        $error = [[0 => '', '']];
+        if($this->procedures!=$error){
+            $lclprocedures = [];
         foreach($this->procedures as $procedure){
             array_push($lclprocedures, implode(',',$procedure));
         }
         $this->strProcedures = implode('|', $lclprocedures);
+        }
     }
     public function procedureEdit($id)
     {
