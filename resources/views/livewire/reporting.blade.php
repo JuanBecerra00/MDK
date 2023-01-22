@@ -206,30 +206,23 @@
                 
                 </div>
                   <p class="z-20 w-[95px]">Aceite</p>
-                <input type="radio" name="oilFilterType" value="1" wire:click="setOilFilterType($event.target.value)" class="z-20 checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center place-self-center"
-                @if($this->oilFilterType=='1')
-                checked
-                @endif
+                <input type="checkbox" value="0" wire:click="setOilFilterType($event.target.value)" class="z-20 checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center place-self-center"
                   class="justify-self-center self-center z-40">
                 <p class="z-20 w-[95px]">Aire motor</p>
-                <input type="radio" name="oilFilterType" value="2" wire:click="setOilFilterType($event.target.value)" class="z-20 checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center place-self-center"
-                @if($this->oilFilterType=='2')
-                checked
-                @endif
+                <input type="checkbox" value="1" wire:click="setOilFilterType($event.target.value)" class="z-20 checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center place-self-center"
                   class="justify-self-center self-center z-40">
                 <p class="z-20 w-[95px]">Aire cabina</p>
-                <input type="radio" name="oilFilterType" value="3" wire:click="setOilFilterType($event.target.value)" class="z-20 checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center place-self-center"
-                @if($this->oilFilterType=='3')
-                checked
-                @endif
+                <input type="checkbox" value="2" wire:click="setOilFilterType($event.target.value)" class="z-20 checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center place-self-center"
                   class="justify-self-center self-center z-40">
                 <p class="z-20 w-[95px]">Combustible</p>
-                <input type="radio" name="oilFilterType" value="4" wire:click="setOilFilterType($event.target.value)" class="z-20 checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center place-self-center"
-                @if($this->oilFilterType=='4')
-                checked
-                @endif
+                <input type="checkbox" value="3" wire:click="setOilFilterType($event.target.value)" class="z-20 checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center place-self-center"
                   class="justify-self-center self-center z-40">
               </div>
+              <?php
+              var_dump($this->oilFilterType);
+              var_dump($this->test);
+              var_dump($this->oilFilterTypeArr);
+              ?>
             </div>
 
           </div>

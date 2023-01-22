@@ -31,7 +31,8 @@ class Reporting extends Component
     public $oilType;
     public $boxType;
     public $difType;
-    public $oilFilterType = 'Ninguno';
+    public $oilFilterType = [0, 0, 0, 0];
+    public $oilFilterTypeArr='';
     public $vehicleSearch;
     public $vehiclePlate = '';
     public $vehicleModel = '';
@@ -201,7 +202,13 @@ class Reporting extends Component
 
     public function setOilFilterType($value)
     {
-        $this->oilFilterType = $value;
+        if($this->oilFilterType[$value]==1){
+            $this->oilFilterType[$value] = 0;
+        }else{
+            $this->oilFilterType[$value] = 1;
+        }
+        
+        $this->oilFilterTypeArr = implode(',', $this->oilFilterType);
     }
     public function deleteOilFilterType()
     {
@@ -249,7 +256,7 @@ class Reporting extends Component
         $bill->oilType = $this->oilType;
         $bill->boxType = $this->boxType;
         $bill->difType = $this->difType;
-        $bill->oilFilterType = $this->oilFilterType;
+        $bill->oilFilterType = $this->oilFilterTypeArr;
         $bill->procedures = $this->strProcedures;
         $bill->productsSelected = $this->strProductsSelected;
         $bill->productsAmmount = $this->strProductsAmmount;

@@ -163,45 +163,8 @@
                                         <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldStatus) checked @endif>
                                 </x-slot>
                             </x-jet-dropdown>
-                            @if($selecteds)
-                                <x-jet-dropdown align="left" width="48">
-                                    <x-slot name="trigger">
-                        <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-800 hover:bg-red-700 focus:bg-red-900 focus:outline-none transition shadow-[0px_8px_10px_0px_rgba(0,0,0,0.3)]">
-                                        Exportar
-
-                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                        </svg>
-                                    </button>
-                                </span>
-                                    </x-slot>
-                                    <x-slot name="content">
-                                        <!-- Account Management -->
-                                        <div class="block px-4 py-2 text-xs text-gray-400">
-                                            {{ __('Formato') }}
-                                        </div>
-                                        <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="exportExcel()">
-                                            Excel
-                                        </button>
-                                        <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="exportCsv()">
-                                            CSV
-                                        </button>
-                                        <a href="/reportPdf/{{$this->encryption}}" target="blank">
-                                            <button class="w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition">
-                                                PDF
-                                            </button>
-                                        </a>
-
-                                    </x-slot>
-                                </x-jet-dropdown>
-                            @endif
                         </div>
                     </div>
-                    @if(Auth::user()->job!='M')
-                        <x-jet-button wire:click="showReportModal"
-                                      class="bg-red-800 hover:bg-red-900 active:bg-red-700 max-sm:mt-5 max-sm:w-full flex justify-center imtems-center sm:ml-5">Registrar</x-jet-button>
-                    @endif
 
                 </div>
                 <div class="-my-2 overflow-x-auto">
@@ -405,7 +368,7 @@
                                         <div class="sm:flex place-content-around m-2">
                                             <div>
                                                 <div class="sm:col-span-6">
-                                                    <label for="customer_id" class="block text-sm font-medium text-gray-700"> Id del cliente </label>
+                                                    <label for="customer_id" class="block text-sm font-medium text-gray-700 dark:text-white"> Id del cliente </label>
                                                     <div class="mt-1">
                                                         <input type="number" id="customer_id" wire:model.lazy="customer_id" name="customer_id"
                                                                class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" />
@@ -413,7 +376,7 @@
                                                     @error('customer_id') <span class="error text-red-500">{{ $message }}</span> @enderror
                                                 </div>
                                                 <div class="sm:col-span-6">
-                                                    <label for="Vehicle_id" class="block text-sm font-medium text-gray-700"> Vehiculo </label>
+                                                    <label for="Vehicle_id" class="block text-sm font-medium text-gray-700 dark:text-white"> Vehiculo </label>
                                                     <div class="mt-1">
                                                         <input type="text" id="Vehicle_id" wire:model.lazy="Vehicle_id" name="Vehicle_id"
                                                                class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" />
@@ -421,7 +384,7 @@
                                                     @error('Vehicle_id') <span class="error text-red-500">{{ $message }}</span> @enderror
                                                 </div>
                                                 <div class="sm:col-span-6">
-                                                    <label for="model" class="block text-sm font-medium text-gray-700"> Vehicle_ido </label>
+                                                    <label for="model" class="block text-sm font-medium text-gray-700 dark:text-white"> Vehicle_ido </label>
                                                     <div class="mt-1">
                                                         <input type="text" id="model" wire:model.lazy="model" name="model"
                                                                class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" />

@@ -358,12 +358,14 @@
                 <p class="font-bold text-2xl">Caja:</p>
                 <p class="justify-self-center text-xl">
                   
-                <?php
-                echo $this->searchReport('boxType');
-                ?>
+                @if($this->searchReport('boxType')=='c')
+                Cambios
+                @elseif($this->searchReport('boxType')=='t')
+                Transferencia
+                @endif
                 </p>
                 <p class="font-bold text-2xl">Diferencial:</p>
-                <p class="justify-self-center text-xl">
+                <p class="justify-self-center text-xl capitalize">
                   
                 <?php
                 echo $this->searchReport('difType');
@@ -393,10 +395,20 @@
               </div>
               <p class="font-bold text-2xl">Filtro</p>
               <p>
-                
-              <?php
-                echo $this->searchReport('oilFilterType');
-                ?>
+                <ul class="list-disc">
+              @if($this->oilFilterTypeArr[0]==1)
+                <li class="">Aceite</li>
+                @endif
+                @if($this->oilFilterTypeArr[1]==1)
+                <li class="">Aire motor</li>
+                @endif
+                @if($this->oilFilterTypeArr[2]==1)
+                <li class="">Aire cabina</li>
+                @endif
+                @if($this->oilFilterTypeArr[3]==1)
+                <li class="">Combustible</li>
+                @endif
+                </ul>
               </p>
             </div>
             

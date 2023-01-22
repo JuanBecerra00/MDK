@@ -397,7 +397,7 @@
                                         <div class="sm:flex place-content-around m-2">
                                             <div>
                                                 <div class="sm:col-span-6">
-                                                    <label for="customer_id" class="block text-sm font-medium text-gray-700"> Id del cliente </label>
+                                                    <label for="customer_id" class="block text-sm font-medium text-gray-700 dark:text-white dark:text-white"> Id del cliente </label>
                                                     <div class="mt-1">
                                                         <input type="number" id="customer_id" wire:model.lazy="customer_id" name="customer_id"
                                                                class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" />
@@ -405,7 +405,7 @@
                                                     @error('customer_id') <span class="error text-red-500">{{ $message }}</span> @enderror
                                                 </div>
                                                 <div class="sm:col-span-6">
-                                                    <label for="plate" class="block text-sm font-medium text-gray-700"> Placa </label>
+                                                    <label for="plate" class="block text-sm font-medium text-gray-700 dark:text-white dark:text-white"> Placa </label>
                                                     <div class="mt-1">
                                                         <input type="text" id="plate" wire:model.lazy="plate" name="plate"
                                                                class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" />
@@ -413,7 +413,7 @@
                                                     @error('plate') <span class="error text-red-500">{{ $message }}</span> @enderror
                                                 </div>
                                                 <div class="sm:col-span-6">
-                                                    <label for="model" class="block text-sm font-medium text-gray-700"> Modelo </label>
+                                                    <label for="model" class="block text-sm font-medium text-gray-700 dark:text-white dark:text-white"> Modelo </label>
                                                     <div class="mt-1">
                                                         <input type="text" id="model" wire:model.lazy="model" name="model"
                                                                class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" />
@@ -424,10 +424,10 @@
                                             <div>
                                                 @if($idVehicle!=1)
                                                     <div class="sm:col-span-6">
-                                                        <label for="status" class="block text-sm font-medium text-gray-700"> Estado </label>
+                                                        <label for="status" class="block text-sm font-medium text-gray-700 dark:text-white dark:text-white"> Estado </label>
                                                         <div class="mt-1">
                                                             <select id="status" wire:model.lazy="status" name="status"
-                                                                    class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" />
+                                                                    class="block w-full appearance-none bg-white dark:bg-zinc-800 dark:text-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" >
                                                                 <option value="1">Activo</option>
                                                                 <option value="0">Inactivo</option>
                                                             </select>

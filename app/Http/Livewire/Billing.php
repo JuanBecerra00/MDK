@@ -49,6 +49,7 @@ class Billing extends Component
     public $boxType;
     public $difType;
     public $oilFilterType;
+    public $oilFilterTypeArr;
     public $vehicleSearch;
     public $vehiclePlate = '';
     public $vehicleModel = '';
@@ -137,6 +138,7 @@ class Billing extends Component
                 array_push($this->report_ProceduresArrFinal, explode(",", $a));
             }
             $removed = array_pop($this->report_ProceduresArrFinal);
+            $this->oilFilterTypeArr = explode(",", $this->reportSearch->oilFilterType);
         }else{
             $this->report_Created_At = 'No encontrado';
             $this->report_ProductsSelected = 'No encontrado';
