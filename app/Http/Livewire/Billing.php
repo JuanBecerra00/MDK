@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Customer;
 use App\Models\Vehicle;
 use App\Models\Product;
@@ -316,41 +317,52 @@ class Billing extends Component
     {
         $this->oilFilterType = $value;
     }
-    public function saveReport()
-    {
-        $this->strProductsSelected = implode(',', $this->productsSelected);
-        if($this->boxType==''){
-            $this->boxType='Ninguno';
+    
+
+    public function pdf($exportData)
+    {   
+        $Data = str_replace('ñ', '/', $exportData);
+        $report=openssl_decrypt ($Data, "AES-128-CTR", 
+        "34567890odxcvbnko8765", 0, '1234567891011121');
+        $reports = Report::where('id', $report)
+        ->orderBy('id')
+        ->take(1)
+        ->get();
+
+        foreach($reports as $report){
+            $reportCustomer = $report->customer_id;
         }
-        if($this->difType==''){
-            $this->difType='Ninguno';
+        $customers = Customer::where('id', $reportCustomer)
+        ->orderBy('id')
+        ->take(1)
+        ->get();
+        
+        foreach($reports as $report){
+            $reportVehicle = $report->vehicle_id;
         }
-        if($this->oilType==''){
-            $this->oilType='Ninguno';
+        $vehicles = Vehicle::where('id', $reportVehicle)
+        ->orderBy('id')
+        ->take(1)
+        ->get();
+
+        foreach($reports as $report){
+            $reportProducts = $report->productsSelected;
         }
-        if($this->oilFilterType==''){
-            $this->oilFilterType='Ninguno';
-        }
-            $this->validate([
-                'customer' => 'required',
-                'vehicle' => 'required',
-            ]);
-        $bill = new Report();
-        $bill->customer_id = $this->customerId;
-        $bill->vehicle_id = $this->vehicleId;
-        $bill->oilType = $this->oilType;
-        $bill->boxType = $this->boxType;
-        $bill->difType = $this->difType;
-        $bill->oilFilterType = $this->oilFilterType;
-        $bill->procedures = $this->strProcedures;
-        $bill->productsSelected = $this->strProductsSelected;
-        $bill->productsAmmount = $this->strProductsAmmount;
-        $bill->observations = $this->observations;
-        $bill->save();
-        $this->showingBillModal = false;
+        $reportProductsArr = explode(",", $reportProducts);
+        $products = Product::whereIn('id', $reportProductsArr)
+        ->orderBy('id')
+        ->get();
+
+
+        $pdf = PDF::loadView('exports.BillingPdf', compact('reports'),['exportData' => $exportData, 'customers' => $customers, 'vehicles' => $vehicles, 'products' => $products]);
+        return $pdf->stream('a.pdf');
+        
     }
     public function render()
     {
+        
+        $this->encryption = openssl_encrypt($this->report, "AES-128-CTR",
+        "34567890odxcvbnko8765", 0, '1234567891011121');
         $this->porcedureTotal=0;
                 foreach($this->procedures as $procedure){
                   $this->porcedureTotal+=(int)$procedure[1];

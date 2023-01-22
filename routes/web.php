@@ -45,7 +45,7 @@ Route::get('/Vehicles', VehicleTable::class)->name('vehicles.index');
 Route::get('vehiclePdf/{id}', [VehicleTable::class, 'pdf'])->name('vehicles.pdf');
 Route::get('/Billing', Billing::class)->name('billing.index');
 Route::get('/Reporting', Reporting::class)->name('reporting.index');
-Route::get('billingPdf/{id}', [Billing::class, 'pdf'])->name('billing.pdf');
+Route::get('BillingPdf/{id}', [Billing::class, 'pdf'])->name('billing.pdf');
 Route::get('users/export/', [UsersController::class, 'export']);
 Route::get('pdf/{id}', [UserTable::class, 'pdf'])->name('users.pdf');
 Route::get('/Products', ProductTable::class)->name('products.index');

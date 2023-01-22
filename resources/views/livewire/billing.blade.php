@@ -396,18 +396,22 @@
               <p class="font-bold text-2xl">Filtro</p>
               <p>
                 <ul class="list-disc">
-              @if($this->oilFilterTypeArr[0]==1)
-                <li class="">Aceite</li>
-                @endif
-                @if($this->oilFilterTypeArr[1]==1)
-                <li class="">Aire motor</li>
-                @endif
-                @if($this->oilFilterTypeArr[2]==1)
-                <li class="">Aire cabina</li>
-                @endif
-                @if($this->oilFilterTypeArr[3]==1)
-                <li class="">Combustible</li>
-                @endif
+              @if(in_array("1", $this->oilFilterTypeArr))
+                @if($this->oilFilterTypeArr[0]==1)
+                  <li class="">Aceite</li>
+                  @endif
+                  @if($this->oilFilterTypeArr[1]==1)
+                  <li class="">Aire motor</li>
+                  @endif
+                  @if($this->oilFilterTypeArr[2]==1)
+                  <li class="">Aire cabina</li>
+                  @endif
+                  @if($this->oilFilterTypeArr[3]==1)
+                  <li class="">Combustible</li>
+                  @endif
+              @else
+                  Ninguno
+              @endif
                 </ul>
               </p>
             </div>
@@ -607,8 +611,11 @@
             echo $this->report_ProceduresTotal+$this->report_ProductsTotal;
             ?>
           </p>
-          <x-jet-button wire:click="pdf()" type="button"
+          
+          <a href="/BillingPdf/{{$this->encryption}}" target="blank">
+          <x-jet-button type="button"
           class="spc shadow-2xl">Imprimir</x-jet-button>
+            </a>
         </div>
         
         
