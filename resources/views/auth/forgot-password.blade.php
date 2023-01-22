@@ -45,7 +45,10 @@
                 <x-jet-label for="email" value="{{ __('Email') }}" class="label duration-500"/>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="flex items-center justify-between mt-4">
+            <a class="underline text-sm text-red-600 hover:text-red-900" href="{{ route('password.request') }}">
+                        {{ __('¿Sin conexión a internet?') }}
+                    </a>
                 <x-jet-button>
                     {{ __('Enviar link') }}
                 </x-jet-button>

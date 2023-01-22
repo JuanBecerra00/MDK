@@ -8,32 +8,6 @@
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
-
-            <div>
-                <x-jet-label for="type" value="{{ __('type') }}" />
-                <x-jet-input id="type" class="block mt-1 w-full" type="text" name="type" :value="old('type')" required autofocus autocomplete="type" />
-            </div>
-
-            <div>
-                <x-jet-label for="cc" value="{{ __('cc') }}" />
-                <x-jet-input id="cc" class="block mt-1 w-full" type="text" name="cc" :value="old('cc')" required autofocus autocomplete="cc" />
-            </div>
-            
-            <div>
-                <x-jet-label for="name" value="{{ __('Name') }}" />
-                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            </div>
-
-            <div>
-                <x-jet-label for="job" value="{{ __('job') }}" />
-                <x-jet-input id="job" class="block mt-1 w-full" type="text" name="job" :value="old('job')" required autofocus autocomplete="job" />
-            </div>
-            
-            <div>
-                <x-jet-label for="phone" value="{{ __('phone') }}" />
-                <x-jet-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required autofocus autocomplete="phone" />
-            </div>
-
             <div class="mt-4">
                 <x-jet-label for="email" value="{{ __('Email') }}" />
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
@@ -49,21 +23,6 @@
                 <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
             
-            <div>
-                <x-jet-label for="question" value="{{ __('question') }}" />
-                <x-jet-input id="question" class="block mt-1 w-full" type="text" name="question" :value="old('question')" required autofocus autocomplete="question" />
-            </div>
-            
-            <div>
-                <x-jet-label for="answer" value="{{ __('answer') }}" />
-                <x-jet-input id="answer" class="block mt-1 w-full" type="text" name="answer" :value="old('answer')" required autofocus autocomplete="answer" />
-            </div>
-            
-            
-            <div>
-                <x-jet-label for="status" value="{{ __('status') }}" />
-                <x-jet-input id="status" class="block mt-1 w-full" type="text" name="status" :value="old('status')" required autofocus autocomplete="status" />
-            </div>
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-4">
