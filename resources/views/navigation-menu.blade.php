@@ -15,30 +15,34 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')" class="text-white">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
+                    
+            @if(Auth::user()->job!='M')
                     <x-jet-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')" class="text-white">
-                        {{ __('Users') }}
+                        {{ __('Usuarios') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('customers.index') }}" :active="request()->routeIs('customer.index')" class="text-white">
-                        {{ __('Customer') }}
+                    @endif
+                    <x-jet-nav-link href="{{ route('customers.index') }}" :active="request()->routeIs('customers.index')" class="text-white">
+                        {{ __('Clientes') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('vehicles.index') }}" :active="request()->routeIs('vehicles.index')" class="text-white">
-                        {{ __('Vehicles') }}
+                        {{ __('Vehiculos') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('reports.index') }}" :active="request()->routeIs('reports.index')" class="text-white">
-                        {{ __('Reports') }}
-                    </x-jet-nav-link>
+            @if(Auth::user()->job!='M')
                     <x-jet-nav-link href="{{ route('providers.index') }}" :active="request()->routeIs('providers.index')" class="text-white">
-                        {{ __('Providers') }}
+                        {{ __('Proveedores') }}
                     </x-jet-nav-link>
+                    @endif
                     <x-jet-nav-link href="{{ route('products.index') }}" :active="request()->routeIs('products.index')" class="text-white">
-                        {{ __('Products') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('billing.index') }}" :active="request()->routeIs('billing.index')" class="text-white">
-                        {{ __('Billing') }}
+                        {{ __('Inventario') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('reporting.index') }}" :active="request()->routeIs('reporting.index')" class="text-white">
-                        {{ __('reporting') }}
+                        {{ __('Reporte') }}
                     </x-jet-nav-link>
+            @if(Auth::user()->job!='M')
+                    <x-jet-nav-link href="{{ route('billing.index') }}" :active="request()->routeIs('billing.index')" class="text-white">
+                        {{ __('Facturación') }}
+                    </x-jet-nav-link>
+                    @endif
                 </div>
             </div>
             <div class="hidden sm:flex sm:items-center sm:ml-6">

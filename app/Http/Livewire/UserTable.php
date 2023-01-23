@@ -226,7 +226,6 @@ class UserTable extends Component
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required',
                 'cpassword' => 'required|same:password',
-                'question' => 'required',
                 'answer' => 'required',
             ]);
         $user = new User();
@@ -245,7 +244,7 @@ class UserTable extends Component
         $user->phone = $this->phone;
         $user->email = $this->email;
         $user->password = Hash::make($this->password);
-        $user->question = $this->question;
+        $user->question = '';
         $user->answer = $this->answer;
         $regstatus=$this->status;
         if($this->status==""){

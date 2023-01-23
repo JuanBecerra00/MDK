@@ -26,6 +26,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/forgot-password-offline', function () {
+    return view('auth.forgot-password-offline');
+});
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

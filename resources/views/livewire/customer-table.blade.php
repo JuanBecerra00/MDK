@@ -54,6 +54,7 @@
 
           <div class="w-full bg-zinc-800 dark:bg-zinc-900 sm:flex items-center place-content-between p-5 relative rounded-t-xl">
             <div class="flex max-sm:flex-col gap-5 items-center">
+              <div class="flex items-center flex-wrap justify-center gap-2">
               <p class="text-white flex items-center">
                 Buscar
 
@@ -73,7 +74,8 @@
               <input wire:model="search" type="search"
                 placeholder="Numero de documento, nombre, departamento, ciudad, email, telefono"
                 class="rounded max-sm:w-full dark:bg-zinc-800 dark:text-white focus:border-red-800 focus:ring-red-800">
-              <div class="flex gap-5 max-sm:flex-col items-center justify-center">
+                </div>
+              <div class="flex gap-5 max-sm:flex-col items-center justify-center flex-wrap">
                 <x-jet-dropdown align="left" width="48">
                   <x-slot name="trigger">
                     <span class="inline-flex rounded-md">

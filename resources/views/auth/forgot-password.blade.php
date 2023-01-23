@@ -23,7 +23,8 @@
         <x-slot name="logo">
             <x-jet-application-mark class="block h-20 w-auto" />
         </x-slot>
-
+        
+            <p class="text-2xl">Recuperar contraseña</p>
         <div class="mb-4 text-sm">
             {{ __('¿Olvido su contraseña? No hay problema. Escriba su direccion de correo para recibir un enlace de reestablecimiento de contraseña.') }}
         </div>
@@ -38,7 +39,7 @@
 
         <form method="POST" action="{{ route('password.email') }}" class="mb-0">
             @csrf
-
+            
             <div class="block">
                 <x-jet-input id="email" placeholder=" " class="block mt-1 w-full border-0 border-b border-black rounded-none
                     focus:border-black focus:ring-opacity-0 focus:ring-opacity-0 mt-8" type="email" name="email" :value="old('email')" required autofocus />
@@ -46,7 +47,7 @@
             </div>
 
             <div class="flex items-center justify-between mt-4">
-            <a class="underline text-sm text-red-600 hover:text-red-900" href="{{ route('password.request') }}">
+            <a class="underline text-sm text-red-600 hover:text-red-900" href="/forgot-password-offline">
                         {{ __('¿Sin conexión a internet?') }}
                     </a>
                 <x-jet-button>

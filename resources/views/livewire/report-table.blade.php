@@ -285,7 +285,7 @@
                                             <input type="checkbox" wire:change="addToSelecteds({{ $report->id }})" class="checked:bg-red-800 focus:ring-red-800 text-red-800"
                                                    @if(in_array($report->id, $selecteds))
                                                        checked
-                                            @endif">
+                                            @endif>
                                         </td>
                                         @if($fieldId)
                                             <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $report->id }}</div></td>

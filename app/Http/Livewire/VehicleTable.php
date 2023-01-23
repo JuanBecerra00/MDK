@@ -3,6 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Exports\VehiclesExportPdf;
+use App\Models\Customer;
+use App\Models\Product;
+use App\Models\Report;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
@@ -19,12 +22,16 @@ class VehicleTable extends Component
 
     public $vehiclesRendered;
     public $idVehicle;
+    public $Npt='';
     public $customer_id;
     public $plate;
     public $model;
     public $status;
     public $regstatus="";
     public $isEditMode = false;
+    public $isReportsMode = false;
+    public $reports;
+    public $reportsValidate;
     public $isHowToSearchMode = false;
     public $vehicle;
 
@@ -48,6 +55,15 @@ class VehicleTable extends Component
     public $exportData;
     public $encryption;
     public $test = 0;
+    public $report = '';
+    public $report_ProductsSelectedArr = [];
+    public $report_ProductsAmmountArr = [];
+    public $report_ProductsAmmountArrFinal;
+    public $report_ProceduresArr = [];
+    public $report_ProceduresArrFinal;
+    public $oilFilterTypeArr;
+    public $report_ProductsTotal;
+    public $report_ProceduresTotal;
     public $pdfSelecteds = 0;
     public $pdfFields = 0;
     public $pdfSelectedsArray = [];
@@ -95,6 +111,7 @@ class VehicleTable extends Component
         $this->model = '';
         $this->status = '';
         $this->isEditMode = false;
+        $this->isReportsMode = false;
         $this->isHowToSearchMode = false;
         $this->showingVehicleModal = true;
     }
@@ -203,13 +220,102 @@ class VehicleTable extends Component
         $this->status = $this->vehicle->status;
         $this->isHowToSearchMode = false;
         $this->isEditMode = true;
+        $this->isReportsMode = false;
         $this->showingVehicleModal = true;
+    }
+    public function checkReports($id)
+    {
+        $this->reports = Report::where('vehicle_id', $id)
+        ->orderBy('id')
+        ->get();
+        if($this->reports!=$this->reportsValidate){
+            return 1;
+        }
+    }
+
+    public function showReportsVehicleModal($id)
+    {
+        $this->report = '';
+        $this->Npt = '';
+        $this->reports = Report::where('vehicle_id', $id)
+        ->orderBy('id')
+        ->get();
+        
+        $this->Npt = $this->report;
+        $this->isEditMode = false;
+        $this->isReportsMode = true;
+        $this->isHowToSearchMode = false;
+        $this->showingVehicleModal = true;
+    }
+    public function setReport($id)
+    {
+        $this->report = Report::where('id', $id)
+        ->orderBy('id')
+        ->take(1)
+        ->get();
+
+        foreach($this->report as $r){
+
+            $this->oilFilterTypeArr = explode(",", $r->oilFilterType);
+
+            $this->report_ProductsSelectedArr = explode(",", $r->productsSelected);
+            $removed = array_shift($this->report_ProductsSelectedArr);
+
+            $this->report_ProductsAmmount = $r->productsAmmount;
+            $this->report_ProductsAmmountArr = explode("|", $this->report_ProductsAmmount);
+            $removed = array_shift($this->report_ProductsAmmountArr);
+            $this->report_ProductsAmmountArrFinal = [];
+            foreach($this->report_ProductsAmmountArr as $a){
+                array_push($this->report_ProductsAmmountArrFinal, explode(",", $a));
+            }
+
+
+            $this->report_Procedures = $r->procedures;
+            $this->report_ProceduresArr = explode("|", $this->report_Procedures);
+            $this->report_ProceduresArrFinal = [];
+            foreach($this->report_ProceduresArr as $a){
+                array_push($this->report_ProceduresArrFinal, explode(",", $a));
+            }
+            $removed = array_pop($this->report_ProceduresArrFinal);
+            
+        }
+        foreach ($this->report_ProductsAmmountArrFinal as $product) {
+            $this->report_ProductsTotal += $product[2];
+        }
+        $i = 1;
+        foreach ($this->report_ProceduresArrFinal as $procedure) {
+            $this->report_ProceduresTotal += $procedure[1];
+            $i++;
+        }
+        
+        
+    }
+    public function setReportNpt($value){
+        $this->Npt = $value;
+    }
+    public function searchProduct($id, $col)
+    {
+        $product = Product::find($id);
+        return $product->$col;
+    }
+
+    public function searchCustomer($Id)
+    {
+        $customer = Customer::findOrfail($Id);
+        return $customer->name;
+    }
+
+    public function searchVehicle($Id)
+    {
+        $vehicle = Vehicle::findOrfail($Id);
+        return $vehicle->plate;
     }
 
     public function showHowToSearchModal()
     {
         $this->isHowToSearchMode = true;
         $this->isEditMode = false;
+        $this->isReportsMode = false;
         $this->showingVehicleModal = true;
     }
     public function updateVehicle(){
@@ -271,6 +377,7 @@ class VehicleTable extends Component
     }
     public function render()
     {
+        $this->reportsValidate = Report::where('vehicle_id', -1)->orderBy('id')->get();
         $this->pdfFields = implode(',',$this->fields);
         $this->pdfSelecteds = implode(',',$this->selecteds);
         $this->exportData=$this->pdfSelecteds.','.$this->pdfFields;

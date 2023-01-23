@@ -1,4 +1,5 @@
 <div class="flex justify-center mt-20" style="font-size:{{ $this->fontSize }}px">
+            @if(Auth::user()->job!='M')
   <div class="max-w-[85vw] overflow-auto">
     
   <h1 style="font-size: 30px;" class="dark:text-white">Usuarios</h1>
@@ -44,6 +45,7 @@
           <div
             class="w-full bg-zinc-800 dark:bg-zinc-900 sm:flex items-center place-content-between p-5 relative rounded-t-xl">
             <div class="flex max-sm:flex-col gap-5 items-center">
+              <div class="flex items-center flex-wrap justify-center gap-2">
               <p class="text-white flex items-center">
                 Buscar
               
@@ -51,8 +53,9 @@
               <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>¿Como funciona la busqueda?</title><path d="M256 80a176 176 0 10176 176A176 176 0 00256 80z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path d="M200 202.29s.84-17.5 19.57-32.57C230.68 160.77 244 158.18 256 158c10.93-.14 20.69 1.67 26.53 4.45 10 4.76 29.47 16.38 29.47 41.09 0 26-17 37.81-36.37 50.8S251 281.43 251 296" fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="28"/><circle fill="currentColor" stroke="currentColor" cx="250" cy="348" r="20"/></svg>
               </button>
               </p>
-              <input wire:model="search" type="search" placeholder="documento, nombre, correo, telefono, pregunta, respuesta, id" class="rounded max-sm:w-full dark:bg-zinc-800 dark:text-white focus:border-red-800 focus:ring-red-800">
-              <div class="flex gap-5 max-sm:flex-col items-center justify-center">
+              <input wire:model="search" type="search" placeholder="documento, nombre, correo, telefono, pregunta, Clave de segurdad, id" class="rounded max-sm:w-full dark:bg-zinc-800 dark:text-white focus:border-red-800 focus:ring-red-800">
+              </div>
+              <div class="flex gap-5 max-sm:flex-col items-center justify-center flex-wrap">
               <x-jet-dropdown align="left" width="48">
                         <x-slot name="trigger">
                         <span class="inline-flex rounded-md">
@@ -170,14 +173,12 @@
                             <p class="">Telefono</p>
                   <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldPhone) checked @endif>
                             </button>
-                            <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldQuestion')">
-                            <p class="">Pregunta clave</p>
-                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldQuestion) checked @endif>
-                            </button>
-                            <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldAnswer')">
-                            <p class="">Respuesta</p>
-                  <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldAnswer) checked @endif>
-                            </button>
+                            @if(Auth::user()->job=='A')
+                              <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldAnswer')">
+                                <p class="">Clave de segurdad</p>
+                                <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldAnswer) checked @endif>
+                              </button>
+                            @endif
                             <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldStatus')">
                             <p class="">Estado</p>
                   <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldStatus) checked @endif>
@@ -218,7 +219,7 @@
                     @endif
               </div>
             </div>
-            @if(Auth::user()->job!='M')
+            @if(Auth::user()->job=='A')
             <x-jet-button wire:click="showUserModal"
               class="bg-red-800 hover:bg-red-900 active:bg-red-700 max-sm:mt-5 max-sm:w-full flex justify-center imtems-center sm:ml-5">Registrar</x-jet-button>
             @endif
@@ -362,26 +363,11 @@
                           </svg></div>
                       </th>
                       @endif
-                      @if($fieldQuestion)
-                      <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 dark:bg-zinc-900">
-                        <div class="flex">Pregunta clave<svg class="h-4 w-4 @if($sortField!='question')
-                        opacity-0
-                        @endif
-                        @if($sortDirection=='desc')
-                        rotate-180
-                        @endif
-                        " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd"
-                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                              clip-rule="evenodd" />
-                          </svg></div>
-                      </th>
-                      @endif
+                     
                       @if($fieldAnswer)
                       <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 dark:bg-zinc-900">
-                        <div class="flex">Respuesta<svg class="h-4 w-4 @if($sortField!='answer')
+                        <div class="flex">Clave de segurdad<svg class="h-4 w-4 @if($sortField!='answer')
                         opacity-0
                         @endif
                         @if($sortDirection=='desc')
@@ -458,9 +444,6 @@
                       @if($fieldPhone)
                       <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $user->phone }}</div></td>
                       @endif
-                      @if($fieldQuestion)
-                      <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $user->question }}</div></td>
-                      @endif
                       @if($fieldAnswer)
                       <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $user->answer }}</div></td>
                       @endif
@@ -520,7 +503,7 @@
                 telefono, <br>
                 correo, <br>
                 pregunta clave,<br>
-                 o respuesta.<br>
+                 o Clave de segurdad.<br>
                 Tn en cuenta que filtro de estado estas utilizando.
                 @else
                 <div class="flex flex-col">
@@ -589,15 +572,7 @@
 
 
                         <div class="sm:col-span-6">
-                          <label for="question" class="block text-sm font-medium"> Pregunta clave </label>
-                          <div class="mt-1">
-                            <input type="text" id="question" wire:model.lazy="question" name="question"
-                              class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" />
-                          </div>
-                          @error('question') <span class="error text-red-500">{{ $message }}</span> @enderror
-                        </div>
-                        <div class="sm:col-span-6">
-                          <label for="answer" class="block text-sm font-medium"> Respuesta </label>
+                          <label for="answer" class="block text-sm font-medium"> Clave de segurdad </label>
                           <div class="mt-1">
                             <input type="text" id="answer" wire:model.lazy="answer" name="answer"
                               class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" />
@@ -735,10 +710,20 @@
                     </x-jet-dropdown> 
         </div>
           @endif
+          @else
+          <div class="w-full h-[50vh] p-10 flex justify-center items-center dark:text-white">
+            <div class="w-[80%] lg:h-full p-10 bg-zinc-200 dark:bg-zinc-600 rounded-xl flex justify-around items-center flex-wrap">
+              <div class="lg:w-[30%] w-full max-sm:h-full flex justify-center items-center">
+              <div class="w-[20%] q1"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Help</title><path d="M160 164s1.44-33 33.54-59.46C212.6 88.83 235.49 84.28 256 84c18.73-.23 35.47 2.94 45.48 7.82C318.59 100.2 352 120.6 352 164c0 45.67-29.18 66.37-62.35 89.18S248 298.36 248 324" stroke="currentColor" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="40"/><circle cx="248" cy="399.99" r="32" fill="currentColor"/></svg></div>
+              <div class="w-[80%] q2"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Help</title><path d="M160 164s1.44-33 33.54-59.46C212.6 88.83 235.49 84.28 256 84c18.73-.23 35.47 2.94 45.48 7.82C318.59 100.2 352 120.6 352 164c0 45.67-29.18 66.37-62.35 89.18S248 298.36 248 324" stroke="currentColor" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="40"/><circle cx="248" cy="399.99" r="32" fill="currentColor"/></svg></div>
+              <div class="w-[20%] q3"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Help</title><path d="M160 164s1.44-33 33.54-59.46C212.6 88.83 235.49 84.28 256 84c18.73-.23 35.47 2.94 45.48 7.82C318.59 100.2 352 120.6 352 164c0 45.67-29.18 66.37-62.35 89.18S248 298.36 248 324" stroke="currentColor" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="40"/><circle cx="248" cy="399.99" r="32" fill="currentColor"/></svg></div>
+              </div>
+              <div class="max-sm:w-full">
+              <p class="text-[60px]">Ups!</p>
+              <p class="text-[30px]">Parece que no tienes permitido acceder aqui.</p>
+              <p class="">Habla con el administrador si necesitas acceder a este módulo.</p>
+              </div>
+            </div>
+          </div>
+          @endif
   </div>
-  <script>
-    window.onload=function()
-{
- PrintElem();
-}
-  </script>

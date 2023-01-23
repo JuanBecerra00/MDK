@@ -44,15 +44,28 @@
                 <div
                     class="w-full bg-zinc-800 dark:bg-zinc-900 sm:flex items-center place-content-between p-5 relative rounded-t-xl">
                     <div class="flex max-sm:flex-col gap-5 items-center">
-                        <p class="text-white flex items-center">
-                            Buscar
+                        <div class="flex items-center flex-wrap justify-center gap-2">
+              <p class="text-white flex items-center">
+                Buscar
 
-                            <button class="w-5 h-5" wire:click="showHowToSearchModal()">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>¿Como funciona la busqueda?</title><path d="M256 80a176 176 0 10176 176A176 176 0 00256 80z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path d="M200 202.29s.84-17.5 19.57-32.57C230.68 160.77 244 158.18 256 158c10.93-.14 20.69 1.67 26.53 4.45 10 4.76 29.47 16.38 29.47 41.09 0 26-17 37.81-36.37 50.8S251 281.43 251 296" fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="28"/><circle fill="currentColor" stroke="currentColor" cx="250" cy="348" r="20"/></svg>
-                            </button>
-                        </p>
-                        <input wire:model="search" type="search" placeholder="Nombre, cantidad, precio, fecha, id, id del proveedor, id de la factura" class="rounded max-sm:w-full dark:bg-zinc-800 dark:text-white focus:border-red-800 focus:ring-red-800">
-                        <div class="flex gap-5 max-sm:flex-col items-center justify-center">
+                <button class="w-5 h-5" wire:click="showHowToSearchModal()">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+                    <title>¿Como funciona la busqueda?</title>
+                    <path d="M256 80a176 176 0 10176 176A176 176 0 00256 80z" fill="none" stroke="currentColor"
+                      stroke-miterlimit="10" stroke-width="32" />
+                    <path
+                      d="M200 202.29s.84-17.5 19.57-32.57C230.68 160.77 244 158.18 256 158c10.93-.14 20.69 1.67 26.53 4.45 10 4.76 29.47 16.38 29.47 41.09 0 26-17 37.81-36.37 50.8S251 281.43 251 296"
+                      fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
+                      stroke-width="28" />
+                    <circle fill="currentColor" stroke="currentColor" cx="250" cy="348" r="20" />
+                  </svg>
+                </button>
+              </p>
+              <input wire:model="search" type="search"
+                placeholder="Nombre, cantidad, precio, fecha, id, id del proveedor, id de la factura"
+                class="rounded max-sm:w-full dark:bg-zinc-800 dark:text-white focus:border-red-800 focus:ring-red-800">
+                </div>
+                        <div class="flex gap-5 max-sm:flex-col items-center justify-center flex-wrap">
                             <x-jet-dropdown align="left" width="48">
                                 <x-slot name="trigger">
                         <span class="inline-flex rounded-md">

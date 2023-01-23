@@ -172,11 +172,6 @@ class Reporting extends Component
                 $this->test = 'si';
             }
         }
-        $lclAmmount = [];
-        foreach($this->productsAmmount as $product){
-            array_push($lclAmmount, implode(',',$product));
-        }
-        $this->strProductsAmmount = implode('|', $lclAmmount);
     }
     public function productSave($id, $price, $value, $max)
     {
@@ -230,6 +225,11 @@ class Reporting extends Component
     ];
     public function saveReport()
     {
+        $lclAmmount = [];
+        foreach($this->productsAmmount as $product){
+            array_push($lclAmmount, implode(',',$product));
+        }
+        $this->strProductsAmmount = implode('|', $lclAmmount);
         if($this->boxType==''){
             $this->boxType='Ninguno';
         }
