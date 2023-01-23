@@ -36,6 +36,7 @@ class Reporting extends Component
     public $vehicleSearch;
     public $vehiclePlate = '';
     public $vehicleModel = '';
+    public $vehicleReports = 0;
     protected $queryString = ['search'];
     public $test = 0;
     public $procedures = [[0 => '0', '0']];
@@ -96,6 +97,7 @@ class Reporting extends Component
             $this->vehiclePlate = 'No encontrado';
             $this->vehicleModel = 'No encontrado';
         }
+        $this->vehicleReports = $this->vehicleSearch->reports;
     }
     public function resetCustomer()
     {
@@ -248,7 +250,6 @@ class Reporting extends Component
                 'post' => 'required',
                 'strProcedures' => 'required|max:2000',
                 'strProductsAmmount' => 'required|max:2000',
-                'strProductsSelected' => 'required|max:2000',
             ]);
         $bill = new Report();
         $bill->customer_id = $this->customerId;
@@ -274,6 +275,14 @@ class Reporting extends Component
         }
         $i++;
         }
+
+        $vehicle = Vehicle::where('id', $this->vehicleId);
+        $vehicle->update([
+            'reports' => $this->vehicleReports+1,
+        ]);
+
+
+
         $this->showingBillModal = false;
         $this->finished = true;
     }

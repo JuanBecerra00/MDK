@@ -68,6 +68,7 @@ class VehicleTable extends Component
     public $pdfFields = 0;
     public $pdfSelectedsArray = [];
 
+    public $reportSelected='';
     public $search;
     protected $queryString = ['search'];
     public function addToSelecteds($rowId)
@@ -223,15 +224,6 @@ class VehicleTable extends Component
         $this->isReportsMode = false;
         $this->showingVehicleModal = true;
     }
-    public function checkReports($id)
-    {
-        $this->reports = Report::where('vehicle_id', $id)
-        ->orderBy('id')
-        ->get();
-        if($this->reports!=$this->reportsValidate){
-            return 1;
-        }
-    }
 
     public function showReportsVehicleModal($id)
     {
@@ -241,7 +233,6 @@ class VehicleTable extends Component
         ->orderBy('id')
         ->get();
         
-        $this->Npt = $this->report;
         $this->isEditMode = false;
         $this->isReportsMode = true;
         $this->isHowToSearchMode = false;
@@ -279,10 +270,12 @@ class VehicleTable extends Component
             $removed = array_pop($this->report_ProceduresArrFinal);
             
         }
+        $this->report_ProductsTotal =0;
         foreach ($this->report_ProductsAmmountArrFinal as $product) {
             $this->report_ProductsTotal += $product[2];
         }
         $i = 1;
+        $this->report_ProceduresTotal =0;
         foreach ($this->report_ProceduresArrFinal as $procedure) {
             $this->report_ProceduresTotal += $procedure[1];
             $i++;

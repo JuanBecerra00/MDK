@@ -27,7 +27,7 @@
       <div class=" flex flex-col gap-5">
       <section class="w-full flex justify-center">
         <div class="w-[90%] ">
-          <p class="text-xl">Datos del cliente</p>
+          <p class="text-xl">Datos del cliente</p>{{$this->vehicleReports}}
           <div class="w-full shadow-xl rounded-xl p-5 bg-white dark:bg-zinc-700 flex flex-col gap-2">
             <div class="flex gap-2"><p class="text-xl">Cliente</p><p class="text-red-500 text-2xl">*</p></div>
             <div>
@@ -616,7 +616,7 @@
       @endif
     </div>
     <x-jet-dialog-modal wire:model="showingBillModal">
-            <x-slot name="title">Editar usuario</x-slot>
+            <x-slot name="title">Guardar reporte</x-slot>
             <x-slot name="content">
               <div class="space-y-8 divide-y divide-gray-200 mt-10">
                 ¿Seguro de que desea guardar este informe?<p class="text-red-500 mb-10">>>No se podra editar despues<<</p>
@@ -660,7 +660,7 @@
               <x-jet-button wire:click="modal(false)" type="button"
                 class="bg-zinc-800 dark:bg-zinc-900 dark:bg-zinc-900 hover:bg-zinc-900 active:bg-zinc-700">Cerrar</x-jet-button>
 
-          <x-jet-button wire:click="saveReport"
+          <x-jet-button wire:click="saveReport()"
                 class="bg-red-800 hover:bg-red-900 active:bg-red-700">Guardar</x-jet-button>
           </div>
         </x-slot>

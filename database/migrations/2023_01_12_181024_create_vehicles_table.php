@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('plate');
             $table->string('model');
             $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('reports');
             $table->set('status', ['0', '1'])->default('1');
             $table->timestamps();
             $table->unique(["id"], 'id_UNIQUE');

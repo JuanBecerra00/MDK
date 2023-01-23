@@ -436,14 +436,15 @@
                                                 </td>
                                             @endif
                                             @if (Auth::user()->job == 'A')
-                                                <td class="px-6 py-4 text-right text-sm flex justify-end gap-2">
+                                                <td class="group px-6 py-4 text-right text-sm flex justify-end gap-2">
                                                 
-                                                    @if ($this->checkReports($vehicle->id)==1)
+                                                    @if ($vehicle->reports>0)
                                                     <x-jet-button
-                                                        wire:click="showReportsVehicleModal({{ $vehicle->id }})"
+                                                        wire:click="showReportsVehicleModal({{ $vehicle->id }})" title="Reportes"
                                                         class="bg-zinc-800 dark:bg-zinc-900 hover:bg-zinc-900 active:bg-zinc-700">
-                                                        <div class="w-4 h-4">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512" fill="currentColor"><title>Document</title><path d="M428 224H288a48 48 0 01-48-48V36a4 4 0 00-4-4h-92a64 64 0 00-64 64v320a64 64 0 0064 64h224a64 64 0 0064-64V228a4 4 0 00-4-4z"/><path d="M419.22 188.59L275.41 44.78a2 2 0 00-3.41 1.41V176a16 16 0 0016 16h129.81a2 2 0 001.41-3.41z"/></svg>
+                                                        <div class=" w-4 h-4 flex justify-center items-center gap-2 overflow-hidden">
+                                                        {{$vehicle->reports}}
+                                                        <div class="w-4 h-4 group-hover:translate-y-5 duration-200 bg-zinc-800 dark:bg-zinc-900 absolute group-hover:opacity-0"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512" fill="currentColor"><title>Document</title><path d="M428 224H288a48 48 0 01-48-48V36a4 4 0 00-4-4h-92a64 64 0 00-64 64v320a64 64 0 0064 64h224a64 64 0 0064-64V228a4 4 0 00-4-4z"/><path d="M419.22 188.59L275.41 44.78a2 2 0 00-3.41 1.41V176a16 16 0 0016 16h129.81a2 2 0 001.41-3.41z"/></svg></div>
                                                         </div>
                                                         </x-jet-button>
                                                     @endif
@@ -501,7 +502,7 @@
                                                 wire:change="setReportNpt($event.target.value)"
                                                 class="h-0 w-0 invisible border-0 border-black dark:border-white bg-zinc-200 dark:bg-zinc-600 border-b ring-0 focus:ring-0 focus:border-black">
                                     
-                                    <input type="text" list="reports" value="{{ $this->Npt }}"
+                                    <input type="text" list="reports" wire:model.lazy="Npt"
                                                 wire:change="setReport($event.target.value)"
                                                 class="max-sm:w-full border-0 border-black dark:border-white bg-zinc-200 dark:bg-zinc-600 border-b ring-0 focus:ring-0 focus:border-black">
                                     <datalist id="reports">
@@ -621,7 +622,7 @@
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
-                                                <tfoot>
+                                                <tfoot class="border-0 border-t border-black dark:border-white">
                                                     <tr>
                                                         <th>
 
@@ -633,10 +634,10 @@
 
                                                         </th>
                                                         <th class="p-5">
-                                                            Total
+                                                            Total:
                                                         </th>
                                                         <th class="p-5">
-                                                            {{ $this->report_ProductsTotal }}
+                                                            ${{ $this->report_ProductsTotal }}
                                                         </th>
                                                     </tr>
                                                 </tfoot>
@@ -667,13 +668,13 @@
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
-                                                <tfoot>
+                                                <tfoot class="border-0 border-t border-black dark:border-white">
                                                     <tr>
                                                         <th class="p-5">
-                                                            Total
+                                                            Total:
                                                         </th>
                                                         <th class="p-5">
-                                                            {{ $this->report_ProceduresTotal }}
+                                                            ${{ $this->report_ProceduresTotal }}
                                                         </th>
                                                     </tr>
                                                 </tfoot>
@@ -682,6 +683,12 @@
                                         <div class="w-full p-5 bg-zinc-200 dark:bg-zinc-600 rounded-xl flex flex-col gap-5">
                                             <p>Observaciones</p>
                                             <p>{{$report->observations}}</p>
+                                        </div>
+                                        <div class="p-5 flex justify-end w-auto items-center gap-5">
+                                            <div class="p-5 bg-zinc-200 dark:bg-zinc-600 rounded-xl flex gap-5">
+                                            <p>Total:</p>
+                                            <p>${{$report->report_ProductsTotal+$this->report_ProceduresTotal}}</p>
+                                            </div>
                                         </div>
                                     @endif
                             @else
