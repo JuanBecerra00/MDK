@@ -35,7 +35,7 @@
         <form method="POST" action="{{ route('login') }}" class="flex flex-col space-around h-full justify-between">
             @csrf
 
-            <p class="text-2xl mb-10">Iniciar Sesión</p>
+            <div class="flex justify-between items-center"><p class="text-2xl mb-10">Iniciar Sesión</p><a href="/Manual.pdf" class="mb-10"><div class="w-8 p-1 bg-red-800 cursor-pointer rounded text-white"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Manual</title><path d="M160 164s1.44-33 33.54-59.46C212.6 88.83 235.49 84.28 256 84c18.73-.23 35.47 2.94 45.48 7.82C318.59 100.2 352 120.6 352 164c0 45.67-29.18 66.37-62.35 89.18S248 298.36 248 324" fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="40"/><circle fill="currentColor" cx="248" cy="399.99" r="32"/></svg></div></a></div>
             <div class="">
                 <div>
                     <input id="email" class="dark:bg-white block mt-1 w-full border-0 border-b border-black rounded-none

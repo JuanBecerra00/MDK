@@ -59,5 +59,5 @@ Route::get('/Customers', CustomerTable::class)->name('customers.index');
 Route::get('customers/export/', [CustomersController::class, 'export']);
 Route::get('customerPdf/{id}', [CustomerTable::class, 'pdf'])->name('customers.pdf');
 });
- 
+
 

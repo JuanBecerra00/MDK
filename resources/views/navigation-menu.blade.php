@@ -153,7 +153,7 @@
                                     {{ __('Perfil') }}
                                 </x-jet-dropdown-link>
 
-                                <x-jet-dropdown-link href="{{ route('Manual.pdf') }}">
+                                <x-jet-dropdown-link href="/Manual.pdf">
                                     {{ __('Manual') }}
                                 </x-jet-dropdown-link>
 
@@ -265,7 +265,7 @@
                 <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                     <p class="text-white">{{ __('Perfil') }}</p>
                 </x-jet-responsive-nav-link>
-                <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                <x-jet-responsive-nav-link href="/Manual.pdf" :active="request()->routeIs('profile.show')">
                     <p class="text-white">{{ __('Manual') }}</p>
                 </x-jet-responsive-nav-link>
 
