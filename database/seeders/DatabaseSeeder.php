@@ -24,7 +24,6 @@ class DatabaseSeeder extends Seeder
         Customer::factory(10)->create();
         Vehicle::factory(10)->create();
         Product::factory(100)->create();
-        User::factory(10)->create();
 
         User::factory()->create([
             'type' => 'cc',
@@ -38,6 +37,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123456789'),
             'status' => '1',
         ]);
+        User::factory(10)->create();
 
         Department::factory()->create(['id' => '05', 'name' => 'ANTIOQUIA']);
         Department::factory()->create(['id' => '08', 'name' => 'ATLÁNTICO']);
