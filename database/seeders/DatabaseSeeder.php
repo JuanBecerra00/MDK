@@ -33,11 +33,10 @@ class DatabaseSeeder extends Seeder
             'email' => 'megadatakit@gmail.com',
             'phone' => '123456789',
             'question' => 'pq',
-            'answer' => 'pq zi',
+            'answer' => 'Mega',
             'password' => Hash::make('123456789'),
             'status' => '1',
         ]);
-        User::factory(10)->create();
 
         Department::factory()->create(['id' => '05', 'name' => 'ANTIOQUIA']);
         Department::factory()->create(['id' => '08', 'name' => 'ATLÁNTICO']);

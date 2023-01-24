@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>MDK</title>
 
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -22,7 +22,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 background-attachment: fixed;
 background-size: cover;
             }
-            
+
             .panel{
       background:white;
       border:1px solid white;
@@ -66,12 +66,12 @@ background-size: cover;
         </style>
     </head>
     <body class="antialiased">
-   
+
         <div class="relative flex items-top justify-center box  sm:items-center py-4 sm:pt-0" style="">
-            
+
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                
+
 
                 <div class="mt-8 panel overflow-hidden shadow sm:rounded-lg">
                     <div class="svgcontainer ">
@@ -80,7 +80,7 @@ background-size: cover;
                          @if (Route::has('login'))
                     @auth
                     <div class="login"><a href="{{ url('/Users') }}" class="text-sm dark:text-white underline">Inicio</a></div>
-                        
+
                     @else
                         <div class="login"><a href="{{ route('login') }}" class="text-sm underline">Iniciar sesión</a></div>
 
@@ -93,7 +93,7 @@ background-size: cover;
                 </div>
 
                 <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
-                    
+
 
                     <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
                         Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})

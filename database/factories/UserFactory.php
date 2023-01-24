@@ -32,9 +32,9 @@ class UserFactory extends Factory
             'phone' => fake()->numberBetween(3000000000, 3219999999),
             'email' => fake()->email(),
             'password' => fake()->password(),
-            'question' => fake()->sentence(3),
+            'question' => '',
             'answer' => fake()->word(),
-            'status' => fake()->numberBetween(0, 1),
+            'status' => 0,
         ];
     }
 
