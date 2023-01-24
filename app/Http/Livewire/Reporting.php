@@ -7,6 +7,7 @@ use App\Models\Vehicle;
 use App\Models\Product;
 use App\Models\Bill;
 use App\Models\Report;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -252,6 +253,7 @@ class Reporting extends Component
                 'strProductsAmmount' => 'required|max:2000',
             ]);
         $bill = new Report();
+        $bill->user_id = Auth::user()->id;
         $bill->customer_id = $this->customerId;
         $bill->vehicle_id = $this->vehicleId;
         $bill->oilType = $this->oilType;

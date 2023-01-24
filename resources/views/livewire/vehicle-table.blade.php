@@ -392,7 +392,7 @@
                                     @foreach ($vehicles as $vehicle)
                                         <tr
                                             class="
-                    @if (in_array($vehicle->id, $selecteds)) bg-zinc-300 @endif">
+                    @if (in_array($vehicle->id, $selecteds)) bg-zinc-300 dark:bg-neutral-700 @endif">
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <input type="checkbox"
                                                     wire:change="addToSelecteds({{ $vehicle->id }})"
@@ -514,6 +514,15 @@
                                 </div>
                                     @if($this->report!='')
                                         <div class="w-full p-5 bg-zinc-200 dark:bg-zinc-600 rounded-xl grid grid-cols-2">
+                                            <p>Creador: </p>
+                                                <p>
+                                                @foreach($this->reports as $report)
+                                                <?php
+                                                echo $this->searchUser($report->user_id);
+                                                ?>
+                                                @endforeach
+                                                </p>
+                                            
                                             <p>Fecha: </p>
                                                 <p>{{$report->created_at}}</p>
                                             

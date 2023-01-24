@@ -3,6 +3,7 @@ $exportData = str_replace('ñ', '/', $exportData);
 $decryption=openssl_decrypt ($exportData, "AES-128-CTR",
     "34567890odxcvbnko8765", 0, '1234567891011121');
 $filters = explode(",", $decryption);
+$customers = DB::select('SELECT * FROM customers');
 ?>
 
 <table style="width:100%;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
@@ -49,7 +50,7 @@ $filters = explode(",", $decryption);
         @if(in_array('fieldCustomer_id', $filters))
             <th scope="col" style="padding:5px;width:100%;"
                 wire:click="sortBy('customer_id')">
-                <div class="flex">Id del Cliente</div>
+                <div class="flex">Propietario</div>
             </th>
         @endif
         @if(in_array('fieldPlate', $filters))
@@ -80,7 +81,13 @@ $filters = explode(",", $decryption);
                     <td style="padding:10px;border:0px;" class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $vehicle->id }}</div></td>
                 @endif
                 @if(in_array('fieldCustomer_id', $filters))
-                    <td style="padding:10px;border:0px;" class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $vehicle->customer_id }}</div></td>
+                    <td style="padding:10px;border:0px;" class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">
+                    @foreach($customers as $customer)
+                    @if($customer->id == $vehicle->customer_id)
+                    {{$customer->name}}
+                    @endif
+                    @endforeach
+                    </div></td>
                 @endif
                 @if(in_array('fieldPlate', $filters))
                     <td style="padding:10px;border:0px;" class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $vehicle->plate }}</div></td>

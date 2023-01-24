@@ -27,7 +27,7 @@
       <div class=" flex flex-col gap-5">
       <section class="w-full flex justify-center">
         <div class="w-[90%] ">
-          <p class="text-xl">Datos del cliente</p>{{$this->vehicleReports}}
+          <p class="text-xl">Datos del cliente</p>
           <div class="w-full shadow-xl rounded-xl p-5 bg-white dark:bg-zinc-700 flex flex-col gap-2">
             <div class="flex gap-2"><p class="text-xl">Cliente</p><p class="text-red-500 text-2xl">*</p></div>
             <div>

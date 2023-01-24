@@ -285,11 +285,20 @@
                                         </svg>
                                     </div>
                                     <p class="font-bold text-2xl">Reporte</p>
-                                    <p>
+                                    <div class="flex flex-col gap-5">
+                                        <p>
+                                        Creador:
+                                        <?php
+                                        echo $this->searchUser($this->reportSearch->user_id);
+                                        ?>
+                                        </p>
+                                        <p>
+                                        Fecha: 
                                         <?php
                                         echo $this->searchReport('created_at');
                                         ?>
-                                    </p>
+                                        </p>
+                                    </div>
                                 </div>
 
                             </div>

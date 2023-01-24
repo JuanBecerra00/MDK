@@ -18,15 +18,17 @@ class VehiclesExportPdf implements FromQuery, WithHeadings
      */
     use Exportable;
     public $selecteds = [];
+    public $customers;
     public $fields = [];
     public $fieldsEs = [];
     public $toExport;
-    public function __construct($selecteds, $fieldId, $fieldCustomer_id, $fieldPlate, $fieldModel, $fieldStatus)
+    public function __construct($selecteds, $fieldId, $fieldCustomer_id, $fieldPlate, $fieldModel, $fieldStatus, $customers)
     {
+        $this->customers = $customers;
         $this->selecteds = $selecteds;
         $i = 0;
         $lfields = ['Id', 'Customer_id', 'Plate', 'Model', 'Status'];
-        $lfieldsEs = ['Id', 'Id del cliente','Placa', 'Modelo','Estado'];
+        $lfieldsEs = ['Id', 'Propietario','Placa', 'Modelo','Estado'];
         foreach ($lfields as $lfield) {
             $checkfield = 'field'.$lfield;
             if ($$checkfield == true) {

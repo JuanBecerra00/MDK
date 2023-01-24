@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Customer;
 use App\Models\Vehicle;
+use App\Models\User;
 use App\Models\Product;
 use App\Models\Bill;
 use App\Models\Report;
@@ -311,6 +312,11 @@ class Billing extends Component
     public function filterType($value)
     {
         $this->filterType = $value;
+    }
+    public function searchUser($id)
+    {
+        $u = User::find($id);
+        return $u->name;
     }
 
     public function setOilFilterType($value)

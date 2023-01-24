@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('vehicle_id');
             $table->string('oilType');

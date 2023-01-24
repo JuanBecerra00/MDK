@@ -6,6 +6,7 @@ use App\Exports\VehiclesExportPdf;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Report;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
@@ -128,7 +129,11 @@ class VehicleTable extends Component
         $this->model = '';
         $this->status = '';
     }
-
+    public function searchUser($id)
+    {
+        $u = User::find($id);
+        return $u->name;
+    }
     public function modalEditFormReset()
     {
         $this->customer_id = $this->vehicle->customer_id;
@@ -352,11 +357,13 @@ class VehicleTable extends Component
     }
     public function exportExcel()
     {
-        return Excel::download(new VehiclesExportPdf($this->selecteds, $this->fieldId, $this->fieldCustomer_id, $this->fieldPlate, $this->fieldModel, $this->fieldStatus), 'vehicles.xlsx');
+        $customers = Customer::all();
+        return Excel::download(new VehiclesExportPdf($this->selecteds, $this->fieldId, $this->fieldCustomer_id, $this->fieldPlate, $this->fieldModel, $this->fieldStatus, $customers), 'vehicles.xlsx');
     }
     public function exportCsv()
     {
-        return Excel::download(new VehiclesExportPdf($this->selecteds , $this->fieldId, $this->fieldCustomer_id, $this->fieldPlate, $this->fieldModel, $this->fieldStatus), 'vehicles.csv');
+        $customers = Customer::all();
+        return Excel::download(new VehiclesExportPdf($this->selecteds , $this->fieldId, $this->fieldCustomer_id, $this->fieldPlate, $this->fieldModel, $this->fieldStatus, $customers), 'vehicles.csv');
     }
     public function updatingSearch()
     {
