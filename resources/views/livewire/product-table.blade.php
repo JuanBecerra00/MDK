@@ -62,7 +62,7 @@
                 </button>
               </p>
               <input wire:model="search" type="search"
-                placeholder="Nombre, cantidad, precio, fecha, id, id del proveedor, id de la factura"
+                placeholder="Nombre, cantidad, precio, fecha, id, proveedor, numero de factura"
                 class="rounded max-sm:w-full dark:bg-zinc-800 dark:text-white focus:border-red-800 focus:ring-red-800">
                 </div>
                         <div class="flex gap-5 max-sm:flex-col items-center justify-center flex-wrap">
@@ -197,11 +197,11 @@
                                         <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldId) checked @endif>
                                     </button>
                                     <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldProviders_id')">
-                                        <p class="">Id del proveedor</p>
+                                        <p class="">Proveedor</p>
                                         <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldProviders_id) checked @endif>
                                     </button>
                                     <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldBills_id')">
-                                        <p class="">Id de la factura</p>
+                                        <p class="">Numero de factura</p>
                                         <input type="checkbox" class="checked:bg-red-800 focus:ring-red-800 text-red-800 justify-self-center" @if($fieldBills_id) checked @endif>
                                     </button>
                                     <button class="grid grid-cols-2 w-full text-start block px-4 py-2 text-sm leading-5 text-white hover:bg-zinc-700 focus:outline-none focus:bg-zinc-900 transition" wire:click="changeField('fieldName')">
@@ -309,7 +309,7 @@
                                         <th scope="col"
                                             class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 dark:bg-zinc-900 cursor-pointer hover:bg-red-800 hover:underline"
                                             wire:click="sortBy('providers_id')">
-                                            <div class="flex">Id del proveedor<svg class="h-4 w-4 @if($sortField!='providers_id')
+                                            <div class="flex">Proveedor<svg class="h-4 w-4 @if($sortField!='providers_id')
                         opacity-0
                         @endif
                         @if($sortDirection=='desc')
@@ -326,7 +326,7 @@
                                         <th scope="col"
                                             class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-zinc-800 dark:bg-zinc-900 cursor-pointer hover:bg-red-800 hover:underline"
                                             wire:click="sortBy('bills_id')">
-                                            <div class="flex">Id de la factura<svg class="h-4 w-4 @if($sortField!='bills_id')
+                                            <div class="flex">Numero de factura<svg class="h-4 w-4 @if($sortField!='bills_id')
                         opacity-0
                         @endif
                         @if($sortDirection=='desc')
@@ -455,13 +455,15 @@
                                             <input type="checkbox" wire:change="addToSelecteds({{ $product->id }})" class="checked:bg-red-800 focus:ring-red-800 text-red-800"
                                                    @if(in_array($product->id, $selecteds))
                                                        checked
-                                            @endif">
+                                            @endif>
                                         </td>
                                         @if($fieldId)
                                             <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $product->id }}</div></td>
                                         @endif
                                         @if($fieldProviders_id)
-                                            <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $product->providers_id }}</div></td>
+                                            <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto"><?php
+                                            echo $this->providerSearch($product->providers_id);
+                                            ?></div></td>
                                         @endif
                                         @if($fieldBills_id)
                                             <td class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $product->bills_id }}</div></td>
@@ -541,8 +543,8 @@
                                 Cantidad, <br>
                                 Precio, <br>
                                 Fecha,<br>
-                                Id del proveedor,<br>
-                                o la id de la factura.<br>
+                                Proveedor,<br>
+                                o el numero de factura.<br>
                                 Ten en cuenta que filtro de estado lo estas utilizando.
                             @else
                                 <div class="flex flex-col">
@@ -553,13 +555,15 @@
                                                 <div class="sm:col-span-6">
                                                     <label for="providers_id" class="block text-sm font-medium"> Proveedor </label>
                                                     <div class="mt-1">
-                                                        <input type="text" id="providers_id" wire:model.lazy="providerSelected" wire:change="setProvider($event.target.value)" name="providers_id" list="providers" 
+                                                        <input type="text" id="providers_id" wire:model.lazy="providerSelected" value="{{$this->providerSelected}}" wire:change="setProvider($event.target.value)" name="providers_id" list="providers" 
                                                                class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" />
                                                                <input type="text" id="providers_id" wire:model.lazy="providers_id" name="providers_id"
                                                                class="w-0 h-0 invisible" />
                                                                <datalist id="providers">
                                                                 @foreach($providers as $provider)
+                                                                @if($provider->status==1)
                                                                 <option value="{{$provider->id}}">{{$provider->name}}</option>
+                                                                @endif
                                                                 @endforeach
                                                                 </datalist>
                                                     </div>

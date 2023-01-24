@@ -3,6 +3,7 @@ $exportData = str_replace('ñ', '/', $exportData);
 $decryption=openssl_decrypt ($exportData, "AES-128-CTR",
     "34567890odxcvbnko8765", 0, '1234567891011121');
 $filters = explode(",", $decryption);
+$providers = DB::select('SELECT * FROM providers');
 ?>
 
 <table style="width:100%;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
@@ -55,7 +56,7 @@ $filters = explode(",", $decryption);
         @if(in_array('fieldBills_id', $filters))
         <th scope="col" style="padding:5px;width:100%;"
             wire:click="sortBy('bills_id')">
-            <div class="flex">Id de la factura</div>
+            <div class="flex">Numero de factura</div>
         </th>
         @endif
         @if(in_array('fieldName', $filters))
@@ -104,7 +105,17 @@ $filters = explode(",", $decryption);
         <td style="padding:10px;border:0px;" class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $product->id }}</div></td>
         @endif
         @if(in_array('fieldProviders_id', $filters))
-        <td style="padding:10px;border:0px;" class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">{{ $product->providers_id }}</div></td>
+        <td style="padding:10px;border:0px;" class="px-6 py-4 whitespace-nowrap"><div class="max-w-[12rem] overflow-x-auto">
+        
+
+@foreach($providers as $provider)
+                    @if($provider->id == $product->providers_id)
+                    {{$provider->name}}
+                    @else
+                    @endif
+                    @endforeach
+
+        </div></td>
         @endif
 
         @if(in_array('fieldBills_id', $filters))

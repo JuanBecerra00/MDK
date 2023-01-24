@@ -105,9 +105,30 @@ class ProductTable extends Component
     }
     public function setProvider($id)
     {
-        $p = Provider::find($id);
-        $this->providerSelected = $p->name;
-        $this->providers_id = $id;
+        if(Provider::find($id)){
+            $p = Provider::find($id);
+            if($p->status==1){
+                
+            $this->providerSelected = $p->name;
+            $this->providers_id = $id;
+            }else{
+                $this->providerSelected = 'No encontrado';
+            }
+        }else{
+            
+        $this->providerSelected = 'No encontrado';
+        }
+        
+    }
+    public function providerSearch($id)
+    {
+        if(Provider::find($id)){
+            $p = Provider::find($id);
+            return $p->name;
+        }else{
+            return 'No enccontrado';
+        }
+        
     }
     public function showProductModal()
     {
@@ -119,6 +140,8 @@ class ProductTable extends Component
         $this->price = '';
         $this->date = '';
         $this->status = '';
+        $this->providerSelected = '';
+        $this->providers_id = '';
         $this->isEditMode = false;
         $this->isHowToSearchMode = false;
         $this->showingProductModal = true;
@@ -129,6 +152,7 @@ class ProductTable extends Component
         $this->type = '';
         $this->bills_id = '';
         $this->providers_id = '';
+        $this->providerSelected = '';
         $this->name = '';
         $this->ammount = '';
         $this->price = '';
@@ -138,6 +162,13 @@ class ProductTable extends Component
 
     public function modalEditFormReset()
     {
+        if(Provider::find($this->product->providers_id)){
+            $p = Provider::find($this->product->providers_id);
+            $a=$p->name;
+        }else{
+            $a='No enccontrado';
+        }
+        $this->providerSelected = $a;
         $this->type = $this->product->type;
         $this->bills_id = $this->product->bills_id;
         $this->providers_id = $this->product->providers_id;
@@ -250,6 +281,13 @@ class ProductTable extends Component
         $this->price = $this->product->price;
         $this->date = $this->product->updated_at;
         $this->status = $this->product->status;
+        if(Provider::find($this->product->providers_id)){
+            $p = Provider::find($this->product->providers_id);
+            $a=$p->name;
+        }else{
+            $a='No enccontrado';
+        }
+        $this->providerSelected = $a;
         $this->isHowToSearchMode = false;
         $this->isEditMode = true;
         $this->showingProductModal = true;

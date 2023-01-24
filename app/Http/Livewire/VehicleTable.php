@@ -125,6 +125,7 @@ class VehicleTable extends Component
     public function modalRegFormReset()
     {
         $this->customer_id = '';
+        $this->customerInput = '';
         $this->plate = '';
         $this->model = '';
         $this->status = '';
@@ -140,6 +141,8 @@ class VehicleTable extends Component
         $this->plate = $this->vehicle->plate;
         $this->model = $this->vehicle->model;
         $this->status = $this->vehicle->status;
+        $c = Customer::find($this->vehicle->customer_id);
+        $this->customerInput = $c->name;
     }
 
     public function hideModal()

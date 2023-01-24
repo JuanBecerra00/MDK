@@ -711,7 +711,7 @@
                                                         class="block text-sm font-medium text-gray-700 dark:text-white dark:text-white">
                                                         Propietario </label>
                                                     <div class="mt-1">
-                                                            <input type="text" value="{{$this->selectedCustomer}}" list="customers" class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" wire:change="setCustomer($event.target.value)" wire:model.lazy="customerInput">
+                                                            <input type="text" value="{{$this->customerInput}}" list="customers" class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" wire:change="setCustomer($event.target.value)" wire:model.lazy="customerInput">
                                                         
 
                                                             <datalist id="customers">
