@@ -205,6 +205,12 @@
   #moon:hover .moondiv{
     animation: pop 1s;
   }
+  .sundiv2:hover{
+    animation: rotating 1s;
+  }
+  #moon2:hover .moondiv2{
+    animation: pop 1s;
+  }
   .oil1{
     animation: oil 1.5s;
   }

@@ -38,14 +38,14 @@
             <p class="text-2xl mb-10">Iniciar Sesión</p>
             <div class="">
                 <div>
-                    <x-jet-input id="email" class="block mt-1 w-full border-0 border-b border-black rounded-none
+                    <input id="email" class="dark:bg-white block mt-1 w-full border-0 border-b border-black rounded-none
                     focus:border-black focus:ring-opacity-0 focus:ring-opacity-0
                     " type="email" placeholder=" " name="email" :value="old('email')" required autofocus />
                     <x-jet-label for="email" value="{{ __('Email') }}" class="label duration-500"/>
                 </div>
 
                 <div class="mt-4">
-                    <x-jet-input id="password" class="block mt-1 w-full border-0 border-b border-black rounded-none
+                    <input id="password" class="dark:bg-white block mt-1 w-full border-0 border-b border-black rounded-none
                     focus:border-black focus:ring-opacity-0 focus:ring-opacity-0
                     " type="password" placeholder=" " name="password" required autocomplete="current-password" />
                     <x-jet-label for="password" value="{{ __('Contraseña') }}" class="label duration-500"/>

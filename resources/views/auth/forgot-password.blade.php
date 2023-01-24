@@ -41,7 +41,7 @@
             @csrf
             
             <div class="block">
-                <x-jet-input id="email" placeholder=" " class="block mt-1 w-full border-0 border-b border-black rounded-none
+                <input id="email" placeholder=" " class="dark:bg-white block mt-1 w-full border-0 border-b border-black rounded-none
                     focus:border-black focus:ring-opacity-0 focus:ring-opacity-0 mt-8" type="email" name="email" :value="old('email')" required autofocus />
                 <x-jet-label for="email" value="{{ __('Email') }}" class="label duration-500"/>
             </div>

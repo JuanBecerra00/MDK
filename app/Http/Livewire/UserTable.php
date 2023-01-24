@@ -313,7 +313,6 @@ class UserTable extends Component
             'phone' => $this->validatePhone,
             'password' => $this->validatePassword,
             'cpassword' => $this->validateCpassword,
-            'question' => 'required',
             'answer' => 'required',
         ]);
         if($this->type==""){

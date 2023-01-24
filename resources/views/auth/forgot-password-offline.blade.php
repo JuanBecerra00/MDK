@@ -31,22 +31,22 @@
             <p class="text-2xl">Recuperar contraseña</p>
             <div class="mt-4">
                 <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                <input id="email" class="dark:bg-white block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             </div>
 
             <div class="mt-4">
                 <x-jet-label for="code" value="{{ __('Clave de seguridad') }}" />
-                <x-jet-input id="code" class="block mt-1 w-full" type="text" name="code" :value="old('code')" required />
+                <input id="code" class="dark:bg-white block mt-1 w-full" type="text" name="code" :value="old('code')" required />
             </div>
 
             <div class="mt-4">
                 <x-jet-label for="password" value="{{ __('Contraseña') }}" />
-                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+                <input id="password" class="dark:bg-white block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
             </div>
 
             <div class="mt-4">
                 <x-jet-label for="password_confirmation" value="{{ __('Confirmar contraseña') }}" />
-                <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+                <input id="password_confirmation" class="dark:bg-white block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
             
 
@@ -68,9 +68,9 @@
             @endif
 
             <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+                <!--<a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
-                </a>
+                </a>-->
 
                 <x-jet-button class="ml-4">
                     {{ __('Continuar') }}
