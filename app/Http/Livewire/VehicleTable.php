@@ -28,6 +28,7 @@ class VehicleTable extends Component
     public $customer_id;
     public $plate;
     public $model;
+    public $TotalFinal;
     public $status;
     public $regstatus="";
     public $isEditMode = false;
@@ -295,7 +296,7 @@ class VehicleTable extends Component
             $this->report_ProceduresTotal += $procedure[1];
             $i++;
         }
-        
+        $this->TotalFinal=$this->report_ProceduresTotal + $this->report_ProductsTotal;
         
     }
     public function setReportNpt($value){

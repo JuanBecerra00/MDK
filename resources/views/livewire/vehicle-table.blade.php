@@ -696,7 +696,7 @@
                                         <div class="p-5 flex justify-end w-auto items-center gap-5">
                                             <div class="p-5 bg-zinc-200 dark:bg-zinc-600 rounded-xl flex gap-5">
                                             <p>Total:</p>
-                                            <p>${{$report->report_ProductsTotal+$this->report_ProceduresTotal}}</p>
+                                            <p>${{$this->TotalFinal}}</p>
                                             </div>
                                         </div>
                                     @endif
