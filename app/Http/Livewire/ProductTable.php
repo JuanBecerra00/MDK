@@ -20,6 +20,7 @@ class ProductTable extends Component
 
     public $productsRendered;
     public $idProduct;
+    public $providerSelected='';
     public $type;
     public $regtype="";
     public $providers_id;
@@ -101,6 +102,12 @@ class ProductTable extends Component
     public function deselectAll()
     {
         $this->selecteds = [];
+    }
+    public function setProvider($id)
+    {
+        $p = Provider::find($id);
+        $this->providerSelected = $p->name;
+        $this->providers_id = $id;
     }
     public function showProductModal()
     {

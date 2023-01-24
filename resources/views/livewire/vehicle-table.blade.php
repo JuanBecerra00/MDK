@@ -700,11 +700,16 @@
                                                 <div class="sm:col-span-6">
                                                     <label for="customer_id"
                                                         class="block text-sm font-medium text-gray-700 dark:text-white dark:text-white">
-                                                        Id del cliente </label>
+                                                        Propietario </label>
                                                     <div class="mt-1">
-                                                        <input type="number" id="customer_id"
-                                                            wire:model.lazy="customer_id" name="customer_id"
-                                                            class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" />
+                                                            <input type="text" value="{{$this->selectedCustomer}}" list="customers" class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 dark:bg-zinc-800 dark:text-white" wire:change="setCustomer($event.target.value)" wire:model.lazy="customerInput">
+                                                        
+
+                                                            <datalist id="customers">
+                                                            @foreach($this->customers as $customer)
+                                                            <option value="{{$customer->id}}">{{$customer->name}}</option>
+                                                            @endforeach
+                                                            </datalist>
                                                     </div>
                                                     @error('customer_id')
                                                         <span class="error text-red-500">{{ $message }}</span>
@@ -751,6 +756,9 @@
                                                                 <option value="0">Inactivo</option>
                                                             </select>
                                                         </div>
+                                                        <input type="number" id="customer_id"
+                                                            wire:model.lazy="customer_id" name="customer_id"
+                                                            class="w-0 h-0 invisible p-0 m-0" />
                                                     </div>
                                                 @endif
 

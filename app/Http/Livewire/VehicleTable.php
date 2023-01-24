@@ -22,6 +22,7 @@ class VehicleTable extends Component
 
     public $vehiclesRendered;
     public $idVehicle;
+    public $customerInput='';
     public $Npt='';
     public $customer_id;
     public $plate;
@@ -30,6 +31,8 @@ class VehicleTable extends Component
     public $regstatus="";
     public $isEditMode = false;
     public $isReportsMode = false;
+    public $customers;
+    public $selectedCustomer;
     public $reports;
     public $reportsValidate;
     public $isHowToSearchMode = false;
@@ -108,6 +111,7 @@ class VehicleTable extends Component
     public function showVehicleModal()
     {
         $this->customer_id = '';
+        $this->customerInput = '';
         $this->plate = '';
         $this->model = '';
         $this->status = '';
@@ -202,6 +206,7 @@ class VehicleTable extends Component
         $vehicle->plate = $this->plate;
         $vehicle->customer_id = $this->customer_id;
         $vehicle->model = $this->model;
+        $vehicle->reports = 0;
         $regstatus=$this->status;
         if($this->status==""){
             $this->status="1";
@@ -216,6 +221,8 @@ class VehicleTable extends Component
         $this->vehicle = Vehicle::findOrfail($id);
         $this->idVehicle = $this->vehicle->id;
         $this->customer_id = $this->vehicle->customer_id;
+        $c = Customer::find($this->vehicle->customer_id);
+        $this->customerInput = $c->name;
         $this->plate = $this->vehicle->plate;
         $this->model = $this->vehicle->model;
         $this->status = $this->vehicle->status;
@@ -361,6 +368,15 @@ class VehicleTable extends Component
         return view("exports.pdf",['selecteds' => $selecteds]);
 
     }
+
+    public function setCustomer($id)
+    {
+        $this->customer_id = $id;
+        
+        $c = Customer::find($id);
+        $this->customerInput = $c->name;
+
+    }
     public function pdf($exportData)
     {
         $vehicles = Vehicle::all();
@@ -370,6 +386,7 @@ class VehicleTable extends Component
     }
     public function render()
     {
+        $this->customers = Customer::all();
         $this->reportsValidate = Report::where('vehicle_id', -1)->orderBy('id')->get();
         $this->pdfFields = implode(',',$this->fields);
         $this->pdfSelecteds = implode(',',$this->selecteds);

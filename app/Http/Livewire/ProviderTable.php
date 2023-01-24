@@ -160,7 +160,7 @@ class ProviderTable extends Component
         'phone' => 'Telefono',
     ];
     protected $messages = [
-        'nit.unique' => 'Numero de documento ya registrado.',
+        'nit.unique' => 'NIT ya registrado.',
         'phone.unique' => 'Numero de telefono ya registrado.',
         'nit.max' => 'El documento no puede tener mas de :max caracteres.',
         'phone.max' => 'El documento no puede tener mas de :max caracteres.',
@@ -169,9 +169,9 @@ class ProviderTable extends Component
     {
 
         $this->validate([
-            'nit' => 'required',
+            'nit' => 'required|unique:providers,nit',
             'name' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|unique:providers,phone',
 
         ]);
         $provider = new Provider();
