@@ -171,6 +171,17 @@
                                         {{ $this->report_Created_At }}
                                     </div>
                                 </div>
+                                <div class="flex flex-col gap-2">
+                                    <p>Estado</p>
+                                    <div
+                                        class="bg-zinc-100 dark:bg-zinc-500 w-[16rem] overflow-x-auto overflow-y-hidden px-3 py-2 h-10 max-sm:w-[14rem]">
+                                        @if($this->report_Paid==1)
+                                        <p class='text-green-500'>Pagado</p>
+                                        @elseif($this->report)
+                                        <p class='text-red-500'>No pagado</p>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
 
                         </div>

@@ -217,6 +217,8 @@ class Billing extends Component
         $this->report = '';
         
         $this->report = '';
+        $this->report_Paid = '';
+        $this->report_Created_At = '';
         $this->report_Created_At = '';
         $this->report_ProductsSelected = '';
         $this->report_ProductsSelectedArr = [];
