@@ -5,6 +5,7 @@
         <p class="text-3xl">Reporte</p>
         <div class="bg-white dark:bg-zinc-700 rounded-xl shadow-xl p-3 flex gap-2">
           <div>
+          Fecha: 
             <?php
           echo date('d');
           ?>

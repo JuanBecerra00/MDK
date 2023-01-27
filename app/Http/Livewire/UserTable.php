@@ -214,7 +214,8 @@ class UserTable extends Component
         'cc.unique' => 'Numero de documento ya registrado.',
         'phone.unique' => 'Numero de telefono ya registrado.',
         'cc.max' => 'El documento no puede tener mas de :max caracteres.',
-        'phone.max' => 'El documento no puede tener mas de :max caracteres.',
+        'phone.max' => 'El telefono no puede tener mas de :max caracteres.',
+        'phone.min' => 'El telefono debe tener al menos :min caracteres.',
     ];
     public function saveUser()
     {
@@ -222,7 +223,7 @@ class UserTable extends Component
             $this->validate([
                 'cc' => 'required|unique:users,cc|max:15',
                 'name' => 'required',
-                'phone' => 'required|unique:users,phone|max:15',
+                'phone' => 'required|unique:users,phone|max:15|min:7',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required',
                 'cpassword' => 'required|same:password',
@@ -293,7 +294,7 @@ class UserTable extends Component
             $this->validateEmail = '';
         }
         if($this->phone!=$this->user->phone){
-            $this->validatePhone = 'required|unique:users,phone|max:15';
+            $this->validatePhone = 'required|unique:users,phone|max:15|min:7';
         }else{
             $this->validatePhone = '';
         }

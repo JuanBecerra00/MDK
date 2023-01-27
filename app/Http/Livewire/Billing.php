@@ -29,6 +29,7 @@ class Billing extends Component
     public $customerSearch;
     public $reportSearch;
     public $report_Created_At;
+    public $report_Paid;
     public $report_ProductsSelected;
     public $report_ProductsSelectedArr=[];
     
@@ -76,7 +77,7 @@ class Billing extends Component
     
     public $strProcedures='Ninguno';
     public $strProductsSelected;
-    public $showingBillModal = false;
+    public $showingBillingModal = false;
 
 
     public function test($value)
@@ -123,6 +124,7 @@ class Billing extends Component
         if(Report::find($id)){
             $this->report = $this->reportSearch->id;
             $this->report_Created_At = $this->reportSearch->created_at;
+            $this->report_Paid = $this->reportSearch->paid;
             $this->report_ProductsSelected = $this->reportSearch->productsSelected;
             $this->report_ProductsSelectedArr = explode(",", $this->report_ProductsSelected);
             $removed = array_shift($this->report_ProductsSelectedArr);
@@ -185,6 +187,13 @@ class Billing extends Component
     public function searchReport($value)
     {
         return $this->reportSearch->$value;
+    }
+    public function paid()
+    {$this->reportSearch->update([
+        'paid' => '1',
+    ]);
+        $this->report_Paid = 1;
+        $this->showingBillingModal=false;
     }
     public function resetCustomer()
     {
@@ -276,7 +285,7 @@ class Billing extends Component
     
     public function modal($value)
     {
-        $this->showingBillModal=$value;
+        $this->showingBillingModal=$value;
     }
     public function productAdd($value, $id)
     {

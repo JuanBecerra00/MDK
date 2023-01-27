@@ -222,7 +222,8 @@ class CustomerTable extends Component
         'cc.unique' => 'Numero de documento ya registrado.',
         'phone.unique' => 'Numero de telefono ya registrado.',
         'cc.max' => 'El documento no puede tener mas de :max caracteres.',
-        'phone.max' => 'El documento no puede tener mas de :max caracteres.',
+        'phone.max' => 'El telefono no puede tener mas de :max caracteres.',
+        'phone.min' => 'El telefono debe tener al menos :min caracteres.',
     ];
     public function saveCustomer()
     {
@@ -230,7 +231,7 @@ class CustomerTable extends Component
         $this->validate([
             'cc' => 'required|unique:customers,cc|max:15',
             'name' => 'required',
-            'phone' => 'required|unique:customers,phone|max:15',
+            'phone' => 'required|unique:customers,phone|max:15|min:7',
             'email' => 'required|email|unique:customers,email',
             'department_id' => 'required',
             'city_id' => 'required',
@@ -295,7 +296,7 @@ class CustomerTable extends Component
             $this->validateEmail = '';
         }
         if($this->phone!=$this->customer->phone){
-            $this->validatePhone = 'required|unique:customers,phone|max:15';
+            $this->validatePhone = 'required|unique:customers,phone|max:15|min:7';
         }else{
             $this->validatePhone = '';
         }

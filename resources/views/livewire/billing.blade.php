@@ -5,6 +5,7 @@
             <p class="text-3xl">Reporte</p>
             <div class="bg-white dark:bg-zinc-700 rounded-xl shadow-xl p-3 flex gap-2">
                 <div>
+                Fecha: 
                     <?php
                     echo date('d');
                     ?>
@@ -175,7 +176,7 @@
                         </div>
                         <div class="w-full mt-5 flex justify-end">
                             @if ($this->reportSearch)
-                                <x-jet-button wire:click="facturate()" class="spc">
+                                <x-jet-button wire:click="facturate" class="spc">
                                     Facturar
                                 </x-jet-button>
                             @endif
@@ -298,6 +299,17 @@
                                         echo $this->searchReport('created_at');
                                         ?>
                                         </p>
+                                        <div class="flex gap-2">
+                                        <p class="">
+                                        Estado: </p>
+                                        <?php
+                                        if($this->searchReport('paid')==1){
+                                            echo "<p class='text-green-500'>Pagado</p>";
+                                        }else{
+                                            echo "<p class='text-red-500'>No pagado</p>";
+                                        }
+                                        ?>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -891,10 +903,18 @@
                             echo $this->report_ProceduresTotal + $this->report_ProductsTotal;
                             ?>
                         </p>
-
+                        <div class="flex gap-2 justify-center items-center">
+                        @if($this->report_Paid!=1)
+                        <x-jet-button wire:click="modal(true)" class="spc">
+                                    Establecer como pagado
+                                </x-jet-button>
+                        @endif
+                        @if($this->report_Paid=='1')
                         <a href="/BillingPdf/{{ $this->encryption }}" target="blank">
                             <x-jet-button type="button" class="spc shadow-2xl">Imprimir</x-jet-button>
                         </a>
+                        @endif
+                        </div>
                     </div>
 
 
@@ -903,145 +923,13 @@
 
         @endif
     </div>
-    <x-jet-dialog-modal wire:model="showingBillModal">
-        <x-slot name="title">Editar usuario</x-slot>
+    <x-jet-dialog-modal wire:model="showingBillingModal">
+        <x-slot name="title">Advertencia</x-slot>
         <x-slot name="content">
             <div class="space-y-8 divide-y divide-gray-200 mt-10">
-                ¿Seguro de que desea guardar este informe?<p class="text-red-500 mb-10">>>No se podra editar despues<<<
-                        /p>
+                Cambiara el estado de este reporte a "Pagado"<p class="text-red-500 mb-10">>>No se podra revertir<<<</p>
 
-                        @error('customer')
-                            <span class="error text-red-500">
-                                <div class="flex items-center">
-                                    <div class="w-8 h-8"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon"
-                                            viewBox="0 0 512 512">
-                                            <title>Alert Circle</title>
-                                            <path
-                                                d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
-                                                fill="none" stroke="currentColor" stroke-miterlimit="10"
-                                                stroke-width="32" />
-                                            <path
-                                                d="M250.26 166.05L256 288l5.73-121.95a5.74 5.74 0 00-5.79-6h0a5.74 5.74 0 00-5.68 6z"
-                                                fill="none" stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="32" />
-                                            <path d="M256 367.91a20 20 0 1120-20 20 20 0 01-20 20z" fill="none"
-                                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="32" />
-                                        </svg></div>
-                                    {{ $message }}
-                                </div>
-                            </span>
-                        @enderror
-                        @error('vehicle')
-                            <span class="error text-red-500">
-                                <div class="flex items-center">
-                                    <div class="w-8 h-8"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon"
-                                            viewBox="0 0 512 512">
-                                            <title>Alert Circle</title>
-                                            <path
-                                                d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
-                                                fill="none" stroke="currentColor" stroke-miterlimit="10"
-                                                stroke-width="32" />
-                                            <path
-                                                d="M250.26 166.05L256 288l5.73-121.95a5.74 5.74 0 00-5.79-6h0a5.74 5.74 0 00-5.68 6z"
-                                                fill="none" stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="32" />
-                                            <path d="M256 367.91a20 20 0 1120-20 20 20 0 01-20 20z" fill="none"
-                                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="32" />
-                                        </svg></div>
-                                    {{ $message }}
-                                </div>
-                            </span>
-                        @enderror
-                        @error('strProcedures')
-                            <span class="error text-red-500">
-                                <div class="flex items-center">
-                                    <div class="w-8 h-8"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon"
-                                            viewBox="0 0 512 512">
-                                            <title>Alert Circle</title>
-                                            <path
-                                                d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
-                                                fill="none" stroke="currentColor" stroke-miterlimit="10"
-                                                stroke-width="32" />
-                                            <path
-                                                d="M250.26 166.05L256 288l5.73-121.95a5.74 5.74 0 00-5.79-6h0a5.74 5.74 0 00-5.68 6z"
-                                                fill="none" stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="32" />
-                                            <path d="M256 367.91a20 20 0 1120-20 20 20 0 01-20 20z" fill="none"
-                                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="32" />
-                                        </svg></div>
-                                    {{ $message }}
-                                </div>
-                            </span>
-                        @enderror
-                        @error('prev')
-                            <span class="error text-red-500">
-                                <div class="flex items-center">
-                                    <div class="w-8 h-8"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon"
-                                            viewBox="0 0 512 512">
-                                            <title>Alert Circle</title>
-                                            <path
-                                                d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
-                                                fill="none" stroke="currentColor" stroke-miterlimit="10"
-                                                stroke-width="32" />
-                                            <path
-                                                d="M250.26 166.05L256 288l5.73-121.95a5.74 5.74 0 00-5.79-6h0a5.74 5.74 0 00-5.68 6z"
-                                                fill="none" stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="32" />
-                                            <path d="M256 367.91a20 20 0 1120-20 20 20 0 01-20 20z" fill="none"
-                                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="32" />
-                                        </svg></div>
-                                    {{ $message }}
-                                </div>
-                            </span>
-                        @enderror
-                        @error('post')
-                            <span class="error text-red-500">
-                                <div class="flex items-center">
-                                    <div class="w-8 h-8"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon"
-                                            viewBox="0 0 512 512">
-                                            <title>Alert Circle</title>
-                                            <path
-                                                d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
-                                                fill="none" stroke="currentColor" stroke-miterlimit="10"
-                                                stroke-width="32" />
-                                            <path
-                                                d="M250.26 166.05L256 288l5.73-121.95a5.74 5.74 0 00-5.79-6h0a5.74 5.74 0 00-5.68 6z"
-                                                fill="none" stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="32" />
-                                            <path d="M256 367.91a20 20 0 1120-20 20 20 0 01-20 20z" fill="none"
-                                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="32" />
-                                        </svg></div>
-                                    {{ $message }}
-                                </div>
-                            </span>
-                        @enderror
-                        @error('strProductsAmmount')
-                            <span class="error text-red-500">
-                                <div class="flex items-center">
-                                    <div class="w-8 h-8"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon"
-                                            viewBox="0 0 512 512">
-                                            <title>Alert Circle</title>
-                                            <path
-                                                d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
-                                                fill="none" stroke="currentColor" stroke-miterlimit="10"
-                                                stroke-width="32" />
-                                            <path
-                                                d="M250.26 166.05L256 288l5.73-121.95a5.74 5.74 0 00-5.79-6h0a5.74 5.74 0 00-5.68 6z"
-                                                fill="none" stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="32" />
-                                            <path d="M256 367.91a20 20 0 1120-20 20 20 0 01-20 20z" fill="none"
-                                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="32" />
-                                        </svg></div>
-                                    {{ $message }}
-                                </div>
-                            </span>
-                        @enderror
+                        
 
             </div>
 
@@ -1052,7 +940,7 @@
                     class="bg-zinc-800 dark:bg-zinc-900 dark:bg-zinc-900 hover:bg-zinc-900 active:bg-zinc-700">Cerrar
                 </x-jet-button>
 
-                <x-jet-button wire:click="saveReport" class="bg-red-800 hover:bg-red-900 active:bg-red-700">Guardar
+                <x-jet-button wire:click="paid" class="spc">Aceptar
                 </x-jet-button>
             </div>
         </x-slot>

@@ -266,6 +266,7 @@ class Reporting extends Component
         $bill->observations = $this->observations;
         $bill->prev = $this->prev;
         $bill->post = $this->post;
+        $bill->paid = '0';
         $bill->save();
         $i = 0;
         foreach($this->productsAmmount as $productlist){

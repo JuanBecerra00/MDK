@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('observations', 2000);
             $table->string('prev', 2000);
             $table->string('post', 2000);
+            $table->set('paid', ['0', '1'])->default('0');
             $table->timestamps();
             $table->unique(["id"], 'id_UNIQUE');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');

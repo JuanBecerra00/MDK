@@ -163,7 +163,8 @@ class ProviderTable extends Component
         'nit.unique' => 'NIT ya registrado.',
         'phone.unique' => 'Numero de telefono ya registrado.',
         'nit.max' => 'El documento no puede tener mas de :max caracteres.',
-        'phone.max' => 'El documento no puede tener mas de :max caracteres.',
+        'phone.max' => 'El teléfono no puede tener mas de :max caracteres.',
+        'phone.min' => 'El teléfono debe tener al menos :min caracteres.',
     ];
     public function saveProvider()
     {
@@ -171,8 +172,7 @@ class ProviderTable extends Component
         $this->validate([
             'nit' => 'required|unique:providers,nit',
             'name' => 'required',
-            'phone' => 'required|unique:providers,phone',
-
+            'phone' => 'required|unique:providers,phone|min:7|max:15',
         ]);
         $provider = new Provider();
         $provider->name = $this->name;
@@ -207,6 +207,19 @@ class ProviderTable extends Component
         $this->showingProviderModal = true;
     }
     public function updateProvider(){
+        $validateNit = '';
+        $validatePhone = '';
+        if($this->nit!=$this->provider->nit){
+            $validateNit = 'required|unique:providers,nit';
+        }
+        if($this->phone!=$this->provider->phone){
+            $validatePhone = 'required|unique:providers,phone|min:7|max:15';
+        }
+        $this->validate([
+            'nit' => $validateNit,
+            'name' => 'required',
+            'phone' => $validatePhone,
+        ]);
         $this->provider->update([
             'nit' => $this->nit,
             'name' => $this->name,

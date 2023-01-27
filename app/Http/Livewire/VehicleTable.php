@@ -60,6 +60,7 @@ class VehicleTable extends Component
     public $exportData;
     public $encryption;
     public $test = 0;
+    public $paid;
     public $report = '';
     public $report_ProductsSelectedArr = [];
     public $report_ProductsAmmountArr = [];
@@ -244,6 +245,7 @@ class VehicleTable extends Component
     public function showReportsVehicleModal($id)
     {
         $this->report = '';
+        $this->paid = '';
         $this->Npt = '';
         $this->reports = Report::where('vehicle_id', $id)
         ->orderBy('id')
@@ -262,6 +264,8 @@ class VehicleTable extends Component
         ->get();
 
         foreach($this->report as $r){
+
+            $this->paid = $r->paid;
 
             $this->oilFilterTypeArr = explode(",", $r->oilFilterType);
 

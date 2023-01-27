@@ -535,7 +535,13 @@
                                                 <p><?php
                                                     echo $this->searchVehicle($report->vehicle_id);
                                                 ?>  </p>
-                                            
+                                        <p class="">
+                                        Estado: </p>
+                                        @if($this->paid==1)
+                                        <p class='text-green-500'>Pagado</p>
+                                        @else
+                                        <p class='text-red-500'>No pagado</p>
+                                        @endif
                                         </div>
 
                                         <div class="w-full p-5 bg-zinc-200 dark:bg-zinc-600 rounded-xl flex flex-col gap-5">
